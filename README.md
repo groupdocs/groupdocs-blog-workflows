@@ -1,1 +1,1 @@
-# GroupDocs Blog Workflows
+# GroupDocs Workflows
