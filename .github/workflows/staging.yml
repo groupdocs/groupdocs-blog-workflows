@@ -26,7 +26,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --config "config.yml,config.staging.yml" --minify
+        run: hugo --config "config.yml,config.staging.yml" -b "https://blog-qa.groupdocs.com/" --cleanDestinationDir --minify
     
       - name: Deploy Home to S3 - (Staging)
         run: hugo deploy --maxDeletes -1 --config "config.yml,config.staging.yml" --target "staging"
