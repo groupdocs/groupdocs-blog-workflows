@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GroupDocs Blog repo
-        uses: actions/checkout@4
+        uses: actions/checkout@main
         with:
           repository: groupdocs/groupdocs-blog
           token: ${{ secrets.REPO_TOKEN }}
