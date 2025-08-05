@@ -1,9 +1,9 @@
 name: Staging
 
 on:
-#   push:
-#     branches:
-#       - main  # Set a branch to deploy
+  push:
+    branches:
+      - main  # Set a branch to deploy
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
