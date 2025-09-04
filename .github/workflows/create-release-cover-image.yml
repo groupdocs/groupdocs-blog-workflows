@@ -46,10 +46,9 @@ on:
           - Python
         default: .NET
 
-
 jobs:
   generate:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     defaults:
