@@ -1,9 +1,9 @@
-name: Staging
+name: Deploy to blog.groupdocs.com
 
 on:
-  push:
-    branches:
-      - main  # Set a branch to deploy
+#   push:
+#     branches:
+#       - main  # Set a branch to deploy
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -11,7 +11,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout GroupDocs Blog repo
+      - name: Checkout blog repo
         uses: actions/checkout@main
         with:
           repository: groupdocs/groupdocs-blog
@@ -26,10 +26,10 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --config "config.yml,config.staging.yml" --cleanDestinationDir #--minify #-b "https://blog-qa.groupdocs.com/"  
+        run: hugo --config "config.yml,config.production.yml" --cleanDestinationDir #--minify
     
-      - name: Deploy Home to S3 - (Staging)
-        run: hugo deploy --maxDeletes -1 --config "config.yml,config.staging.yml" --target "staging"
+      - name: Deploy Home to S3
+        run: hugo deploy --maxDeletes -1 --config "config.yml,config.production.yml" --target "production"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS }}
@@ -37,7 +37,7 @@ jobs:
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
-          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_STAGING }}
+          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           PATHS: '/*'
           AWS_REGION: 'us-west-2'
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
