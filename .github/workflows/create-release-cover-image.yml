@@ -87,6 +87,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cover-image
-          path: utils/public-release-post-cover/output/
+          path: output/
           if-no-files-found: error
 
