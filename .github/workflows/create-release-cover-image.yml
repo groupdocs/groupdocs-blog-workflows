@@ -48,6 +48,7 @@ on:
 
 jobs:
   generate:
+    name: "Cover image for ${{ github.event.inputs.product_name }} for ${{ github.event.inputs.platform }} v${{ github.event.inputs.version }} - ${{ github.event.inputs.title }}"
     runs-on: ubuntu-latest
     permissions:
       contents: read
