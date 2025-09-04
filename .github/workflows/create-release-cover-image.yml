@@ -1,0 +1,93 @@
+name: Create release post cover image
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Product version (e.g., 25.8 or 25.8.1)"
+        required: true
+        type: string
+        default: "25.8"
+      title:
+        description: "Cover title (e.g., August 2025 release)"
+        required: true
+        type: string
+        default: "August 2025 release"
+      product_name:
+        description: "Product name (e.g., GroupDocs.Annotation)"
+        required: true
+        type: choice
+        options:
+          - GroupDocs.Annotation
+          - GroupDocs.Assembly
+          - GroupDocs.Classification
+          - GroupDocs.Comparison
+          - GroupDocs.Conversion
+          - GroupDocs.Editor
+          - GroupDocs.Markdown
+          - GroupDocs.Merger
+          - GroupDocs.Metadata
+          - GroupDocs.Parser
+          - GroupDocs.Redaction
+          - GroupDocs.Search
+          - GroupDocs.Signature
+          - GroupDocs.Total
+          - GroupDocs.Viewer
+          - GroupDocs.Watermark
+        default: GroupDocs.Total
+      platform:
+        description: "Platform"
+        required: true
+        type: choice
+        options:
+          - .NET
+          - Java
+          - Node.js
+          - Python
+        default: .NET
+
+
+jobs:
+  generate:
+    runs-on: self-hosted
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+        working-directory: tools/public-release-post-cover
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Set up Python venv
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build product full name
+        id: build_name
+        run: |
+          FULL_NAME="${{ github.event.inputs.product_name }} for ${{ github.event.inputs.platform }}"
+          echo "full_name=$FULL_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Generate cover
+        run: |
+          source .venv/bin/activate
+          python generate_cover.py \
+            --product "${{ steps.build_name.outputs.full_name }}" \
+            --version "${{ github.event.inputs.version }}" \
+            --title "${{ github.event.inputs.title }}" \
+            --output ""
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cover-image
+          path: utils/public-release-post-cover/output/
+          if-no-files-found: error
+
