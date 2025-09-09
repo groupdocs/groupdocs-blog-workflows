@@ -5,7 +5,12 @@ from typing import List, Tuple, Optional
 from PIL import Image, ImageDraw, ImageFont
 
 
-TEMPLATE_PATH = os.path.join("templates", "1080x540.png")
+TEMPLATE_PATH_NET = os.path.join("templates", "1080x540 for .NET.png")
+TEMPLATE_PATH_JAVA = os.path.join("templates", "1080x540 for Java.png")
+TEMPLATE_PATH_PYTHON = os.path.join("templates", "1080x540 for Python.png")
+TEMPLATE_PATH_NODEJS = os.path.join("templates", "1080x540 for Node.js.png")
+TEMPLATE_PATH_OTHER = os.path.join("templates", "1080x540 for Other.png")
+
 FONTS_DIR = "fonts"
 LOGOS_DIR = "logos"
 
@@ -198,14 +203,26 @@ def select_logo_path(product_name: str) -> str:
         return candidate
 
     # Fallback: default logo
-    return os.path.join(LOGOS_DIR, "default.png")
+    return os.path.join(LOGOS_DIR, "Generic.png")
 
 
 def generate_cover_image(product_name: str, product_version: str, title: str, output_path: str) -> None:
-    if not os.path.isfile(TEMPLATE_PATH):
-        raise FileNotFoundError(f"Template not found: {TEMPLATE_PATH}")
+    template_path = None
 
-    template = Image.open(TEMPLATE_PATH).convert("RGBA")
+    if "CLI" in product_name or "UI" in product_name:
+        template_path = TEMPLATE_PATH_OTHER
+    elif "for .NET" in product_name:
+        template_path = TEMPLATE_PATH_NET
+    elif "for Java" in product_name:
+        template_path = TEMPLATE_PATH_JAVA
+    elif "for Python" in product_name:
+        template_path = TEMPLATE_PATH_PYTHON
+    elif "for Node.js" in product_name:
+        template_path = TEMPLATE_PATH_NODEJS
+    else:
+        template_path = TEMPLATE_PATH_OTHER
+
+    template = Image.open(template_path).convert("RGBA")
     canvas = template.copy()
     draw = ImageDraw.Draw(canvas)
 
