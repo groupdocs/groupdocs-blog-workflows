@@ -209,9 +209,7 @@ def select_logo_path(product_name: str) -> str:
 def generate_cover_image(product_name: str, product_version: str, title: str, output_path: str) -> None:
     template_path = None
 
-    if "CLI" in product_name or "UI" in product_name:
-        template_path = TEMPLATE_PATH_OTHER
-    elif "for .NET" in product_name:
+    if "for .NET" in product_name:
         template_path = TEMPLATE_PATH_NET
     elif "for Java" in product_name:
         template_path = TEMPLATE_PATH_JAVA
