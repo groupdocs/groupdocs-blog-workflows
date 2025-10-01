@@ -1,0 +1,164 @@
+name: Create release post draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Product version (e.g., 25.9)"
+        required: true
+        type: string
+        default: "25.9"
+      title:
+        description: "Cover title (e.g., September 2025 release)"
+        required: true
+        type: string
+        default: "September 2025 release"
+      product_name:
+        description: "Product name (e.g., GroupDocs.Viewer)"
+        required: true
+        type: choice
+        options:
+          - GroupDocs.Annotation
+          - GroupDocs.Assembly
+          - GroupDocs.Classification
+          - GroupDocs.Comparison
+          - GroupDocs.Conversion
+          - GroupDocs.Editor
+          - GroupDocs.Markdown
+          - GroupDocs.Merger
+          - GroupDocs.Metadata
+          - GroupDocs.Parser
+          - GroupDocs.Redaction
+          - GroupDocs.Search
+          - GroupDocs.Signature
+          - GroupDocs.Total
+          - GroupDocs.Viewer
+          - GroupDocs.Watermark
+        default: GroupDocs.Viewer
+      platform:
+        description: "Platform"
+        required: true
+        type: choice
+        options:
+          - .NET
+          - .NET UI
+          - Java
+          - Node.js
+          - Python
+        default: .NET
+      release_notes_url:
+        description: "Public release notes URL"
+        required: true
+        type: string
+
+jobs:
+  create:
+    name: "Draft for ${{ github.event.inputs.product_name }} for ${{ github.event.inputs.platform }} v${{ github.event.inputs.version }}"
+    runs-on: self-hosted
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_TOKEN }}
+
+      - name: Build product full name
+        id: build_name
+        run: |
+          FULL_NAME="${{ github.event.inputs.product_name }} for ${{ github.event.inputs.platform }}"
+          echo "full_name=$FULL_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Set date and slugs
+        id: slugs
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION_SLUG="${{ github.event.inputs.version }}"; VERSION_SLUG=${VERSION_SLUG//./-}
+          PLATFORM_LABEL="${{ github.event.inputs.platform }}"
+          case "$PLATFORM_LABEL" in
+            ".NET") PLATFORM_SLUG="net" ;;
+            ".NET UI") PLATFORM_SLUG="net-ui" ;;
+            "Java") PLATFORM_SLUG="java" ;;
+            "Node.js") PLATFORM_SLUG="node-js" ;;
+            "Python") PLATFORM_SLUG="python" ;;
+            *) PLATFORM_SLUG=$(echo "$PLATFORM_LABEL" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/-+/-/g; s/^-|-$//g') ;;
+          esac
+          PRODUCT_SHORT="${{ github.event.inputs.product_name }}"
+          FAMILY=$(echo "$PRODUCT_SHORT" | awk -F'.' '{print tolower($NF)}')
+          NAME_SLUG="groupdocs-${FAMILY}-for-${PLATFORM_SLUG}-${VERSION_SLUG}"
+          ROOT_DATE=$(date +%F)
+          ROOT_DIR="${ROOT_DATE}-${FAMILY}-for-${PLATFORM_SLUG}-${VERSION_SLUG}"
+          echo "version_slug=$VERSION_SLUG" >> "$GITHUB_OUTPUT"
+          echo "platform_slug=$PLATFORM_SLUG" >> "$GITHUB_OUTPUT"
+          echo "family=$FAMILY" >> "$GITHUB_OUTPUT"
+          echo "name_slug=$NAME_SLUG" >> "$GITHUB_OUTPUT"
+          echo "root_dir=$ROOT_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python venv (cover)
+        working-directory: tools/public-release-post-cover
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate cover image
+        working-directory: tools/public-release-post-cover
+        run: |
+          source .venv/bin/activate
+          python generate_cover.py \
+            --product "${{ steps.build_name.outputs.full_name }}" \
+            --version "${{ github.event.inputs.version }}" \
+            --title "${{ github.event.inputs.title }}" \
+            --output ""
+
+      - name: Set up Python venv (draft)
+        working-directory: tools/public-release-post-draft
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate draft index.md
+        working-directory: tools/public-release-post-draft
+        env:
+          PROFESSIONALIZE_API_KEY: ${{ secrets.PROFESSIONALIZE_API_KEY }}
+          PROFESSIONALIZE_API_URL: ${{ secrets.PROFESSIONALIZE_API_URL }}
+          LOG_LEVEL: INFO
+        run: |
+          source .venv/bin/activate
+          python create_draft.py \
+            --product "${{ steps.build_name.outputs.full_name }}" \
+            --version "${{ github.event.inputs.version }}" \
+            --title "${{ github.event.inputs.title }}" \
+            --release-notes "${{ github.event.inputs.release_notes_url }}"
+
+      - name: Assemble release post folder
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${{ steps.slugs.outputs.root_dir }}"
+          NAME_SLUG="${{ steps.slugs.outputs.name_slug }}"
+          mkdir -p "$ROOT/images"
+          # Copy draft index.md
+          cp tools/public-release-post-draft/output/index.md "$ROOT/index.md"
+          # Move and rename the generated cover to expected name
+          CANDIDATE=$(ls tools/public-release-post-cover/output/*.png | head -n1)
+          if [ -z "$CANDIDATE" ]; then
+            echo "No cover image found" >&2
+            exit 1
+          fi
+          cp "$CANDIDATE" "$ROOT/images/${NAME_SLUG}.png"
+          echo "Assembled: $ROOT"
+          find "$ROOT" -maxdepth 2 -type f -print
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-post-draft
+          path: ${{ steps.slugs.outputs.root_dir }}/
+          if-no-files-found: error
+
+
