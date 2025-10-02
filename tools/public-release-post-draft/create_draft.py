@@ -172,7 +172,7 @@ def build_front_matter_yaml(inputs: DraftInputs) -> str:
         f"seoTitle: \"{seo_title}\"",
         f"description: \"{description}\"",
         f"date: {rfc1123}",
-        "draft: false",
+        "draft: true",
         f"url: {url}",
         "author: \"GroupDocs Team\"",
         f"summary: \"{summary}\"",
