@@ -161,4 +161,36 @@ jobs:
           path: ${{ steps.slugs.outputs.root_dir }}/
           if-no-files-found: error
 
+      - name: Comit draft to blog repo
+        id: publish_blog
+        shell: bash
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          ROOT="${{ steps.slugs.outputs.root_dir }}"
+          FAMILY="${{ steps.slugs.outputs.family }}"
+          BLOG_REPO_URL="https://x-access-token:${REPO_TOKEN}@github.com/groupdocs/groupdocs-blog.git"
+
+          workdir=$(mktemp -d)
+          echo "Working directory: ${workdir}"
+          git clone --depth 1 "${BLOG_REPO_URL}" "${workdir}/blog"
+
+          cd "${workdir}/blog"
+          TARGET_DIR="content/Groupdocs.Blog/${FAMILY}"
+          mkdir -p "${TARGET_DIR}"
+
+          # Copy the assembled draft folder into the blog repo
+          cp -R "${GITHUB_WORKSPACE}/${ROOT}" "${TARGET_DIR}/"
+
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add draft ${ROOT} for ${{ steps.build_name.outputs.full_name }} v${{ github.event.inputs.version }}"
+            git push origin HEAD
+          fi
 
