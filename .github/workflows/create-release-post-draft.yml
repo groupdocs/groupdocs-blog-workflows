@@ -168,11 +168,19 @@ jobs:
           echo "Assembled: $ROOT"
           find "$ROOT" -maxdepth 2 -type f -print
 
+      - name: Prepare artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${{ steps.slugs.outputs.root_dir }}"
+          mkdir -p artifacts
+          cp -R "$ROOT" "artifacts/"
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-post-draft
-          path: ${{ steps.slugs.outputs.root_dir }}/..
+          path: artifacts
           if-no-files-found: error
 
       - name: Comit draft to blog repo
