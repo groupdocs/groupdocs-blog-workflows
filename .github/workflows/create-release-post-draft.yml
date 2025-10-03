@@ -52,7 +52,7 @@ on:
         type: string
 
       publish_to_blog_repo:
-        description: "Commit draft to blog repo"
+        description: "Commit draft to groupdocs-blog repo"
         type: boolean
         default: true
 
@@ -172,7 +172,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-post-draft
-          path: ${{ steps.slugs.outputs.root_dir }}/
+          path: ${{ steps.slugs.outputs.root_dir }}
           if-no-files-found: error
 
       - name: Comit draft to blog repo
