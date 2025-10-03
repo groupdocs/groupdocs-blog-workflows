@@ -166,6 +166,7 @@ def build_front_matter_yaml(inputs: DraftInputs) -> str:
 
     # Render YAML front matter
     # Note: Using explicit newlines and spaces to control formatting precisely.
+    tags_joined = ", ".join([f"'{_escape_single_quotes(str(t))}'" for t in tags])
     fm_lines = [
         "---",
         f"title: \"{title}\"",
@@ -176,7 +177,7 @@ def build_front_matter_yaml(inputs: DraftInputs) -> str:
         f"url: {url}",
         "author: \"GroupDocs Team\"",
         f"summary: \"{summary}\"",
-        f"tags: ['{tags[0]}', '{tags[1]}'{'' if len(tags) == 2 else ", '" + "', '".join(tags[2:]) + "'"}]",
+        f"tags: [{tags_joined}]",
         f"categories: ['{categories[0]}']",
         "showToc: true",
         "tocOpen: true",
