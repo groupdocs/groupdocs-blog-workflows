@@ -102,7 +102,7 @@ jobs:
           FAMILY=$(echo "$PRODUCT_SHORT" | awk -F'.' '{print tolower($NF)}')
           NAME_SLUG="groupdocs-${FAMILY}-for-${PLATFORM_SLUG}-${VERSION_SLUG}"
           ROOT_DATE=$(date +%F)
-          ROOT_DIR="${ROOT_DATE}-${FAMILY}-for-${PLATFORM_SLUG}-${VERSION_SLUG}"
+          ROOT_DIR="${ROOT_DATE}-groupdocs-${FAMILY}-for-${PLATFORM_SLUG}-${VERSION_SLUG}"
           echo "version_slug=$VERSION_SLUG" >> "$GITHUB_OUTPUT"
           echo "platform_slug=$PLATFORM_SLUG" >> "$GITHUB_OUTPUT"
           echo "family=$FAMILY" >> "$GITHUB_OUTPUT"
