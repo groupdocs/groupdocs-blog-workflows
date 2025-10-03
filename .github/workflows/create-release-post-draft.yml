@@ -51,6 +51,11 @@ on:
         required: true
         type: string
 
+      publish_to_blog_repo:
+        description: "Commit draft to blog repo"
+        type: boolean
+        default: true
+
 jobs:
   create:
     name: "Draft for ${{ github.event.inputs.product_name }} for ${{ github.event.inputs.platform }} v${{ github.event.inputs.version }}"
@@ -162,6 +167,7 @@ jobs:
           if-no-files-found: error
 
       - name: Comit draft to blog repo
+        if: ${{ github.event.inputs.publish_to_blog_repo == 'true' }}
         id: publish_blog
         shell: bash
         env:
