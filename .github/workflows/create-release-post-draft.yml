@@ -62,6 +62,7 @@ jobs:
     runs-on: self-hosted
     permissions:
       contents: read
+      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -217,3 +218,13 @@ jobs:
             git push origin HEAD
           fi
 
+      - name: Deploy to blog-qa.groupdocs.com 
+        if: ${{ github.event.inputs.publish_to_blog_repo == 'true' }}
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+        run: |
+          curl -s -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${REPO_TOKEN}" \
+            https://api.github.com/repos/groupdocs/blog-workflows/actions/workflows/deploy-qa.yml/dispatches \
+            -d '{"ref":"main"}'
