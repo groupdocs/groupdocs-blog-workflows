@@ -281,7 +281,7 @@ def build_draft_prompt(inputs: DraftInputs, release_notes_html: str) -> str:
 
 
 def generate_draft_with_llm(prompt: str) -> str:
-    logging.debug("Calling LLM to generate draft body")
+    logging.info("Calling LLM to generate draft body...")
     api_key = os.getenv("PROFESSIONALIZE_API_KEY")
     if not api_key:
         raise RuntimeError("Missing PROFESSIONALIZE_API_KEY environment variable")
@@ -515,6 +515,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         final_md = f"{front_matter}\n\n{body_md}\n"
 
         # Improve front matter fields using LLM (seoTitle, description, summary, tags, cover alt/caption)
+        logging.info("Improving front matter fields using LLM...")
         try:
             fm_text, body_text = split_front_matter_blocks(final_md)
             improvements = refine_front_matter_with_llm(final_md)
@@ -524,6 +525,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             logging.error("Front matter improvement failed: %s", e)
 
         # Save to output/index.md within tool directory
+        logging.info("Saving final markdown...")
         out_dir = os.path.join(os.path.dirname(__file__), "output")
         os.makedirs(out_dir, exist_ok=True)
         out_path = os.path.join(out_dir, "index.md")
