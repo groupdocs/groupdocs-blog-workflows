@@ -34,30 +34,6 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - **Expected languages**: 21
 - **Last updated**: 2025-12-01 18:25:35 UTC
 
-### Missing Translations by Language
-
-- **ar**: 41 post(s)
-- **cs**: 41 post(s)
-- **de**: 41 post(s)
-- **es**: 41 post(s)
-- **fa**: 41 post(s)
-- **fr**: 41 post(s)
-- **he**: 41 post(s)
-- **id**: 41 post(s)
-- **it**: 41 post(s)
-- **ja**: 41 post(s)
-- **ko**: 41 post(s)
-- **nl**: 41 post(s)
-- **pl**: 41 post(s)
-- **pt**: 41 post(s)
-- **ru**: 41 post(s)
-- **th**: 41 post(s)
-- **tr**: 41 post(s)
-- **uk**: 41 post(s)
-- **vi**: 41 post(s)
-- **zh**: 41 post(s)
-- **zh-hant**: 41 post(s)
-
 ### Posts Needing Attention
 
 - [2025-10-28-pythonnet-integration](https://blog.groupdocs.com/annotation/python-integration/) - 21/21 translations missing
@@ -70,5 +46,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-08-31-groupdocs-conversion-for-net-25-8](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-8/) - 21/21 translations missing
 - [2025-09-30-groupdocs-conversion-for-net-25-9](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-9/) - 21/21 translations missing
 - [2025-11-07-groupdocs-conversion-for-net-25-10](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-10/) - 21/21 translations missing
-
-*... and 31 more post(s)*

@@ -71,29 +71,12 @@ def generate_markdown_report(report: dict) -> str:
     
     lines.append("")
     
-    # Language statistics
-    if posts_with_missing > 0:
-        # Count missing translations per language
-        lang_counts = {}
-        for post in posts:
-            for lang in post.get('missing_languages', []):
-                lang_counts[lang] = lang_counts.get(lang, 0) + 1
-        
-        if lang_counts:
-            lines.append("### Missing Translations by Language")
-            lines.append("")
-            # Sort by count descending
-            sorted_langs = sorted(lang_counts.items(), key=lambda x: x[1], reverse=True)
-            for lang, count in sorted_langs:
-                lines.append(f"- **{lang}**: {count} post(s)")
-            lines.append("")
-    
-    # Top posts with most missing translations
+    # All posts with missing translations
     if posts_with_missing > 0:
         lines.append("### Posts Needing Attention")
         lines.append("")
-        # Sort by missing_count descending, limit to top 10
-        sorted_posts = sorted(posts, key=lambda x: x.get('missing_count', 0), reverse=True)[:10]
+        # Sort by missing_count descending, then by post path
+        sorted_posts = sorted(posts, key=lambda x: (x.get('missing_count', 0), x.get('path', '')), reverse=True)
         
         for post in sorted_posts:
             post_path = post.get('path', '')
@@ -108,10 +91,6 @@ def generate_markdown_report(report: dict) -> str:
                 lines.append(f"- [{post_name}]({url}) - {missing_count}/{total_expected} translations missing")
             else:
                 lines.append(f"- {post_name} - {missing_count}/{total_expected} translations missing")
-        
-        if len(posts) > 10:
-            lines.append("")
-            lines.append(f"*... and {len(posts) - 10} more post(s)*")
         
         lines.append("")
     
