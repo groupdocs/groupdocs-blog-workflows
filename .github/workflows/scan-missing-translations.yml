@@ -1,0 +1,72 @@
+name: Scan Missing Translations
+
+on:
+  schedule:
+    # Run every day at 6:00 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout blog-workflows repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_TOKEN }}
+
+      - name: Checkout GroupDocs Blog repo
+        uses: actions/checkout@main
+        with:
+          repository: groupdocs/groupdocs-blog
+          token: ${{ secrets.REPO_TOKEN }}
+          path: blog-repo
+          submodules: true
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r tools/missing-translations-scanner/requirements.txt
+
+      - name: Run translation scanner
+        run: |
+          python tools/missing-translations-scanner/scan_missing_translations.py \
+            --content blog-repo/content \
+            --config blog-repo/config.yml \
+            --output translations_scan_report.json
+
+      - name: Generate markdown report
+        run: |
+          python tools/missing-translations-scanner/generate_markdown_report.py \
+            --input translations_scan_report.json \
+            --output translation_status.md
+
+      - name: Update README with translation status
+        run: |
+          python tools/missing-translations-scanner/update_readme.py \
+            --readme README.md \
+            --status translation_status.md
+
+      - name: Commit changes
+        shell: bash
+        env:
+          REPO_TOKEN: ${{ secrets.WRITE_PAT }}
+        run: |
+          set -euo pipefail
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git remote set-url origin https://x-access-token:${REPO_TOKEN}@github.com/${{ github.repository }}.git
+          git add translations_scan_report.json README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update translation status report"
+            git push origin HEAD
+          fi
