@@ -656,11 +656,9 @@ Examples:
             indent=2
         )
     
-    # Exit with error code if missing translations found
-    if missing_translations:
-        sys.exit(1)
-    else:
-        sys.exit(0)
+    # Always exit with success code to allow workflow to continue
+    # The report file contains all the information about missing translations
+    sys.exit(0)
 
 
 if __name__ == '__main__':

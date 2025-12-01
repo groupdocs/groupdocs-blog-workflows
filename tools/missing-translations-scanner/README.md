@@ -197,10 +197,9 @@ Filters can be customized by modifying the `create_default_filters()` function i
 
 ## Exit Codes
 
-- `0`: All translations are complete
-- `1`: Missing translations found
+- `0`: Always exits successfully
 
-This allows the tool to be used in CI/CD pipelines to fail builds when translations are incomplete.
+The tool always exits with code 0 to allow automated workflows to continue execution and generate reports. Check the JSON report file or console output to determine if translations are missing.
 
 ## Requirements
 
@@ -233,5 +232,5 @@ pip install pyyaml
 - URLs are extracted from the `url` field in each post's front-matter
 - English posts use `index.md`, translations use `index.{lang}.md`
 - Posts are filtered before translation checking
-- The tool exits with code 1 if missing translations are found (useful for CI/CD)
+- The tool always exits with code 0 to allow automated workflows to continue and generate reports
 
