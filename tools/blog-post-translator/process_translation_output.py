@@ -31,25 +31,42 @@ def extract_translated_posts(output_file: str) -> dict:
         print(f"Warning: Translation output file not found: {output_file}", file=sys.stderr)
         return {}
     
+    # Check if there's a summary indicating translations were completed
+    summary_match = re.search(r'Total translations completed:\s*(\d+)', output)
+    if summary_match:
+        total_completed = int(summary_match.group(1))
+        if total_completed == 0:
+            print(f"Translation summary shows 0 translations completed", file=sys.stderr)
+            return {}
+    
     # Extract translated posts from output
     translated_posts = []
     current_post = None
+    lines = output.split('\n')
     
-    for line in output.split('\n'):
+    for i, line in enumerate(lines):
         if 'Processing:' in line:
-            # Extract post path
+            # Extract post path - handle format like "[1/3] Processing: path"
             match = re.search(r'Processing:\s*(.+)', line)
             if match:
                 current_post = match.group(1).strip()
-        elif 'Translating to' in line and '✓' in line:
+        elif 'Translating to' in line and current_post:
             # Extract language
-            match = re.search(r'Translating to\s+(\w+(-\w+)?)', line)
-            if match and current_post:
-                lang = match.group(1)
-                translated_posts.append({
-                    'path': current_post,
-                    'language': lang
-                })
+            lang_match = re.search(r'Translating to\s+(\w+(?:-\w+)?)', line)
+            if lang_match:
+                lang = lang_match.group(1)
+                # Check if success marker (✓) is on this line or within next 2 lines
+                # (handles case where print statements might be split across lines)
+                check_lines = lines[i:min(i+3, len(lines))]
+                combined_text = ' '.join(check_lines)
+                if '✓' in combined_text:
+                    # Only add if not already added
+                    if not any(p['path'] == current_post and p['language'] == lang 
+                              for p in translated_posts):
+                        translated_posts.append({
+                            'path': current_post,
+                            'language': lang
+                        })
     
     # Group by post
     posts_dict = {}

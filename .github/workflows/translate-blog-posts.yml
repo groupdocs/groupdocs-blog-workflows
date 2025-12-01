@@ -51,10 +51,17 @@ jobs:
           
           # Translate 3 posts (working directory is blog-repo)
           cd blog-repo
+          # Run translation script and capture output
+          # Use tee to both save to file and show in console
           python ../tools/blog-post-translator/translate_posts.py \
             ../translations_scan_report.json \
-            --limit 3 > ../translation_output.txt 2>&1 || true
+            --limit 3 --verbose 2>&1 | tee ../translation_output.txt || true
           cd ..
+          
+          # Show translation output for debugging
+          echo "=== Translation Output ==="
+          cat translation_output.txt || true
+          echo "========================"
           
           # Process translation output and extract translated posts
           set +e
