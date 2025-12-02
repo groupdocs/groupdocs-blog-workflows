@@ -7,12 +7,12 @@ on:
         description: "Product version (e.g., 25.9)"
         required: true
         type: string
-        default: "25.9"
+        default: "25.12"
       title:
         description: "Cover title (e.g., September 2025 release)"
         required: true
         type: string
-        default: "September 2025 release"
+        default: "December 2025 release"
       product_name:
         description: "Product name (e.g., GroupDocs.Viewer)"
         required: true
