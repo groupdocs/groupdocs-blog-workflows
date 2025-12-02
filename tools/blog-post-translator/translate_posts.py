@@ -10,6 +10,8 @@ import sys
 import json
 import yaml
 import argparse
+import time
+import re
 from pathlib import Path
 from typing import Dict, List, Optional
 from openai import OpenAI
@@ -207,6 +209,121 @@ def translate_front_matter(client: OpenAI, model: str, front_matter: Dict, lang_
     return translated
 
 
+def verify_translation(
+    post_path: str, 
+    lang_code: str, 
+    original_content: str = None,
+    min_content_length: int = 100
+) -> bool:
+    """
+    Verify that a translation was successful by checking if the file exists, has content,
+    and key parts (front matter and headers) are actually translated.
+    
+    Args:
+        post_path: Path to post directory
+        lang_code: Language code
+        original_content: Optional original English content for comparison
+        min_content_length: Minimum content length to consider translation valid
+    
+    Returns:
+        True if translation file exists, has sufficient content, and key parts are translated
+    """
+    post_dir = Path(post_path)
+    output_file = post_dir / f'index.{lang_code}.md'
+    
+    if not output_file.exists():
+        return False
+    
+    try:
+        with open(output_file, 'r', encoding='utf-8') as f:
+            translated_content = f.read()
+        
+        # Check if file has minimum content length
+        if len(translated_content.strip()) < min_content_length:
+            return False
+        
+        # Check if file has front matter (should start with ---)
+        if not translated_content.strip().startswith('---'):
+            return False
+        
+        # Parse translated front matter and content
+        translated_fm, translated_body = parse_front_matter(translated_content)
+        if not translated_fm:
+            return False
+        
+        # Check if file has some actual content after front matter
+        if len(translated_body.strip()) < 50:
+            return False
+        
+        # If original content is provided, verify key parts are translated
+        if original_content:
+            original_fm, original_body = parse_front_matter(original_content)
+            
+            if original_fm:
+                # Check front matter fields are translated
+                fields_to_check = ['title', 'description', 'summary']
+                front_matter_translated = False
+                
+                for field in fields_to_check:
+                    if field in translated_fm and field in original_fm:
+                        translated_value = str(translated_fm[field]).strip().lower()
+                        original_value = str(original_fm[field]).strip().lower()
+                        
+                        # If values are different (and not just URL changes), consider translated
+                        if translated_value != original_value and len(translated_value) > 0:
+                            # Check if it's not just a URL change
+                            if not (translated_value.startswith('/') and original_value.startswith('/')):
+                                front_matter_translated = True
+                                break
+                
+                # Check headers are translated
+                # Extract headers from both versions (markdown headers: # ## ###)
+                translated_headers = re.findall(r'^#{1,6}\s+(.+)$', translated_body, re.MULTILINE)
+                original_headers = re.findall(r'^#{1,6}\s+(.+)$', original_body, re.MULTILINE)
+                
+                headers_translated = False
+                if translated_headers and original_headers:
+                    # Compare first few headers (up to 3)
+                    min_headers = min(len(translated_headers), len(original_headers), 3)
+                    if min_headers > 0:
+                        different_count = 0
+                        for i in range(min_headers):
+                            trans_header = translated_headers[i].strip().lower()
+                            orig_header = original_headers[i].strip().lower()
+                            if trans_header != orig_header:
+                                different_count += 1
+                        
+                        # At least one header should be different (translated)
+                        if different_count > 0:
+                            headers_translated = True
+                
+                # Verification logic:
+                # 1. If front matter OR headers are translated, consider it successful
+                if front_matter_translated or headers_translated:
+                    return True
+                
+                # 2. If there are headers in the original but none were translated, fail
+                if len(original_headers) > 0 and not headers_translated:
+                    return False
+                
+                # 3. If no headers exist and front matter not translated, be lenient but log warning
+                # (some posts might have very similar front matter or no translatable content)
+                if len(original_headers) == 0 and not front_matter_translated:
+                    print(f"Warning: Could not verify translation quality for {post_path} ({lang_code}) - front matter appears unchanged")
+                    # Still return True if file structure is valid (might be edge case)
+                    return True
+                
+                # 4. Default: fail if we can't verify translation
+                return False
+        
+        # If no original content provided, just check file structure
+        return True
+        
+    except Exception as e:
+        print(f"Error verifying translation file {output_file}: {e}")
+        return False
+
+
 def save_translated_post(post_path: str, lang_code: str, front_matter: Dict, content: str):
     """
     Save translated post to file.
@@ -245,10 +362,11 @@ def translate_post(
     model: str,
     post_path: str,
     lang_code: str,
-    verbose: bool = False
+    verbose: bool = False,
+    max_retries: int = 3
 ) -> bool:
     """
-    Translate a single blog post to target language.
+    Translate a single blog post to target language with retry logic.
     
     Args:
         client: OpenAI client
@@ -256,6 +374,7 @@ def translate_post(
         post_path: Path to post directory
         lang_code: Target language code
         verbose: Enable verbose output
+        max_retries: Maximum number of retry attempts (default: 3)
     
     Returns:
         True if translation succeeded, False otherwise
@@ -264,36 +383,82 @@ def translate_post(
         print(f"Translating {post_path} to {lang_code}...")
     
     # Read English post
-    content = read_post_file(post_path)
-    if not content:
+    original_content = read_post_file(post_path)
+    if not original_content:
         return False
     
     # Parse front-matter and content
-    front_matter, content_body = parse_front_matter(content)
+    front_matter, content_body = parse_front_matter(original_content)
     if not front_matter:
         print(f"Warning: Could not parse front-matter for {post_path}")
         return False
     
-    # Translate front-matter
-    translated_front_matter = translate_front_matter(client, model, front_matter, lang_code)
+    # Try translation with retries
+    for attempt in range(1, max_retries + 1):
+        try:
+            # Translate front-matter
+            translated_front_matter = translate_front_matter(client, model, front_matter, lang_code)
+            
+            # Translate content body
+            translated_content = translate_text(
+                client, model, content_body, lang_code,
+                context="This is the main content of a technical blog post. Preserve all markdown formatting, code blocks, and links."
+            )
+            
+            if not translated_content:
+                if attempt < max_retries:
+                    print(f"Warning: Translation attempt {attempt} failed for {post_path} ({lang_code}), retrying...")
+                    time.sleep(2)  # Brief delay before retry
+                    continue
+                else:
+                    print(f"Error: Failed to translate content for {post_path} ({lang_code}) after {max_retries} attempts")
+                    return False
+            
+            # Save translated post
+            save_success = save_translated_post(post_path, lang_code, translated_front_matter, translated_content)
+            if not save_success:
+                if attempt < max_retries:
+                    print(f"Warning: Failed to save translation attempt {attempt} for {post_path} ({lang_code}), retrying...")
+                    time.sleep(1)  # Brief delay before retry
+                    continue
+                else:
+                    print(f"Error: Failed to save translation for {post_path} ({lang_code}) after {max_retries} attempts")
+                    return False
+            
+            # Verify translation was successful (including checking key parts are translated)
+            if verify_translation(post_path, lang_code, original_content):
+                if verbose:
+                    if attempt > 1:
+                        print(f"✓ Successfully translated {post_path} to {lang_code} (attempt {attempt})")
+                    else:
+                        print(f"✓ Successfully translated {post_path} to {lang_code}")
+                return True
+            else:
+                if attempt < max_retries:
+                    print(f"Warning: Translation verification failed for {post_path} ({lang_code}) attempt {attempt} - key parts may not be translated, retrying...")
+                    # Remove the failed translation file before retrying
+                    output_file = Path(post_path) / f'index.{lang_code}.md'
+                    try:
+                        if output_file.exists():
+                            output_file.unlink()
+                    except Exception:
+                        pass
+                    time.sleep(2)  # Brief delay before retry
+                    continue
+                else:
+                    print(f"Error: Translation verification failed for {post_path} ({lang_code}) after {max_retries} attempts - key parts may not be translated")
+                    return False
+                    
+        except Exception as e:
+            if attempt < max_retries:
+                print(f"Warning: Exception during translation attempt {attempt} for {post_path} ({lang_code}): {e}, retrying...")
+                time.sleep(2)  # Brief delay before retry
+                continue
+            else:
+                print(f"Error: Exception during translation for {post_path} ({lang_code}) after {max_retries} attempts: {e}")
+                return False
     
-    # Translate content body
-    translated_content = translate_text(
-        client, model, content_body, lang_code,
-        context="This is the main content of a technical blog post. Preserve all markdown formatting, code blocks, and links."
-    )
-    
-    if not translated_content:
-        print(f"Error: Failed to translate content for {post_path} ({lang_code})")
-        return False
-    
-    # Save translated post
-    success = save_translated_post(post_path, lang_code, translated_front_matter, translated_content)
-    
-    if verbose and success:
-        print(f"✓ Successfully translated {post_path} to {lang_code}")
-    
-    return success
+    return False
 
 
 def main():
@@ -347,6 +512,13 @@ Examples:
         '--dry-run',
         action='store_true',
         help='Dry run mode - show what would be translated without actually translating'
+    )
+    
+    parser.add_argument(
+        '--retries',
+        type=int,
+        default=3,
+        help='Maximum number of retry attempts for failed translations (default: 3)'
     )
     
     args = parser.parse_args()
@@ -412,7 +584,7 @@ Examples:
         for lang_idx, lang_code in enumerate(missing_langs, 1):
             print(f"  [{lang_idx}/{len(missing_langs)}] Translating to {lang_code}...", end=' ', flush=True)
             
-            success = translate_post(client, model, post_path, lang_code, args.verbose)
+            success = translate_post(client, model, post_path, lang_code, args.verbose, args.retries)
             
             if success:
                 print("✓")

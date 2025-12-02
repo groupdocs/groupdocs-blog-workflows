@@ -97,6 +97,7 @@ python translate_posts.py translation_status.json --lang ar --limit 3 --verbose
 | `--limit N` | Limit number of posts to translate |
 | `--verbose` | Enable verbose output |
 | `--dry-run` | Show what would be translated without actually translating |
+| `--retries N` | Maximum number of retry attempts for failed translations (default: 3) |
 
 ## How It Works
 
@@ -113,7 +114,9 @@ python translate_posts.py translation_status.json --lang ar --limit 3 --verbose
    - `cover.caption` (if present)
    - Updates `url` with language prefix
 6. **Translate Content**: Translates the main content body while preserving markdown formatting
-7. **Save Translation**: Saves translated post as `index.{lang}.md` in the post directory
+7. **Verify Translation**: Verifies that the translation file was created successfully and has valid content
+8. **Retry on Failure**: If translation fails or verification fails, automatically retries up to 3 times (configurable via `--retries`)
+9. **Save Translation**: Saves translated post as `index.{lang}.md` in the post directory
 
 ## Translation Details
 
@@ -122,6 +125,25 @@ python translate_posts.py translation_status.json --lang ar --limit 3 --verbose
 - **Front-matter fields**: `title`, `seoTitle`, `description`, `summary`
 - **Cover fields**: `alt`, `caption` (if present)
 - **Content body**: Main markdown content
+
+### Retry Logic
+
+The translator includes automatic retry logic to handle transient failures:
+
+- **Default retries**: 3 attempts per translation
+- **Verification**: After each translation, the script verifies:
+  - File was created successfully
+  - File has minimum content length (100 characters)
+  - File has valid front-matter structure
+  - File has actual content body (at least 50 characters)
+  - **Key parts are translated**:
+    - Front matter fields (`title`, `description`, `summary`) are different from English
+    - Headers in content body are translated (at least one header differs from English)
+- **Automatic cleanup**: Failed translation files are removed before retrying
+- **Delays**: Brief delays (1-2 seconds) between retries to avoid rate limiting
+- **Configurable**: Use `--retries N` to change the number of retry attempts
+
+This helps handle cases where translations fail for specific languages (e.g., Ukrainian, Polish) due to API issues or temporary failures. The enhanced verification ensures that translations are not just saved but actually contain translated content in key sections.
 - **URL**: Automatically prefixed with language code (e.g., `/ar/...`)
 
 ### Preserved Elements
