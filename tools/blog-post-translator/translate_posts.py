@@ -26,7 +26,7 @@ def create_client() -> OpenAI:
 
 def get_model_name() -> str:
     """Get model name from environment variable."""
-    return os.getenv("MODEL_NAME", "gpt-oss")
+    return os.getenv("PROFESSIONALIZE_MODEL_NAME", "recommended")
 
 
 def load_translation_report(report_path: str) -> Dict:

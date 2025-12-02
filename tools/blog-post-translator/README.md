@@ -18,7 +18,7 @@ Automated translation tool for blog posts using LLM (Large Language Model). This
 - Environment variables configured:
   - `PROFESSIONALIZE_API_KEY`: API key for LLM service
   - `PROFESSIONALIZE_API_URL`: (Optional) API URL, defaults to `https://llm.professionalize.com/v1`
-  - `MODEL_NAME`: (Optional) Model name, defaults to `gpt-oss`
+  - `PROFESSIONALIZE_MODEL_NAME`: (Optional) Model name, defaults to `recommended`
 
 ## Installation
 

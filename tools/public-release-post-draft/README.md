@@ -41,11 +41,14 @@ Set the following before running when using the LLM integration:
 ```powershell
 $Env:PROFESSIONALIZE_API_KEY = "<your_api_key>"
 $Env:PROFESSIONALIZE_API_URL = "<your_api_url>"
+$Env:PROFESSIONALIZE_MODEL_NAME = "<model_name>"  # Optional, defaults to "recommended"
 ```
 
 ```bash
 export PROFESSIONALIZE_API_KEY="<your_api_key>"
 export PROFESSIONALIZE_API_URL="<your_api_url>"
+export PROFESSIONALIZE_MODEL_NAME="<model_name>"  # Optional, defaults to "recommended"
+```
 
 Optional logging level (defaults to INFO):
 

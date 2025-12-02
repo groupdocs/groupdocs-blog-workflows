@@ -22,6 +22,11 @@ class DraftInputs:
     review_enabled: bool = False
 
 
+def get_model_name() -> str:
+    """Get model name from environment variable."""
+    return os.getenv("PROFESSIONALIZE_MODEL_NAME", "recommended")
+
+
 def parse_cli_args(argv: Optional[list[str]] = None) -> DraftInputs:
     parser = argparse.ArgumentParser(description="Generate public release post draft inputs")
     parser.add_argument("--product", required=True, help="Product name, e.g. 'GroupDocs.Viewer for .NET'")
@@ -310,7 +315,8 @@ def generate_draft_with_llm(prompt: str) -> str:
     ]
 
     # For Professionalize
-    response = client.chat.completions.create(model="recommended", messages=messages)
+    model = get_model_name()
+    response = client.chat.completions.create(model=model, messages=messages)
     content = response.choices[0].message.content.strip()
     logging.debug("LLM response length: %d", len(content))
 
@@ -377,7 +383,8 @@ def review_full_post_with_llm(full_post_markdown: str) -> str:
         },
     ]
 
-    response = client.chat.completions.create(model="recommended", messages=messages)
+    model = get_model_name()
+    response = client.chat.completions.create(model=model, messages=messages)
     suggestions = response.choices[0].message.content.strip()
     logging.debug("LLM review suggestions length: %d", len(suggestions))
     return suggestions
@@ -413,7 +420,8 @@ def refine_front_matter_with_llm(full_post_markdown: str) -> Dict[str, Any]:
         {"role": "user", "content": user_msg},
     ]
 
-    response = client.chat.completions.create(model="recommended", messages=messages)
+    model = get_model_name()
+    response = client.chat.completions.create(model=model, messages=messages)
     raw = response.choices[0].message.content.strip()
     logging.debug("Front matter improvement JSON length: %d", len(raw))
 
