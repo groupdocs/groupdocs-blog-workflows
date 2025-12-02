@@ -67,7 +67,8 @@ jobs:
           set +e
           python tools/blog-post-translator/process_translation_output.py \
             --input translation_output.txt \
-            --output translated_posts.json
+            --output translated_posts.json \
+            --scan-report translations_scan_report.json
           translated_exit=$?
           set -e
           

@@ -13,15 +13,46 @@ import argparse
 from pathlib import Path
 
 
-def extract_translated_posts(output_file: str) -> dict:
+def load_scan_report(scan_report_path: str) -> dict:
+    """
+    Load the translation scan report to get URL information.
+    
+    Args:
+        scan_report_path: Path to translations_scan_report.json
+    
+    Returns:
+        Dictionary mapping post paths to post data (including URLs)
+    """
+    try:
+        with open(scan_report_path, 'r', encoding='utf-8') as f:
+            report = json.load(f)
+    except FileNotFoundError:
+        print(f"Warning: Scan report not found: {scan_report_path}", file=sys.stderr)
+        return {}
+    except json.JSONDecodeError as e:
+        print(f"Warning: Failed to parse scan report: {e}", file=sys.stderr)
+        return {}
+    
+    # Create a mapping of post paths to post data
+    posts_map = {}
+    for post in report.get('posts', []):
+        post_path = post.get('path', '')
+        if post_path:
+            posts_map[post_path] = post
+    
+    return posts_map
+
+
+def extract_translated_posts(output_file: str, scan_report_path: str = None) -> dict:
     """
     Extract translated posts information from translation output.
     
     Args:
         output_file: Path to translation output file
+        scan_report_path: Optional path to translations_scan_report.json for URL info
     
     Returns:
-        Dictionary mapping post paths to lists of language codes
+        Dictionary mapping post paths to dicts with languages and URL
     """
     # Read translation output
     try:
@@ -68,13 +99,25 @@ def extract_translated_posts(output_file: str) -> dict:
                             'language': lang
                         })
     
-    # Group by post
+    # Load scan report for URL information
+    scan_report = {}
+    if scan_report_path:
+        scan_report = load_scan_report(scan_report_path)
+    
+    # Group by post and include URL information
     posts_dict = {}
     for item in translated_posts:
         post_path = item['path']
         if post_path not in posts_dict:
-            posts_dict[post_path] = []
-        posts_dict[post_path].append(item['language'])
+            # Get URL from scan report if available
+            post_data = scan_report.get(post_path, {})
+            url = post_data.get('url', '')
+            
+            posts_dict[post_path] = {
+                'languages': [],
+                'url': url
+            }
+        posts_dict[post_path]['languages'].append(item['language'])
     
     return posts_dict
 
@@ -100,10 +143,17 @@ def main():
         help='Path to output JSON file'
     )
     
+    parser.add_argument(
+        '--scan-report',
+        type=str,
+        default=None,
+        help='Path to translations_scan_report.json for URL information'
+    )
+    
     args = parser.parse_args()
     
     # Extract translated posts
-    posts_dict = extract_translated_posts(args.input)
+    posts_dict = extract_translated_posts(args.input, args.scan_report)
     
     # Save to JSON file
     output_path = Path(args.output)
@@ -115,8 +165,11 @@ def main():
     # Output summary
     if posts_dict:
         print(f"Translated {len(posts_dict)} post(s)", file=sys.stderr)
-        for post_path, langs in posts_dict.items():
-            print(f"  - {post_path}: {', '.join(langs)}", file=sys.stderr)
+        for post_path, post_info in posts_dict.items():
+            langs = post_info.get('languages', [])
+            url = post_info.get('url', '')
+            url_str = f" ({url})" if url else ""
+            print(f"  - {post_path}: {', '.join(langs)}{url_str}", file=sys.stderr)
         # Exit with success code if translations were found
         sys.exit(0)
     else:

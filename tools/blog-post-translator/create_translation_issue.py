@@ -19,7 +19,7 @@ def create_issue_body(posts_dict: dict) -> str:
     Create markdown body for GitHub issue.
     
     Args:
-        posts_dict: Dictionary mapping post paths to lists of language codes
+        posts_dict: Dictionary mapping post paths to dicts with 'languages' and 'url'
     
     Returns:
         Markdown formatted issue body
@@ -27,9 +27,24 @@ def create_issue_body(posts_dict: dict) -> str:
     body = "## Automated Blog Post Translation\n\n"
     body += "The following blog posts have been automatically translated:\n\n"
     
-    for post_path, langs in posts_dict.items():
+    for post_path, post_info in posts_dict.items():
         post_name = post_path.split('/')[-1] if '/' in post_path else post_path
-        body += f"- **{post_name}** → Languages: {', '.join(langs)}\n"
+        
+        # Handle both old format (list of languages) and new format (dict with languages and url)
+        if isinstance(post_info, list):
+            # Old format: just a list of language codes
+            langs = post_info
+            url = ''
+        else:
+            # New format: dict with 'languages' and 'url'
+            langs = post_info.get('languages', [])
+            url = post_info.get('url', '')
+        
+        # Create clickable link if URL is available
+        if url:
+            body += f"- **[{post_name}]({url})** → Languages: {', '.join(langs)}\n"
+        else:
+            body += f"- **{post_name}** → Languages: {', '.join(langs)}\n"
     
     body += "\n---\n"
     body += "*This issue was automatically created by the translation workflow.*"
