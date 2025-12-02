@@ -1,0 +1,53 @@
+name: Monthly Update Release Draft Defaults
+
+on:
+  schedule:
+    # Run on the 1st day of every month at 00:00 UTC
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  update-defaults:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Update workflow defaults
+        id: update
+        run: |
+          python tools/update-workflow-defaults/update_defaults.py
+          
+          # Check if there are changes
+          WORKFLOW_FILE=".github/workflows/create-release-post-draft.yml"
+          if git diff --quiet "$WORKFLOW_FILE"; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected:"
+            git diff "$WORKFLOW_FILE"
+          fi
+
+      - name: Commit changes
+        if: steps.update.outputs.has_changes == 'true'
+        shell: bash
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git remote set-url origin https://x-access-token:${REPO_TOKEN}@github.com/${{ github.repository }}.git
+          
+          git add .github/workflows/create-release-post-draft.yml
+          git commit -m "chore: update release draft defaults to current month/year"
+          git push origin HEAD

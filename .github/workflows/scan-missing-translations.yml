@@ -1,4 +1,4 @@
-name: Scan Missing Translations
+name: Daily Scan Missing Translations
 
 on:
   schedule:

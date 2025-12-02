@@ -1,4 +1,4 @@
-name: Translate Blog Posts
+name: Daily Translate Blog Posts
 
 on:
   schedule:
