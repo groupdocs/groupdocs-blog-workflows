@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **41 post(s) missing translations**
+⚠️ **38 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 65
-- **Posts with complete translations**: 24
-- **Posts missing translations**: 41
+- **Posts with complete translations**: 27
+- **Posts missing translations**: 38
 - **Expected languages**: 21
-- **Last updated**: 2025-12-02 06:15:55 UTC
+- **Last updated**: 2025-12-02 12:03:53 UTC
 
 ### Posts Needing Attention
 
@@ -74,6 +74,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-11-20-groupdocs-comparison-for-node-js-25-11](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-node-js-25-11/) - 21/21 translations missing
 - [2025-11-07-groupdocs-comparison-for-net-25-10](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-10/) - 21/21 translations missing
 - [2025-09-26-groupdocs-comparison-for-net-25-9](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-9/) - 21/21 translations missing
-- [2025-09-01-groupdocs-comparison-for-net-25-8](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-8/) - 21/21 translations missing
-- [2025-11-06-groupdocs-annotation-for-net-25-11](https://blog.groupdocs.com/annotation/groupdocs-annotation-for-net-25-11/) - 21/21 translations missing
-- [2025-10-28-pythonnet-integration](https://blog.groupdocs.com/annotation/python-integration/) - 21/21 translations missing
