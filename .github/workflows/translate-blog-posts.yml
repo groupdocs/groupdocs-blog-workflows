@@ -17,15 +17,15 @@ jobs:
       - name: Checkout blog-workflows repo
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.REPO_TOKEN }}
+          token: ${{ secrets.REPO_PAT }}
 
       - name: Checkout GroupDocs Blog repo
         shell: bash
         env:
-          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+          REPO_PAT: ${{ secrets.REPO_PAT }}
         run: |
           set -euo pipefail
-          BLOG_REPO_URL="https://x-access-token:${REPO_TOKEN}@github.com/groupdocs/groupdocs-blog.git"
+          BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
           git clone --depth 1 "${BLOG_REPO_URL}" blog-repo
           cd blog-repo
           git submodule update --init --recursive
@@ -82,13 +82,13 @@ jobs:
         if: steps.translate.outputs.translated == 'true'
         shell: bash
         env:
-          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+          REPO_PAT: ${{ secrets.REPO_PAT }}
         working-directory: blog-repo
         run: |
           set -euo pipefail
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git remote set-url origin https://x-access-token:${REPO_TOKEN}@github.com/groupdocs/groupdocs-blog.git
+          git remote set-url origin https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -100,7 +100,7 @@ jobs:
       - name: Create GitHub issue
         if: steps.translate.outputs.translated == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
         run: |
           python tools/blog-post-translator/create_translation_issue.py \
             --posts-json translated_posts.json \
@@ -110,12 +110,12 @@ jobs:
       - name: Trigger deploy-qa workflow
         if: steps.translate.outputs.translated == 'true'
         env:
-          ACTIONS_TOKEN: ${{ secrets.ACTIONS_TRIGGER_PAT }}
+          REPO_PAT: ${{ secrets.REPO_PAT }}
         run: |
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${ACTIONS_TOKEN}" \
+            -H "Authorization: Bearer ${REPO_PAT}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/groupdocs/groupdocs-blog-workflows/actions/workflows/deploy-qa.yml/dispatches \
             -d '{"ref":"main"}'

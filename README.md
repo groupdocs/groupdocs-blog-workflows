@@ -13,13 +13,13 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 ## Deploy to QA (blog-qa.groupdocs.com)
 
 - Run the workflow "Deploy to blog-qa.groupdocs.com".
-- Requires repo secret `REPO_TOKEN` and AWS creds `ACCESS_KEY`/`SECRET_ACCESS`.
+- Requires repo secret `REPO_PAT` and AWS creds `ACCESS_KEY`/`SECRET_ACCESS`.
 - Builds with `config.yml,config.staging.yml` and deploys to the `staging` target.
 
 ## Deploy to Production (blog.groupdocs.com)
 
 - Run the workflow "Deploy to blog.groupdocs.com".
-- Requires repo secret `REPO_TOKEN` and AWS creds `ACCESS_KEY`/`SECRET_ACCESS`.
+- Requires repo secret `REPO_PAT` and AWS creds `ACCESS_KEY`/`SECRET_ACCESS`.
 - Builds with `config.yml,config.production.yml` and deploys to the `production` target.
 
 ## Translation status

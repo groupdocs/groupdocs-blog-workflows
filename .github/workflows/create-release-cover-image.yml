@@ -61,7 +61,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.REPO_TOKEN }}
+          token: ${{ secrets.REPO_PAT }}
 
       - name: Set up Python venv
         run: |

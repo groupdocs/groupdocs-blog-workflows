@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@main
         with:
           repository: groupdocs/groupdocs-blog
-          token: ${{ secrets.REPO_TOKEN }}
+          token: ${{ secrets.REPO_PAT }}
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
