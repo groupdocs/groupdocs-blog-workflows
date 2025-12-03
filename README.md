@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **38 post(s) missing translations**
+⚠️ **35 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 65
-- **Posts with complete translations**: 27
-- **Posts missing translations**: 38
+- **Posts with complete translations**: 30
+- **Posts missing translations**: 35
 - **Expected languages**: 21
-- **Last updated**: 2025-12-02 12:03:53 UTC
+- **Last updated**: 2025-12-03 06:15:36 UTC
 
 ### Posts Needing Attention
 
@@ -71,6 +71,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-09-30-groupdocs-conversion-for-net-25-9](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-9/) - 21/21 translations missing
 - [2025-08-31-groupdocs-conversion-for-net-25-8](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-8/) - 21/21 translations missing
 - [2025-11-28-groupdocs-comparison-for-net-25-11](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-11/) - 21/21 translations missing
-- [2025-11-20-groupdocs-comparison-for-node-js-25-11](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-node-js-25-11/) - 21/21 translations missing
-- [2025-11-07-groupdocs-comparison-for-net-25-10](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-10/) - 21/21 translations missing
-- [2025-09-26-groupdocs-comparison-for-net-25-9](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-9/) - 21/21 translations missing

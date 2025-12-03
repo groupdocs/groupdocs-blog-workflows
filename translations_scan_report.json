@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 65,
-    "posts_with_missing_translations": 38,
-    "posts_complete": 27,
+    "posts_with_missing_translations": 35,
+    "posts_complete": 30,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,105 +47,9 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-02T12:03:53.151879+00:00"
+    "date_generated": "2025-12-03T06:15:36.157459+00:00"
   },
   "posts": [
-    {
-      "path": "content/Groupdocs.Blog/comparison/2025-09-26-groupdocs-comparison-for-net-25-9",
-      "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-9/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-9/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/comparison/2025-11-07-groupdocs-comparison-for-net-25-10",
-      "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-10/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-10/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/comparison/2025-11-20-groupdocs-comparison-for-node-js-25-11",
-      "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-node-js-25-11/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-node-js-25-11/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
     {
       "path": "content/Groupdocs.Blog/comparison/2025-11-28-groupdocs-comparison-for-net-25-11",
       "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-11/",
