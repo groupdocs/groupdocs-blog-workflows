@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **32 post(s) missing translations**
+⚠️ **29 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 65
-- **Posts with complete translations**: 33
-- **Posts missing translations**: 32
+- **Posts with complete translations**: 36
+- **Posts missing translations**: 29
 - **Expected languages**: 21
-- **Last updated**: 2025-12-04 06:15:38 UTC
+- **Last updated**: 2025-12-05 06:15:31 UTC
 
 ### Posts Needing Attention
 
@@ -65,6 +65,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-09-12-groupdocs-markdown-first-public-release](https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-first-public-release/) - 21/21 translations missing
 - [2025-09-01-groupdocs-markdown-for-net-announce](https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-announce/) - 21/21 translations missing
 - [2025-11-13-groupdocs-editor-for-net-25-11](https://blog.groupdocs.com/editor/groupdocs-editor-for-net-25-11/) - 21/21 translations missing
-- [2025-11-28-groupdocs-conversion-for-node-js-25-11](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-node-js-25-11/) - 21/21 translations missing
-- [2025-11-28-groupdocs-conversion-for-net-25-11](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-11/) - 21/21 translations missing
-- [2025-11-07-groupdocs-conversion-for-net-25-10](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-10/) - 21/21 translations missing
