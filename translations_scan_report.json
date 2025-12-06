@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 65,
-    "posts_with_missing_translations": 29,
-    "posts_complete": 36,
+    "posts_with_missing_translations": 26,
+    "posts_complete": 39,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,105 +47,9 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-05T06:15:31.369204+00:00"
+    "date_generated": "2025-12-06T06:13:22.953744+00:00"
   },
   "posts": [
-    {
-      "path": "content/Groupdocs.Blog/editor/2025-11-13-groupdocs-editor-for-net-25-11",
-      "url": "https://blog.groupdocs.com/editor/groupdocs-editor-for-net-25-11/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/editor/groupdocs-editor-for-net-25-11/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/markdown/2025-09-01-groupdocs-markdown-for-net-announce",
-      "url": "https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-announce/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-announce/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/markdown/2025-09-12-groupdocs-markdown-first-public-release",
-      "url": "https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-first-public-release/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-first-public-release/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
     {
       "path": "content/Groupdocs.Blog/merger/2025-09-08-groupdocs-merger-for-net-25-9",
       "url": "https://blog.groupdocs.com/merger/groupdocs-merger-for-net-25-9/",

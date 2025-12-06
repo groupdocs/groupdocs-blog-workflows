@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **29 post(s) missing translations**
+⚠️ **26 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 65
-- **Posts with complete translations**: 36
-- **Posts missing translations**: 29
+- **Posts with complete translations**: 39
+- **Posts missing translations**: 26
 - **Expected languages**: 21
-- **Last updated**: 2025-12-05 06:15:31 UTC
+- **Last updated**: 2025-12-06 06:13:22 UTC
 
 ### Posts Needing Attention
 
@@ -62,6 +62,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-06-06-edit-and-clean-xmp-in-svg](https://blog.groupdocs.com/metadata/edit-and-clean-xmp-in-svg/) - 21/21 translations missing
 - [2025-11-28-groupdocs-merger-for-net-25-11](https://blog.groupdocs.com/merger/groupdocs-merger-for-net-25-11/) - 21/21 translations missing
 - [2025-09-08-groupdocs-merger-for-net-25-9](https://blog.groupdocs.com/merger/groupdocs-merger-for-net-25-9/) - 21/21 translations missing
-- [2025-09-12-groupdocs-markdown-first-public-release](https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-first-public-release/) - 21/21 translations missing
-- [2025-09-01-groupdocs-markdown-for-net-announce](https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-announce/) - 21/21 translations missing
-- [2025-11-13-groupdocs-editor-for-net-25-11](https://blog.groupdocs.com/editor/groupdocs-editor-for-net-25-11/) - 21/21 translations missing
