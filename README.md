@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **26 post(s) missing translations**
+⚠️ **23 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 65
-- **Posts with complete translations**: 39
-- **Posts missing translations**: 26
+- **Posts with complete translations**: 42
+- **Posts missing translations**: 23
 - **Expected languages**: 21
-- **Last updated**: 2025-12-06 06:13:22 UTC
+- **Last updated**: 2025-12-07 06:13:26 UTC
 
 ### Posts Needing Attention
 
@@ -59,6 +59,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-11-07-groupdocs-metadata-for-net-25-10](https://blog.groupdocs.com/metadata/groupdocs-metadata-for-net-25-10/) - 21/21 translations missing
 - [2025-07-29-how-to-work-with-tags](https://blog.groupdocs.com/metadata/how-to-work-with-tag/) - 21/21 translations missing
 - [2025-06-27-read-properties-in-gltf](https://blog.groupdocs.com/metadata/read-gltf/) - 21/21 translations missing
-- [2025-06-06-edit-and-clean-xmp-in-svg](https://blog.groupdocs.com/metadata/edit-and-clean-xmp-in-svg/) - 21/21 translations missing
-- [2025-11-28-groupdocs-merger-for-net-25-11](https://blog.groupdocs.com/merger/groupdocs-merger-for-net-25-11/) - 21/21 translations missing
-- [2025-09-08-groupdocs-merger-for-net-25-9](https://blog.groupdocs.com/merger/groupdocs-merger-for-net-25-9/) - 21/21 translations missing
