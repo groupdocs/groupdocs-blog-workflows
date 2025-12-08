@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 65,
-    "posts_with_missing_translations": 23,
-    "posts_complete": 42,
+    "posts_with_missing_translations": 20,
+    "posts_complete": 45,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,105 +47,9 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-07T06:13:26.931263+00:00"
+    "date_generated": "2025-12-08T06:17:26.916286+00:00"
   },
   "posts": [
-    {
-      "path": "content/Groupdocs.Blog/metadata/2025-06-27-read-properties-in-gltf",
-      "url": "https://blog.groupdocs.com/metadata/read-gltf/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/metadata/read-gltf/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/metadata/2025-07-29-how-to-work-with-tags",
-      "url": "https://blog.groupdocs.com/metadata/how-to-work-with-tag/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/metadata/how-to-work-with-tag/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/metadata/2025-11-07-groupdocs-metadata-for-net-25-10",
-      "url": "https://blog.groupdocs.com/metadata/groupdocs-metadata-for-net-25-10/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/metadata/groupdocs-metadata-for-net-25-10/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
     {
       "path": "content/Groupdocs.Blog/parser/2025-11-13-groupdocs-parser-for-net-25-10",
       "url": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-25-10/",
