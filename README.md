@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **20 post(s) missing translations**
+⚠️ **17 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 65
-- **Posts with complete translations**: 45
-- **Posts missing translations**: 20
+- **Posts with complete translations**: 48
+- **Posts missing translations**: 17
 - **Expected languages**: 21
-- **Last updated**: 2025-12-08 06:17:26 UTC
+- **Last updated**: 2025-12-09 06:15:56 UTC
 
 ### Posts Needing Attention
 
@@ -53,6 +53,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-08-20-groupdocs-total-for-net-25-7](https://blog.groupdocs.com/total/groupdocs-total-for-net-25-7/) - 21/21 translations missing
 - [2025-10-01-blog-sign-documents-with-pkcs11-dotnet](https://blog.groupdocs.com/signature/sign-documents-with-pkcs11-dotnet/) - 21/21 translations missing
 - [2025-11-17-groupdocs-search-for-net-25-11](https://blog.groupdocs.com/search/groupdocs-search-for-net-25-11/) - 21/21 translations missing
-- [2025-10-28-groupdocs-search-python-integration](https://blog.groupdocs.com/search/python-integration/) - 21/21 translations missing
-- [2025-12-01-groupdocs-parser-for-net-25-11](https://blog.groupdocs.com/parser/groupdocs-parser-for-net-25-11/) - 21/21 translations missing
-- [2025-11-13-groupdocs-parser-for-net-25-10](https://blog.groupdocs.com/parser/groupdocs-parser-for-net-25-10/) - 21/21 translations missing
