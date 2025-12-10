@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 65,
-    "posts_with_missing_translations": 17,
-    "posts_complete": 48,
+    "total_posts_scanned": 66,
+    "posts_with_missing_translations": 15,
+    "posts_complete": 51,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,105 +47,9 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-09T06:15:56.146167+00:00"
+    "date_generated": "2025-12-10T06:16:38.156300+00:00"
   },
   "posts": [
-    {
-      "path": "content/Groupdocs.Blog/search/2025-11-17-groupdocs-search-for-net-25-11",
-      "url": "https://blog.groupdocs.com/search/groupdocs-search-for-net-25-11/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/search/groupdocs-search-for-net-25-11/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/signature/2025-10-01-blog-sign-documents-with-pkcs11-dotnet",
-      "url": "https://blog.groupdocs.com/signature/sign-documents-with-pkcs11-dotnet/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/signature/sign-documents-with-pkcs11-dotnet/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/total/2025-08-20-groupdocs-total-for-net-25-7",
-      "url": "https://blog.groupdocs.com/total/groupdocs-total-for-net-25-7/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/total/groupdocs-total-for-net-25-7/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
     {
       "path": "content/Groupdocs.Blog/total/2025-10-01-groupdocs-total-for-net-25-8",
       "url": "https://blog.groupdocs.com/total/groupdocs-total-for-net-25-8/",
@@ -503,6 +407,38 @@
       "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-2/",
       "urls": {
         "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-2/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/viewer/2025-12-09-groupdocs-viewer-for-net-25-11",
+      "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-11/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-11/"
       },
       "missing_languages": [
         "ar",

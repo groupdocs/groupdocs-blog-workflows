@@ -24,20 +24,21 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **17 post(s) missing translations**
+⚠️ **15 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 65
-- **Posts with complete translations**: 48
-- **Posts missing translations**: 17
+- **Total posts scanned**: 66
+- **Posts with complete translations**: 51
+- **Posts missing translations**: 15
 - **Expected languages**: 21
-- **Last updated**: 2025-12-09 06:15:56 UTC
+- **Last updated**: 2025-12-10 06:16:38 UTC
 
 ### Posts Needing Attention
 
 - [2025-11-11-groupdocs-watermark-for-net-25-11](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-11/) - 21/21 translations missing
 - [2025-11-11-groupdocs-watermark-for-net-25-10](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-10/) - 21/21 translations missing
+- [2025-12-09-groupdocs-viewer-for-net-25-11](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-11/) - 21/21 translations missing
 - [2025-11-17-groupdocs-viewer-for-net-ui-8-1-2](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-2/) - 21/21 translations missing
 - [2025-10-15-working-with-spreadsheets](https://blog.groupdocs.com/viewer/working-with-spreadsheets/) - 21/21 translations missing
 - [2025-09-30-viewer-for-net-25-9](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-9/) - 21/21 translations missing
@@ -50,6 +51,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-10-27-groupdocs-total-for-python-25-10](https://blog.groupdocs.com/total/groupdocs-total-for-python-25-10/) - 21/21 translations missing
 - [2025-10-07-groupdocs-total-for-net-25-9](https://blog.groupdocs.com/total/groupdocs-total-for-net-25-9/) - 21/21 translations missing
 - [2025-10-01-groupdocs-total-for-net-25-8](https://blog.groupdocs.com/total/groupdocs-total-for-net-25-8/) - 21/21 translations missing
-- [2025-08-20-groupdocs-total-for-net-25-7](https://blog.groupdocs.com/total/groupdocs-total-for-net-25-7/) - 21/21 translations missing
-- [2025-10-01-blog-sign-documents-with-pkcs11-dotnet](https://blog.groupdocs.com/signature/sign-documents-with-pkcs11-dotnet/) - 21/21 translations missing
-- [2025-11-17-groupdocs-search-for-net-25-11](https://blog.groupdocs.com/search/groupdocs-search-for-net-25-11/) - 21/21 translations missing
