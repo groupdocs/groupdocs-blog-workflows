@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **13 post(s) missing translations**
+⚠️ **11 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 67
-- **Posts with complete translations**: 54
-- **Posts missing translations**: 13
+- **Total posts scanned**: 69
+- **Posts with complete translations**: 58
+- **Posts missing translations**: 11
 - **Expected languages**: 21
-- **Last updated**: 2025-12-11 06:16:19 UTC
+- **Last updated**: 2025-12-12 06:16:07 UTC
 
 ### Posts Needing Attention
 
@@ -46,6 +46,4 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-09-22-viewer-for-net-ui-8-1-1](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-1/) - 21/21 translations missing
 - [2025-09-02-viewer-for-net-25-8](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-8/) - 21/21 translations missing
 - [2025-07-15-working-with-fonts](https://blog.groupdocs.com/viewer/working-with-fonts/) - 21/21 translations missing
-- [2025-11-11-groupdocs-total-for-net-25-9](https://blog.groupdocs.com/total/groupdocs-total-for-net-25-9/) - 21/21 translations missing
-- [2025-12-10-groupdocs-parser-for-net-25-12](https://blog.groupdocs.com/parser/groupdocs-parser-for-net-25-12/) - 21/21 translations missing
-- [2025-11-02-groupdocs-total-for-java-25-10](https://blog.groupdocs.com/total/groupdocs-total-for-java-25-10/) - 20/21 translations missing
+- [2025-12-11-groupdocs-assembly-for-net-25-12](https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-25-12/) - 21/21 translations missing

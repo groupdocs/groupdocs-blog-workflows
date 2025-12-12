@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 67,
-    "posts_with_missing_translations": 13,
-    "posts_complete": 54,
+    "total_posts_scanned": 69,
+    "posts_with_missing_translations": 11,
+    "posts_complete": 58,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,78 +47,14 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-11T06:16:19.855486+00:00"
+    "date_generated": "2025-12-12T06:16:07.668760+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/parser/2025-12-10-groupdocs-parser-for-net-25-12",
-      "url": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-25-12/",
+      "path": "content/Groupdocs.Blog/assembly/2025-12-11-groupdocs-assembly-for-net-25-12",
+      "url": "https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-25-12/",
       "urls": {
-        "en": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-25-12/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/total/2025-11-02-groupdocs-total-for-java-25-10",
-      "url": "https://blog.groupdocs.com/total/groupdocs-total-for-java-25-10/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/total/groupdocs-total-for-java-25-10/",
-        "cs": "https://blog.groupdocs.com/cs/total/groupdocs-total-for-java-25-10/"
-      },
-      "missing_languages": [
-        "ar",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 20,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/total/2025-11-11-groupdocs-total-for-net-25-9",
-      "url": "https://blog.groupdocs.com/total/groupdocs-total-for-net-25-9/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/total/groupdocs-total-for-net-25-9/"
+        "en": "https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-25-12/"
       },
       "missing_languages": [
         "ar",
