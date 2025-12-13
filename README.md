@@ -24,18 +24,19 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **11 post(s) missing translations**
+⚠️ **9 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 69
-- **Posts with complete translations**: 58
-- **Posts missing translations**: 11
+- **Total posts scanned**: 70
+- **Posts with complete translations**: 61
+- **Posts missing translations**: 9
 - **Expected languages**: 21
-- **Last updated**: 2025-12-12 06:16:07 UTC
+- **Last updated**: 2025-12-13 06:14:09 UTC
 
 ### Posts Needing Attention
 
+- [2025-12-12-groupdocs-watermark-for-python-25-12](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-python-25-12/) - 21/21 translations missing
 - [2025-11-11-groupdocs-watermark-for-net-25-11](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-11/) - 21/21 translations missing
 - [2025-11-11-groupdocs-watermark-for-net-25-10](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-10/) - 21/21 translations missing
 - [2025-12-09-groupdocs-viewer-for-net-25-11](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-11/) - 21/21 translations missing
@@ -44,6 +45,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-09-30-viewer-for-net-25-9](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-9/) - 21/21 translations missing
 - [2025-09-29-viewer-for-java-25-9](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-25-9/) - 21/21 translations missing
 - [2025-09-22-viewer-for-net-ui-8-1-1](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-1/) - 21/21 translations missing
-- [2025-09-02-viewer-for-net-25-8](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-8/) - 21/21 translations missing
-- [2025-07-15-working-with-fonts](https://blog.groupdocs.com/viewer/working-with-fonts/) - 21/21 translations missing
-- [2025-12-11-groupdocs-assembly-for-net-25-12](https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-25-12/) - 21/21 translations missing
