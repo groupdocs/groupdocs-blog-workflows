@@ -24,15 +24,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **9 post(s) missing translations**
+⚠️ **6 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 70
-- **Posts with complete translations**: 61
-- **Posts missing translations**: 9
+- **Posts with complete translations**: 64
+- **Posts missing translations**: 6
 - **Expected languages**: 21
-- **Last updated**: 2025-12-13 06:14:09 UTC
+- **Last updated**: 2025-12-14 06:14:26 UTC
 
 ### Posts Needing Attention
 
@@ -42,6 +42,3 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - [2025-12-09-groupdocs-viewer-for-net-25-11](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-11/) - 21/21 translations missing
 - [2025-11-17-groupdocs-viewer-for-net-ui-8-1-2](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-2/) - 21/21 translations missing
 - [2025-10-15-working-with-spreadsheets](https://blog.groupdocs.com/viewer/working-with-spreadsheets/) - 21/21 translations missing
-- [2025-09-30-viewer-for-net-25-9](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-9/) - 21/21 translations missing
-- [2025-09-29-viewer-for-java-25-9](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-25-9/) - 21/21 translations missing
-- [2025-09-22-viewer-for-net-ui-8-1-1](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-1/) - 21/21 translations missing

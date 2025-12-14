@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 70,
-    "posts_with_missing_translations": 9,
-    "posts_complete": 61,
+    "posts_with_missing_translations": 6,
+    "posts_complete": 64,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,105 +47,9 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-13T06:14:09.233363+00:00"
+    "date_generated": "2025-12-14T06:14:26.266714+00:00"
   },
   "posts": [
-    {
-      "path": "content/Groupdocs.Blog/viewer/2025-09-22-viewer-for-net-ui-8-1-1",
-      "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-1/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-1/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/viewer/2025-09-29-viewer-for-java-25-9",
-      "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-25-9/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-25-9/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/viewer/2025-09-30-viewer-for-net-25-9",
-      "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-9/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-9/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
     {
       "path": "content/Groupdocs.Blog/viewer/2025-10-15-working-with-spreadsheets",
       "url": "https://blog.groupdocs.com/viewer/working-with-spreadsheets/",
