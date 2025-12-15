@@ -24,21 +24,18 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **6 post(s) missing translations**
+⚠️ **3 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 70
-- **Posts with complete translations**: 64
-- **Posts missing translations**: 6
+- **Posts with complete translations**: 67
+- **Posts missing translations**: 3
 - **Expected languages**: 21
-- **Last updated**: 2025-12-14 06:14:26 UTC
+- **Last updated**: 2025-12-15 06:17:50 UTC
 
 ### Posts Needing Attention
 
 - [2025-12-12-groupdocs-watermark-for-python-25-12](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-python-25-12/) - 21/21 translations missing
 - [2025-11-11-groupdocs-watermark-for-net-25-11](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-11/) - 21/21 translations missing
 - [2025-11-11-groupdocs-watermark-for-net-25-10](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-10/) - 21/21 translations missing
-- [2025-12-09-groupdocs-viewer-for-net-25-11](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-25-11/) - 21/21 translations missing
-- [2025-11-17-groupdocs-viewer-for-net-ui-8-1-2](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-net-ui-8-1-2/) - 21/21 translations missing
-- [2025-10-15-working-with-spreadsheets](https://blog.groupdocs.com/viewer/working-with-spreadsheets/) - 21/21 translations missing
