@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 70,
-    "posts_with_missing_translations": 3,
-    "posts_complete": 67,
+    "posts_with_missing_translations": 0,
+    "posts_complete": 70,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,106 +45,9 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": false,
+    "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-15T06:17:50.884702+00:00"
+    "date_generated": "2025-12-16T06:16:36.795601+00:00"
   },
-  "posts": [
-    {
-      "path": "content/Groupdocs.Blog/watermark/2025-11-11-groupdocs-watermark-for-net-25-10",
-      "url": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-10/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-10/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/watermark/2025-11-11-groupdocs-watermark-for-net-25-11",
-      "url": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-11/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-25-11/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/watermark/2025-12-12-groupdocs-watermark-for-python-25-12",
-      "url": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-python-25-12/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-python-25-12/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    }
-  ]
+  "posts": []
 }
