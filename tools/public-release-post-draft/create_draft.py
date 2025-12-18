@@ -331,14 +331,21 @@ def generate_draft_with_llm(prompt: str) -> str:
         return t
 
     def _validate_markdown_body(md: str) -> None:
+        logging.debug("Validating markdown body: %s", md)
         # Should contain at least one heading or list section to ensure structure
         has_heading = bool(re.search(r"^##\s+.+", md, flags=re.MULTILINE))
         has_list = bool(re.search(r"^\s*[-*+]\s+.+", md, flags=re.MULTILINE))
         if not (has_heading or has_list):
             raise ValueError("Generated content lacks headings or lists expected in a release post.")
         # Should not contain YAML front matter blocks
-        if re.search(r"^---[\s\S]*?\n---\s*$", md, flags=re.MULTILINE):
-            raise ValueError("Generated content unexpectedly includes YAML front matter.")
+        # Match YAML front matter: --- on its own line, followed by YAML content (key: value), then --- on its own line
+        # This avoids matching horizontal rules (---) or table separators by requiring YAML-like content
+        yaml_match = re.search(r"^---\s*\n([\s\S]*?)\n---\s*$", md, flags=re.MULTILINE)
+        if yaml_match:
+            # Additional check: ensure it looks like YAML (contains key-value pairs with colons)
+            content_between = yaml_match.group(1)
+            if re.search(r"^\s*\w+\s*:", content_between, flags=re.MULTILINE):
+                raise ValueError("Generated content unexpectedly includes YAML front matter.")
 
     cleaned = _strip_possible_front_matter_if_present(content)
     try:
