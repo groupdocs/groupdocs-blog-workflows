@@ -28,13 +28,13 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ### Summary
 
-- **Total posts scanned**: 73
-- **Posts with complete translations**: 71
+- **Total posts scanned**: 75
+- **Posts with complete translations**: 73
 - **Posts missing translations**: 2
 - **Expected languages**: 21
-- **Last updated**: 2025-12-20 06:15:20 UTC
+- **Last updated**: 2025-12-21 06:15:01 UTC
 
 ### Posts Needing Attention
 
-- [2025-12-19-groupdocs-viewer-for-python-25-12](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-python-25-12/) - 21/21 translations missing
-- [2025-12-19-groupdocs-comparison-for-net-25-12](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-25-12/) - 21/21 translations missing
+- [2025-12-20-groupdocs-conversion-for-python-25-12](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-python-25-12/) - 21/21 translations missing
+- [2025-12-20-groupdocs-conversion-for-net-25-12](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-25-12/) - 21/21 translations missing
