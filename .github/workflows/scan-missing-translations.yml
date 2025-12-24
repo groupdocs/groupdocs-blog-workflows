@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.REPO_PAT }}
 
       - name: Checkout GroupDocs Blog repo
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
         with:
           repository: groupdocs/groupdocs-blog
           token: ${{ secrets.REPO_PAT }}
