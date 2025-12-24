@@ -136,6 +136,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install Redmine dependencies
+        run: |
+          pip install -r tools/redmine-activity-reporter/requirements.txt
+
       - name: Generate draft index.md
         working-directory: tools/public-release-post-draft
         env:
@@ -169,6 +173,24 @@ jobs:
           cp "$CANDIDATE" "$ROOT/images/${NAME_SLUG}.png"
           echo "Assembled: $ROOT"
           find "$ROOT" -maxdepth 2 -type f -print
+
+      - name: Log to Redmine
+        env:
+          REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
+          REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
+          REDMINE_ACTIVITY_ID_DEVELOPMENT: ${{ secrets.REDMINE_ACTIVITY_ID_DEVELOPMENT }}
+          REDMINE_ISSUE_ID_RELEASE_POST_DRAFT: ${{ secrets.REDMINE_ISSUE_ID_RELEASE_POST_DRAFT }}
+        run: |
+          set -euo pipefail
+          
+          # Log 1 hour to Redmine
+          python tools/redmine-activity-reporter/redmine_activity_reporter.py \
+            --issue "${REDMINE_ISSUE_ID_RELEASE_POST_DRAFT}" \
+            --hours 1 \
+            --activity-id "${REDMINE_ACTIVITY_ID_DEVELOPMENT:-9}" \
+            --comment "Created release post draft for ${{ steps.build_name.outputs.full_name }} v${{ github.event.inputs.version }}" \
+            --endpoint "${REDMINE_ENDPOINT}" \
+            --api-key "${REDMINE_API_KEY}"
 
       - name: Prepare artifacts
         shell: bash
