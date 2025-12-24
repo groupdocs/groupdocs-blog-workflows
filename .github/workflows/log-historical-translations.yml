@@ -1,0 +1,41 @@
+name: Log Historical Translations to Redmine
+
+on:
+  schedule:
+    # Run weekly on Monday at 2:00 AM UTC
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+jobs:
+  log-historical:
+    runs-on: self-hosted
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout blog-workflows repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r tools/redmine-activity-reporter/requirements.txt
+
+      - name: Log historical translations to Redmine
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
+          REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
+          REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
+          REDMINE_ACTIVITY_ID_LOCALIZATION: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
+        run: |
+          set -euo pipefail
+          
+          python tools/blog-post-translator/log_historical_translations.py \
+            --repo groupdocs/groupdocs-blog \
+            --redmine-issue-id "${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}" \
+            --hours 1
