@@ -11,7 +11,6 @@ jobs:
     runs-on: self-hosted
     permissions:
       contents: write
-      issues: write
       actions: write
     steps:
       - name: Checkout blog-workflows repo
@@ -39,6 +38,7 @@ jobs:
       - name: Install translator dependencies
         run: |
           pip install -r tools/blog-post-translator/requirements.txt
+          pip install -r tools/redmine-activity-reporter/requirements.txt
 
       - name: Translate blog posts
         id: translate
@@ -49,13 +49,13 @@ jobs:
         run: |
           set -euo pipefail
           
-          # Translate 3 posts (working directory is blog-repo)
+          # Translate 1 post (working directory is blog-repo)
           cd blog-repo
           # Run translation script and capture output
           # Use tee to both save to file and show in console
           python ../tools/blog-post-translator/translate_posts.py \
             ../translations_scan_report.json \
-            --limit 3 --verbose 2>&1 | tee ../translation_output.txt || true
+            --limit 1 --verbose 2>&1 | tee ../translation_output.txt || true
           cd ..
           
           # Show translation output for debugging
@@ -98,15 +98,28 @@ jobs:
             git push origin HEAD
           fi
 
-      - name: Create GitHub issue
+      - name: Log to Redmine
         if: steps.translate.outputs.translated == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
+          REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
+          REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
+          REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}
+          REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
+          REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
         run: |
-          python tools/blog-post-translator/create_translation_issue.py \
+          set -euo pipefail
+          
+          # Generate Redmine comment from translated posts and save to file
+          python tools/blog-post-translator/create_redmine_comment.py \
             --posts-json translated_posts.json \
-            --repo groupdocs/groupdocs-blog \
-            --token "$GITHUB_TOKEN"
+            --output redmine_comment.txt
+          
+          # Log 1 hour to Redmine with the comment
+          python tools/redmine-activity-reporter/redmine_activity_reporter.py \
+            --issue "${REDMINE_ISSUE_ID}" \
+            --hours 1 \
+            --activity-id "${REDMINE_ACTIVITY_ID}" \
+            --comment "$(cat redmine_comment.txt)"
 
       - name: Trigger deploy-qa workflow
         if: steps.translate.outputs.translated == 'true'
