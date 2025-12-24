@@ -109,17 +109,18 @@ jobs:
         run: |
           set -euo pipefail
           
-          # Generate Redmine comment from translated posts and save to file
+          # Generate full Redmine comment from translated posts and save to file
           python tools/blog-post-translator/create_redmine_comment.py \
             --posts-json translated_posts.json \
             --output redmine_comment.txt
           
-          # Log 1 hour to Redmine with the comment
-          python tools/redmine-activity-reporter/redmine_activity_reporter.py \
-            --issue "${REDMINE_ISSUE_ID}" \
-            --hours 1 \
-            --activity-id "${REDMINE_ACTIVITY_ID}" \
-            --comment "$(cat redmine_comment.txt)"
+          # Generate simplified time comment with just URLs
+          python tools/blog-post-translator/create_simplified_time_comment.py \
+            --posts-json translated_posts.json \
+            --output redmine_time_comment.txt
+          
+          # Add full comment to the issue and log time with simplified comment
+          python tools/blog-post-translator/log_to_redmine.py
 
       - name: Trigger deploy-qa workflow
         if: steps.translate.outputs.translated == 'true'

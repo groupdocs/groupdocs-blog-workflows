@@ -13,6 +13,7 @@ import sys
 import argparse
 import urllib.request
 import urllib.error
+import re
 from datetime import datetime
 from typing import List, Dict, Optional
 
@@ -138,17 +139,66 @@ def parse_issue_date(created_at: str) -> str:
     return dt.strftime('%Y-%m-%d')
 
 
+def extract_urls_from_body(body: str) -> List[str]:
+    """
+    Extract URLs from issue body.
+    
+    Looks for markdown links [text](url) and plain URLs.
+    
+    Args:
+        body: Issue body text
+    
+    Returns:
+        List of URLs found
+    """
+    urls = []
+    
+    # Extract markdown links: [text](url)
+    markdown_link_pattern = r'\[([^\]]+)\]\(([^)]+)\)'
+    for match in re.finditer(markdown_link_pattern, body):
+        url = match.group(2)
+        if url.startswith('http'):
+            urls.append(url)
+    
+    # Also extract plain URLs (http:// or https://)
+    plain_url_pattern = r'https?://[^\s\)]+'
+    for match in re.finditer(plain_url_pattern, body):
+        url = match.group(0).rstrip('.,;:!?)')
+        if url not in urls:
+            urls.append(url)
+    
+    return urls
+
+
+def create_simplified_time_comment(urls: List[str]) -> str:
+    """
+    Create simplified time entry comment with just URLs.
+    
+    Args:
+        urls: List of blog post URLs
+    
+    Returns:
+        Simplified comment text
+    """
+    if not urls:
+        return "Translated blog posts"
+    
+    url_list = ', '.join(urls)
+    return f"Translated blog posts: {url_list}"
+
+
 def log_to_redmine(
     redmine_endpoint: str,
     redmine_api_key: str,
     issue_id: str,
     hours: float,
     activity_id: int,
-    comment: str,
+    issue_comment: str,
+    time_comment: str,
     spent_on: str
 ) -> bool:
     """
-    Log time to Redmine using the redmine-activity-reporter module.
+    Log time to Redmine and add comment to issue using the redmine-activity-reporter module.
     
     Args:
         redmine_endpoint: Redmine base URL
@@ -156,7 +206,8 @@ def log_to_redmine(
         issue_id: Redmine issue ID
         hours: Number of hours to log
         activity_id: Activity type ID
-        comment: Comment text
+        issue_comment: Full comment to add to the issue
+        time_comment: Simplified comment for the time entry
         spent_on: Date in YYYY-MM-DD format
     
     Returns:
@@ -172,13 +223,22 @@ def log_to_redmine(
         from redmine_activity_reporter import RedmineActivityReporter
         
         reporter = RedmineActivityReporter(redmine_endpoint, redmine_api_key)
-        result = reporter.log_time(
+        
+        # Add comment to the issue
+        reporter.add_comment(
+            issue_identifier=issue_id,
+            comment=issue_comment
+        )
+        
+        # Log time with simplified comment
+        reporter.log_time(
             issue_identifier=issue_id,
             hours=hours,
             activity_id=activity_id,
-            comments=comment,
+            comments=time_comment,
             spent_on=spent_on
         )
+        
         return True
     except Exception as e:
         print(f"Error logging to Redmine: {e}", file=sys.stderr)
@@ -307,12 +367,18 @@ def main():
             print(f"Skipping issue #{issue_number}: no content after cleaning", file=sys.stderr)
             continue
         
-        # Prepend user mention if provided
+        # Extract URLs from the cleaned body
+        urls = extract_urls_from_body(cleaned_body)
+        
+        # Create simplified time comment with just URLs
+        time_comment = create_simplified_time_comment(urls)
+        
+        # Prepend user mention if provided for the issue comment
         user_mention = os.environ.get('REDMINE_REPORT_TO_USER')
         if user_mention:
-            final_comment = f"{user_mention}\n\n{cleaned_body}"
+            issue_comment = f"{user_mention}\n\n{cleaned_body}"
         else:
-            final_comment = cleaned_body
+            issue_comment = cleaned_body
         
         # Parse the creation date
         try:
@@ -329,7 +395,8 @@ def main():
             print(f"  Hours: {args.hours}", file=sys.stderr)
             print(f"  Activity ID: {activity_id}", file=sys.stderr)
             print(f"  Date: {spent_on}", file=sys.stderr)
-            print(f"  Comment: {final_comment[:100]}...", file=sys.stderr)
+            print(f"  Issue Comment: {issue_comment[:100]}...", file=sys.stderr)
+            print(f"  Time Comment: {time_comment}", file=sys.stderr)
             success_count += 1
         else:
             print(f"Logging issue #{issue_number} (created {spent_on})...", file=sys.stderr)
@@ -339,7 +406,8 @@ def main():
                 args.redmine_issue_id,
                 args.hours,
                 activity_id,
-                final_comment,
+                issue_comment,
+                time_comment,
                 spent_on
             ):
                 print(f"✓ Successfully logged issue #{issue_number}", file=sys.stderr)
