@@ -18,13 +18,16 @@ jobs:
           token: ${{ secrets.REPO_PAT }}
 
       - name: Checkout GroupDocs Blog repo
-        uses: actions/checkout@v4
-        with:
-          repository: groupdocs/groupdocs-blog
-          token: ${{ secrets.REPO_PAT }}
-          path: blog-repo
-          submodules: true
-          fetch-depth: 0
+        shell: bash
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          set -euo pipefail
+          BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
+          git clone --depth 1 "${BLOG_REPO_URL}" blog-repo
+          cd blog-repo
+          git submodule update --init --recursive
+          cd ..
 
       - name: Set up Python
         uses: actions/setup-python@v5
