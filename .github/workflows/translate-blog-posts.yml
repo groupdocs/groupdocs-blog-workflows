@@ -106,6 +106,7 @@ jobs:
           REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}
           REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
           REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
+          REDMINE_HOURS: 1.0
         run: |
           set -euo pipefail
           

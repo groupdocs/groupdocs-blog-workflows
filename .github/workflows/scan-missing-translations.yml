@@ -34,6 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r tools/missing-translations-scanner/requirements.txt
+          pip install -r tools/redmine-activity-reporter/requirements.txt
 
       - name: Run translation scanner
         run: |
@@ -53,6 +54,43 @@ jobs:
           python tools/missing-translations-scanner/update_readme.py \
             --readme README.md \
             --status translation_status.md
+
+      - name: Check for missing translations
+        id: check-missing
+        run: |
+          set -euo pipefail
+          # Check if there are any posts with missing translations
+          posts_with_missing=$(python -c "import json; report = json.load(open('translations_scan_report.json')); print(report['summary']['posts_with_missing_translations'])")
+          if [ "$posts_with_missing" -gt "0" ]; then
+            echo "has_missing=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_missing=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Log to Redmine
+        if: steps.check-missing.outputs.has_missing == 'true'
+        env:
+          REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
+          REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
+          REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}
+          REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
+          REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
+          REDMINE_HOURS: 0.5
+        run: |
+          set -euo pipefail
+          
+          # Generate full Redmine comment from scan report and save to file
+          python tools/missing-translations-scanner/create_redmine_comment.py \
+            --report-json translations_scan_report.json \
+            --output redmine_comment.txt
+          
+          # Generate simplified time comment
+          python tools/missing-translations-scanner/create_simplified_time_comment.py \
+            --report-json translations_scan_report.json \
+            --output redmine_time_comment.txt
+          
+          # Add full comment to the issue and log time with simplified comment
+          python tools/blog-post-translator/log_to_redmine.py
 
       - name: Commit changes
         shell: bash
