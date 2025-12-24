@@ -1,9 +1,6 @@
 name: Log Historical Translations to Redmine
 
 on:
-  schedule:
-    # Run weekly on Monday at 2:00 AM UTC
-    - cron: '0 2 * * 1'
   workflow_dispatch:
 
 jobs:
@@ -32,6 +29,7 @@ jobs:
           REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
           REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
           REDMINE_ACTIVITY_ID_LOCALIZATION: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
+          REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
         run: |
           set -euo pipefail
           

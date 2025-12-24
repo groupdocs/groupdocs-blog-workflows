@@ -307,6 +307,13 @@ def main():
             print(f"Skipping issue #{issue_number}: no content after cleaning", file=sys.stderr)
             continue
         
+        # Prepend user mention if provided
+        user_mention = os.environ.get('REDMINE_REPORT_TO_USER')
+        if user_mention:
+            final_comment = f"{user_mention}\n\n{cleaned_body}"
+        else:
+            final_comment = cleaned_body
+        
         # Parse the creation date
         try:
             spent_on = parse_issue_date(created_at)
@@ -322,7 +329,7 @@ def main():
             print(f"  Hours: {args.hours}", file=sys.stderr)
             print(f"  Activity ID: {activity_id}", file=sys.stderr)
             print(f"  Date: {spent_on}", file=sys.stderr)
-            print(f"  Comment: {cleaned_body[:100]}...", file=sys.stderr)
+            print(f"  Comment: {final_comment[:100]}...", file=sys.stderr)
             success_count += 1
         else:
             print(f"Logging issue #{issue_number} (created {spent_on})...", file=sys.stderr)
@@ -332,7 +339,7 @@ def main():
                 args.redmine_issue_id,
                 args.hours,
                 activity_id,
-                cleaned_body,
+                final_comment,
                 spent_on
             ):
                 print(f"✓ Successfully logged issue #{issue_number}", file=sys.stderr)
