@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 76,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 77,
+    "posts_with_missing_translations": 1,
     "posts_complete": 76,
     "filters_applied": [
       {
@@ -45,9 +45,42 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-24T11:40:43.701945+00:00"
+    "date_generated": "2025-12-24T13:59:16.691232+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/parser/2025-12-24-groupdocs-parser-for-python-25-12",
+      "url": "https://blog.groupdocs.com/parser/groupdocs-parser-for-python-25-12/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/parser/groupdocs-parser-for-python-25-12/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
