@@ -19,7 +19,7 @@ def create_redmine_comment(report: dict, user_mention: str = None, action_url: s
     Args:
         report: Translation scan report dictionary
         user_mention: Optional user mention to include at the beginning (e.g., "@username")
-        action_url: Optional GitHub Actions run URL to include at the end
+        action_url: Optional Job URL to include at the end
     
     Returns:
         Formatted comment text
@@ -65,7 +65,7 @@ def create_redmine_comment(report: dict, user_mention: str = None, action_url: s
     
     # Add action URL if provided
     if action_url:
-        comment += f"\nGitHub Actions run: {action_url}"
+        comment += f"\nJob: {action_url}"
     
     return comment
 
@@ -107,7 +107,7 @@ def main():
     # Get user mention from environment variable if available
     user_mention = os.environ.get('REDMINE_REPORT_TO_USER')
     
-    # Construct GitHub Actions run URL from environment variables
+    # Construct Job URL from environment variables
     action_url = None
     github_server = os.environ.get('GITHUB_SERVER_URL')
     github_repo = os.environ.get('GITHUB_REPOSITORY')

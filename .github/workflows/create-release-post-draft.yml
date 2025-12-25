@@ -178,19 +178,26 @@ jobs:
         env:
           REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
           REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
-          REDMINE_ACTIVITY_ID_DEVELOPMENT: ${{ secrets.REDMINE_ACTIVITY_ID_DEVELOPMENT }}
-          REDMINE_ISSUE_ID_RELEASE_POST_DRAFT: ${{ secrets.REDMINE_ISSUE_ID_RELEASE_POST_DRAFT }}
+          REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_RELEASE_POST_DRAFT }}
+          REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_DEVELOPMENT }}
+          REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
         run: |
           set -euo pipefail
           
-          # Log 1 hour to Redmine
-          python tools/redmine-activity-reporter/redmine_activity_reporter.py \
-            --issue "${REDMINE_ISSUE_ID_RELEASE_POST_DRAFT}" \
-            --hours 1 \
-            --activity-id "${REDMINE_ACTIVITY_ID_DEVELOPMENT:-9}" \
-            --comment "Created release post draft for ${{ steps.build_name.outputs.full_name }} v${{ github.event.inputs.version }}" \
-            --endpoint "${REDMINE_ENDPOINT}" \
-            --api-key "${REDMINE_API_KEY}"
+          # Generate full Redmine comment from draft and save to file
+          python tools/public-release-post-draft/create_redmine_comment.py \
+            --index-md "${{ steps.slugs.outputs.root_dir }}/index.md" \
+            --product-name "${{ steps.build_name.outputs.full_name }}" \
+            --version "${{ github.event.inputs.version }}" \
+            --output redmine_comment.txt
+          
+          # Generate simplified time comment with post URL
+          python tools/public-release-post-draft/create_simplified_time_comment.py \
+            --index-md "${{ steps.slugs.outputs.root_dir }}/index.md" \
+            --output redmine_time_comment.txt
+          
+          # Add full comment to the issue and log time with simplified comment
+          python tools/blog-post-translator/log_to_redmine.py
 
       - name: Prepare artifacts
         shell: bash
