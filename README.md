@@ -24,17 +24,16 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **2 post(s) missing translations**
+⚠️ **1 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 80
-- **Posts with complete translations**: 78
-- **Posts missing translations**: 2
+- **Posts with complete translations**: 79
+- **Posts missing translations**: 1
 - **Expected languages**: 21
-- **Last updated**: 2025-12-27 06:15:17 UTC
+- **Last updated**: 2025-12-28 06:15:21 UTC
 
 ### Posts Needing Attention
 
 - [2025-12-25-groupdocs-viewer-for-java-25-12](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-25-12/) - 21/21 translations missing
-- [2025-12-25-groupdocs-parser-for-net-25-12-1](https://blog.groupdocs.com/parser/groupdocs-parser-for-net-25-12-1/) - 21/21 translations missing
