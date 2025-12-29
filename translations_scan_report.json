@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 80,
+    "total_posts_scanned": 81,
     "posts_with_missing_translations": 1,
-    "posts_complete": 79,
+    "posts_complete": 80,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,14 +47,14 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2025-12-28T06:15:21.613196+00:00"
+    "date_generated": "2025-12-29T06:18:44.721493+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/viewer/2025-12-25-groupdocs-viewer-for-java-25-12",
-      "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-25-12/",
+      "path": "content/Groupdocs.Blog/total/2025-12-28-groupdocs-total-for-java-25-12",
+      "url": "https://blog.groupdocs.com/total/groupdocs-total-for-java-25-12/",
       "urls": {
-        "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-25-12/"
+        "en": "https://blog.groupdocs.com/total/groupdocs-total-for-java-25-12/"
       },
       "missing_languages": [
         "ar",
