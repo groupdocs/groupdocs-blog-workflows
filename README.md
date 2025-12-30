@@ -28,12 +28,12 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ### Summary
 
-- **Total posts scanned**: 81
-- **Posts with complete translations**: 80
+- **Total posts scanned**: 82
+- **Posts with complete translations**: 81
 - **Posts missing translations**: 1
 - **Expected languages**: 21
-- **Last updated**: 2025-12-29 06:18:44 UTC
+- **Last updated**: 2025-12-30 06:16:10 UTC
 
 ### Posts Needing Attention
 
-- [2025-12-28-groupdocs-total-for-java-25-12](https://blog.groupdocs.com/total/groupdocs-total-for-java-25-12/) - 21/21 translations missing
+- [2025-12-29-groupdocs-redaction-for-java-25-12](https://blog.groupdocs.com/redaction/groupdocs-redaction-for-java-25-12/) - 21/21 translations missing
