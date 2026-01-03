@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 83,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 84,
+    "posts_with_missing_translations": 1,
     "posts_complete": 83,
     "filters_applied": [
       {
@@ -45,9 +45,42 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-01-02T06:16:59.832427+00:00"
+    "date_generated": "2026-01-03T06:15:22.039952+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/total/2026-01-02-groupdocs-total-for-net-25-11",
+      "url": "https://blog.groupdocs.com/total/groupdocs-total-for-net-25-11/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/total/groupdocs-total-for-net-25-11/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
