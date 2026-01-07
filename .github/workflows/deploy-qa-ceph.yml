@@ -1,0 +1,40 @@
+name: Deploy to blog-qa.groupdocs.com (Ceph)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GroupDocs Blog repo
+        uses: actions/checkout@main
+        with:
+          repository: groupdocs/groupdocs-blog
+          token: ${{ secrets.REPO_PAT }}
+          submodules: true 
+          fetch-depth: 0 
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2.4.13
+        with:
+          hugo-version: '0.101.0'
+          extended: true
+
+      - name: Build
+        run: hugo --config "config.yml,config.staging.yml" --buildDrafts --cleanDestinationDir  
+    
+      - name: Deploy Home to S3 - (Staging)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_SECRET_ACCESS_KEY }}
+        run: hugo deploy --maxDeletes -1 --config "config.yml,config.staging.yml" --target "staging-ceph"
+
+      - name: Invalidate cache
+        env:
+          BUNNYNET_ACCESS_KEY: ${{ secrets.BUNNYNET_ACCESS_KEY }}
+          BUNNYNET_PURGE_URL: ${{ secrets.BUNNYNET_PURGE_URL }}
+        run: |
+          # Invalidate all paths (purge root URL to clear entire cache)
+          BASEURL="https://blog-qa.groupdocs.com/"
+          curl -siG -H "X-Api-Key: $BUNNYNET_ACCESS_KEY" --data-urlencode "url=$BASEURL" "$BUNNYNET_PURGE_URL"

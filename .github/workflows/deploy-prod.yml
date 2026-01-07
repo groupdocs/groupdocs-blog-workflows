@@ -1,4 +1,4 @@
-name: Deploy to blog.groupdocs.com
+name: Deploy to blog.groupdocs.com (S3)
 
 on:
   workflow_dispatch:
@@ -12,8 +12,8 @@ jobs:
         with:
           repository: groupdocs/groupdocs-blog
           token: ${{ secrets.REPO_PAT }}
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: true 
+          fetch-depth: 0 
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2.4.13
@@ -22,7 +22,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --config "config.yml,config.production.yml" --cleanDestinationDir #--minify
+        run: hugo --config "config.yml,config.production.yml" --cleanDestinationDir
     
       - name: Deploy Home to S3
         run: hugo deploy --maxDeletes -1 --config "config.yml,config.production.yml" --target "production"
