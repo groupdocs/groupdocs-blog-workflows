@@ -13,7 +13,6 @@ jobs:
           REPO_PAT: ${{ secrets.REPO_PAT }}
         run: |
           set -euo pipefail
-          # Remove blog-repo if it already exists
           rm -rf blog-repo
           BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
           git clone --depth 1 "${BLOG_REPO_URL}" blog-repo
@@ -31,19 +30,20 @@ jobs:
         working-directory: blog-repo
         run: hugo --config "config.yml,config.production.yml" --cleanDestinationDir
     
-      - name: Deploy Home to Ceph
+      - name: Deploy Blog to Ceph
         working-directory: blog-repo
         env:
           AWS_REGION: ${{ secrets.CEPH_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_PROD_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_PROD_SECRET_ACCESS_KEY }}
-        run: hugo deploy --config "config.yml,config.production.yml" --target "production-ceph" --maxDeletes 0
+          AWS_ENDPOINT_URL: ${{ secrets.CEPH_PROD_ENDPOINT_URL }}
+          BUCKET_NAME: ${{ secrets.CEPH_PROD_BUCKET_NAME }}
+        run: |
+          aws --endpoint-url=${AWS_ENDPOINT_URL} s3 sync public/ s3://${BUCKET_NAME}/ --delete --acl public-read --follow-symlinks --region ${AWS_REGION}
    
       - name: Invalidate cache
         env:
           BUNNYNET_ACCESS_KEY: ${{ secrets.BUNNYNET_ACCESS_KEY }}
           BUNNYNET_PURGE_URL: ${{ secrets.BUNNYNET_PURGE_URL }}
         run: |
-          # Invalidate all paths (purge root URL to clear entire cache)
-          BASEURL="https://blog.groupdocs.com/"
-          curl -siG -H "X-Api-Key: $BUNNYNET_ACCESS_KEY" --data-urlencode "url=$BASEURL" "$BUNNYNET_PURGE_URL"
+          curl -siG -H "X-Api-Key: $BUNNYNET_ACCESS_KEY" --data-urlencode "url=https://blog.groupdocs.com" "$BUNNYNET_PURGE_URL"

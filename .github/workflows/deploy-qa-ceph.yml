@@ -5,15 +5,20 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout GroupDocs Blog repo
-        uses: actions/checkout@main
-        with:
-          repository: groupdocs/groupdocs-blog
-          token: ${{ secrets.REPO_PAT }}
-          submodules: true 
-          fetch-depth: 0 
+        shell: bash
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          set -euo pipefail
+          rm -rf blog-repo
+          BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
+          git clone --depth 1 "${BLOG_REPO_URL}" blog-repo
+          cd blog-repo
+          git submodule update --init --recursive
+          cd ..
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2.4.13
@@ -22,20 +27,23 @@ jobs:
           extended: true
 
       - name: Build
+        working-directory: blog-repo
         run: hugo --config "config.yml,config.staging.yml" --buildDrafts --cleanDestinationDir  
     
-      - name: Deploy Home to S3 - (Staging)
+      - name: Deploy Blog to Ceph
+        working-directory: blog-repo
         env:
           AWS_REGION: ${{ secrets.CEPH_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_QA_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_QA_SECRET_ACCESS_KEY }}
-        run: hugo deploy --maxDeletes -1 --config "config.yml,config.staging.yml" --target "staging-ceph"
+          AWS_ENDPOINT_URL: ${{ secrets.CEPH_QA_ENDPOINT_URL }}
+          BUCKET_NAME: ${{ secrets.CEPH_QA_BUCKET_NAME }}
+        run: |
+          aws --endpoint-url=${AWS_ENDPOINT_URL} s3 sync public/ s3://${BUCKET_NAME}/ --delete --acl public-read --follow-symlinks --region ${AWS_REGION}
 
       - name: Invalidate cache
         env:
           BUNNYNET_ACCESS_KEY: ${{ secrets.BUNNYNET_ACCESS_KEY }}
           BUNNYNET_PURGE_URL: ${{ secrets.BUNNYNET_PURGE_URL }}
         run: |
-          # Invalidate all paths (purge root URL to clear entire cache)
-          BASEURL="https://blog-qa.groupdocs.com/"
-          curl -siG -H "X-Api-Key: $BUNNYNET_ACCESS_KEY" --data-urlencode "url=$BASEURL" "$BUNNYNET_PURGE_URL"
+          curl -siG -H "X-Api-Key: $BUNNYNET_ACCESS_KEY" --data-urlencode "url=https://blog-qa.groupdocs.com" "$BUNNYNET_PURGE_URL"
