@@ -13,6 +13,8 @@ jobs:
           REPO_PAT: ${{ secrets.REPO_PAT }}
         run: |
           set -euo pipefail
+          # Remove blog-repo if it already exists
+          rm -rf blog-repo
           BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
           git clone --depth 1 "${BLOG_REPO_URL}" blog-repo
           cd blog-repo
