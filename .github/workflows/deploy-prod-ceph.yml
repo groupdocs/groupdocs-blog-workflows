@@ -25,10 +25,12 @@ jobs:
         run: hugo --config "config.yml,config.production.yml" --cleanDestinationDir
     
       - name: Deploy Home to Ceph
-        run: hugo deploy --maxDeletes -1 --config "config.yml,config.production.yml" --target "production-ceph"
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.CEPH_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_PROD_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_PROD_SECRET_ACCESS_KEY }}
+        run: hugo deploy --maxDeletes -1 --config "config.yml,config.production.yml" --target "production-ceph"
+   
 
       - name: Invalidate cache
         env:

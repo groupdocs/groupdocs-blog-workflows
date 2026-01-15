@@ -26,8 +26,9 @@ jobs:
     
       - name: Deploy Home to S3 - (Staging)
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.CEPH_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_QA_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_QA_SECRET_ACCESS_KEY }}
         run: hugo deploy --maxDeletes -1 --config "config.yml,config.staging.yml" --target "staging-ceph"
 
       - name: Invalidate cache
