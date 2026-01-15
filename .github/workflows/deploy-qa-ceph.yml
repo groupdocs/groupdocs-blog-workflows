@@ -38,7 +38,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_QA_SECRET_ACCESS_KEY }}
           AWS_ENDPOINT_URL: ${{ secrets.CEPH_QA_ENDPOINT_URL }}
         run: |
-          aws --endpoint-url=${AWS_ENDPOINT_URL} s3 sync public/ s3://blog-qa-groupdocs-com/ --delete --acl public-read --follow-symlinks --region ${AWS_REGION}
+          aws --endpoint-url=${AWS_ENDPOINT_URL} s3 cp public/ s3://blog-qa-groupdocs-com/ --recursive --region ${AWS_REGION} --no-verify-ssl
 
       - name: Invalidate cache
         env:
