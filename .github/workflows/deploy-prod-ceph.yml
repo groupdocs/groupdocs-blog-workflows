@@ -8,12 +8,14 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout blog repo
-        uses: actions/checkout@main
-        with:
-          repository: groupdocs/groupdocs-blog
-          token: ${{ secrets.REPO_PAT }}
-          submodules: true 
-          fetch-depth: 0 
+        shell: bash
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          set -euo pipefail
+          BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
+          git clone --depth 1 "${BLOG_REPO_URL}" .
+          git submodule update --init --recursive 
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2.4.13
