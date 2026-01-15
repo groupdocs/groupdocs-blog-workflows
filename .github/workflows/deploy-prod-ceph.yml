@@ -7,15 +7,17 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Checkout blog repo
+      - name: Checkout GroupDocs Blog repo
         shell: bash
         env:
           REPO_PAT: ${{ secrets.REPO_PAT }}
         run: |
           set -euo pipefail
           BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
-          git clone --depth 1 "${BLOG_REPO_URL}" .
-          git submodule update --init --recursive 
+          git clone --depth 1 "${BLOG_REPO_URL}" blog-repo
+          cd blog-repo
+          git submodule update --init --recursive
+          cd ..
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2.4.13
@@ -24,16 +26,17 @@ jobs:
           extended: true
 
       - name: Build
+        working-directory: blog-repo
         run: hugo --config "config.yml,config.production.yml" --cleanDestinationDir
     
       - name: Deploy Home to Ceph
+        working-directory: blog-repo
         env:
           AWS_REGION: ${{ secrets.CEPH_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_PROD_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_PROD_SECRET_ACCESS_KEY }}
         run: hugo deploy --maxDeletes -1 --config "config.yml,config.production.yml" --target "production-ceph"
    
-
       - name: Invalidate cache
         env:
           BUNNYNET_ACCESS_KEY: ${{ secrets.BUNNYNET_ACCESS_KEY }}
