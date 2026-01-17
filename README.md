@@ -24,16 +24,17 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+⚠️ **2 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 87
-- **Posts with complete translations**: 86
-- **Posts missing translations**: 1
+- **Total posts scanned**: 89
+- **Posts with complete translations**: 87
+- **Posts missing translations**: 2
 - **Expected languages**: 21
-- **Last updated**: 2026-01-16 06:17:12 UTC
+- **Last updated**: 2026-01-17 06:15:00 UTC
 
 ### Posts Needing Attention
 
-- [2026-01-15-groupdocs-watermark-for-node-js-26-1](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-node-js-26-1/) - 21/21 translations missing
+- [2026-01-15-optimize-document-comparison-performance-scale-millions-files-nodejs](https://blog.groupdocs.com/comparison/optimize-document-comparison-performance-scale-millions-files-nodejs/) - 21/21 translations missing
+- [2026-01-15-legal-document-comparison-api-contract-review-automation-nodejs](https://blog.groupdocs.com/comparison/legal-document-comparison-api-contract-review-automation-nodejs/) - 21/21 translations missing

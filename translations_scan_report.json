@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 87,
-    "posts_with_missing_translations": 1,
-    "posts_complete": 86,
+    "total_posts_scanned": 89,
+    "posts_with_missing_translations": 2,
+    "posts_complete": 87,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,14 +47,46 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-01-16T06:17:12.985318+00:00"
+    "date_generated": "2026-01-17T06:15:00.880991+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/watermark/2026-01-15-groupdocs-watermark-for-node-js-26-1",
-      "url": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-node-js-26-1/",
+      "path": "content/Groupdocs.Blog/comparison/2026-01-15-legal-document-comparison-api-contract-review-automation-nodejs",
+      "url": "https://blog.groupdocs.com/comparison/legal-document-comparison-api-contract-review-automation-nodejs/",
       "urls": {
-        "en": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-node-js-26-1/"
+        "en": "https://blog.groupdocs.com/comparison/legal-document-comparison-api-contract-review-automation-nodejs/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/comparison/2026-01-15-optimize-document-comparison-performance-scale-millions-files-nodejs",
+      "url": "https://blog.groupdocs.com/comparison/optimize-document-comparison-performance-scale-millions-files-nodejs/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/comparison/optimize-document-comparison-performance-scale-millions-files-nodejs/"
       },
       "missing_languages": [
         "ar",
