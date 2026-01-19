@@ -24,16 +24,12 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+✅ **All blog posts have complete translations!**
 
 ### Summary
 
 - **Total posts scanned**: 89
-- **Posts with complete translations**: 88
-- **Posts missing translations**: 1
+- **Posts with complete translations**: 89
+- **Posts missing translations**: 0
 - **Expected languages**: 21
-- **Last updated**: 2026-01-18 06:15:03 UTC
-
-### Posts Needing Attention
-
-- [2026-01-15-optimize-document-comparison-performance-scale-millions-files-nodejs](https://blog.groupdocs.com/comparison/optimize-document-comparison-performance-scale-millions-files-nodejs/) - 21/21 translations missing
+- **Last updated**: 2026-01-19 06:56:10 UTC
