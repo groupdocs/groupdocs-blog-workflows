@@ -24,12 +24,16 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-✅ **All blog posts have complete translations!**
+⚠️ **1 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 89
+- **Total posts scanned**: 90
 - **Posts with complete translations**: 89
-- **Posts missing translations**: 0
+- **Posts missing translations**: 1
 - **Expected languages**: 21
-- **Last updated**: 2026-01-23 06:17:19 UTC
+- **Last updated**: 2026-01-24 06:15:35 UTC
+
+### Posts Needing Attention
+
+- [2026-01-20-compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp](https://blog.groupdocs.com/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/) - 21/21 translations missing

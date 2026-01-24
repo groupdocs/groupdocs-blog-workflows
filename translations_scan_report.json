@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 89,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 90,
+    "posts_with_missing_translations": 1,
     "posts_complete": 89,
     "filters_applied": [
       {
@@ -45,9 +45,42 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-01-23T06:17:19.876925+00:00"
+    "date_generated": "2026-01-24T06:15:35.137597+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/comparison/2026-01-20-compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp",
+      "url": "https://blog.groupdocs.com/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
