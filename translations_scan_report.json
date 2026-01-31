@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 91,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 93,
+    "posts_with_missing_translations": 2,
     "posts_complete": 91,
     "filters_applied": [
       {
@@ -45,9 +45,74 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-01-30T06:33:33.567605+00:00"
+    "date_generated": "2026-01-31T06:24:05.918468+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/comparison/2026-01-29-groupdocs-comparison-for-net-26-1",
+      "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-1/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-1/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/conversion/2026-01-30-groupdocs-conversion-for-net-26-1",
+      "url": "https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-1/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-1/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
