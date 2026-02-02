@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 93,
-    "posts_with_missing_translations": 1,
-    "posts_complete": 92,
+    "posts_with_missing_translations": 0,
+    "posts_complete": 93,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,42 +45,9 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": false,
+    "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-02-01T06:35:12.308821+00:00"
+    "date_generated": "2026-02-02T06:48:08.006435+00:00"
   },
-  "posts": [
-    {
-      "path": "content/Groupdocs.Blog/conversion/2026-01-30-groupdocs-conversion-for-net-26-1",
-      "url": "https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-1/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-1/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    }
-  ]
+  "posts": []
 }
