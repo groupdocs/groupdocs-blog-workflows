@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 96,
-    "posts_with_missing_translations": 2,
-    "posts_complete": 94,
+    "total_posts_scanned": 98,
+    "posts_with_missing_translations": 3,
+    "posts_complete": 95,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,14 +47,14 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-03-05T06:35:54.105339+00:00"
+    "date_generated": "2026-03-06T06:32:00.234221+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/comparison/2026-02-27-groupdocs-comparison-for-net-26-2",
-      "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-2/",
+      "path": "content/Groupdocs.Blog/parser/2026-03-04-groupdocs-parser-for-net-26-2",
+      "url": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-26-2/",
       "urls": {
-        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-2/"
+        "en": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-26-2/"
       },
       "missing_languages": [
         "ar",
@@ -83,10 +83,42 @@
       "total_expected": 21
     },
     {
-      "path": "content/Groupdocs.Blog/parser/2026-03-04-groupdocs-parser-for-net-26-2",
-      "url": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-26-2/",
+      "path": "content/Groupdocs.Blog/parser/2026-03-05-parsing-archives-to-extract-text",
+      "url": "https://blog.groupdocs.com/parser/extract-text-from-zip-rar-archives/",
       "urls": {
-        "en": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-26-2/"
+        "en": "https://blog.groupdocs.com/parser/extract-text-from-zip-rar-archives/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/signature/2026-03-05-groupdocs-signature-for-net-26-2",
+      "url": "https://blog.groupdocs.com/signature/groupdocs-signature-for-net-26-2/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/signature/groupdocs-signature-for-net-26-2/"
       },
       "missing_languages": [
         "ar",
