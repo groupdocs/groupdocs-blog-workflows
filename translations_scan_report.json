@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 98,
+    "total_posts_scanned": 99,
     "posts_with_missing_translations": 3,
-    "posts_complete": 95,
+    "posts_complete": 96,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,14 +47,14 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-03-06T06:32:00.234221+00:00"
+    "date_generated": "2026-03-07T06:23:50.716946+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/parser/2026-03-04-groupdocs-parser-for-net-26-2",
-      "url": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-26-2/",
+      "path": "content/Groupdocs.Blog/comparison/2026-03-06-compare-word-documents",
+      "url": "https://blog.groupdocs.com/comparison/compare-word-documents/",
       "urls": {
-        "en": "https://blog.groupdocs.com/parser/groupdocs-parser-for-net-26-2/"
+        "en": "https://blog.groupdocs.com/comparison/compare-word-documents/"
       },
       "missing_languages": [
         "ar",
