@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 99,
-    "posts_with_missing_translations": 0,
-    "posts_complete": 99,
+    "posts_with_missing_translations": 2,
+    "posts_complete": 97,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,9 +45,74 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-03-10T06:33:25.904270+00:00"
+    "date_generated": "2026-03-11T06:36:35.067148+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/comparison/2026-01-20-compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp",
+      "url": "https://blog.groupdocs.com/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "nl": "https://blog.groupdocs.com/nl/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "pl": "https://blog.groupdocs.com/pl/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "pt": "https://blog.groupdocs.com/pt/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "ru": "https://blog.groupdocs.com/ru/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "th": "https://blog.groupdocs.com/th/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "tr": "https://blog.groupdocs.com/tr/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "uk": "https://blog.groupdocs.com/uk/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "vi": "https://blog.groupdocs.com/vi/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "zh": "https://blog.groupdocs.com/zh/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/",
+        "zh-hant": "https://blog.groupdocs.com/zh-hant/comparison/compare-excel-spreadsheets-advanced-cell-by-cell-analysis-csharp/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko"
+      ],
+      "missing_count": 11,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/comparison/2026-03-06-compare-word-documents",
+      "url": "https://blog.groupdocs.com/comparison/compare-word-documents/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/comparison/compare-word-documents/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
