@@ -24,16 +24,12 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+✅ **All blog posts have complete translations!**
 
 ### Summary
 
 - **Total posts scanned**: 99
-- **Posts with complete translations**: 98
-- **Posts missing translations**: 1
+- **Posts with complete translations**: 99
+- **Posts missing translations**: 0
 - **Expected languages**: 21
-- **Last updated**: 2026-03-12 06:38:19 UTC
-
-### Posts Needing Attention
-
-- [2026-03-06-compare-word-documents](https://blog.groupdocs.com/comparison/compare-word-documents/) - 21/21 translations missing
+- **Last updated**: 2026-03-13 06:36:03 UTC
