@@ -1,0 +1,176 @@
+name: Weekly Validate Translations
+
+on:
+  schedule:
+    # Run every Sunday at 7:00 AM UTC
+    - cron: '0 7 * * 0'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: self-hosted
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: Checkout blog-workflows repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_PAT }}
+
+      - name: Checkout GroupDocs Blog repo
+        shell: bash
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          set -euo pipefail
+          BLOG_REPO_URL="https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git"
+          git clone --depth 1 "${BLOG_REPO_URL}" blog-repo
+          cd blog-repo
+          git submodule update --init --recursive
+          cd ..
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r tools/translation-validator/requirements.txt
+          pip install -r tools/blog-post-translator/requirements.txt
+          pip install -r tools/redmine-activity-reporter/requirements.txt
+
+      - name: Validate existing translations
+        id: validate
+        run: |
+          set -euo pipefail
+
+          python tools/translation-validator/validate_translations.py \
+            --content blog-repo/content \
+            --output validation_report.json \
+            --verbose 2>&1 | tee validation_output.txt || true
+
+          # Check if retranslation is needed
+          posts_to_fix=$(python -c "import json; report = json.load(open('validation_report.json')); print(report['summary']['posts_needing_retranslation'])")
+          if [ "$posts_to_fix" -gt "0" ]; then
+            echo "needs_retranslation=true" >> $GITHUB_OUTPUT
+            echo "posts_to_fix=$posts_to_fix" >> $GITHUB_OUTPUT
+          else
+            echo "needs_retranslation=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Retranslate flagged posts
+        if: steps.validate.outputs.needs_retranslation == 'true'
+        id: retranslate
+        env:
+          PROFESSIONALIZE_API_KEY: ${{ secrets.PROFESSIONALIZE_API_KEY }}
+          PROFESSIONALIZE_API_URL: ${{ secrets.PROFESSIONALIZE_API_URL }}
+          PROFESSIONALIZE_MODEL_NAME: ${{ secrets.PROFESSIONALIZE_MODEL_NAME }}
+        run: |
+          set -euo pipefail
+
+          cd blog-repo
+          python ../tools/blog-post-translator/translate_posts.py \
+            ../validation_report.json \
+            --limit 3 --verbose 2>&1 | tee ../retranslation_output.txt || true
+          cd ..
+
+          # Process output to check if translations were made
+          set +e
+          python tools/blog-post-translator/process_translation_output.py \
+            --input retranslation_output.txt \
+            --output retranslated_posts.json \
+            --scan-report validation_report.json
+          retranslated_exit=$?
+          set -e
+
+          if [ "$retranslated_exit" -eq "0" ]; then
+            echo "retranslated=true" >> $GITHUB_OUTPUT
+          else
+            echo "retranslated=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit retranslated posts to blog repo
+        if: steps.retranslate.outputs.retranslated == 'true'
+        shell: bash
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        working-directory: blog-repo
+        run: |
+          set -euo pipefail
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git remote set-url origin https://x-access-token:${REPO_PAT}@github.com/groupdocs/groupdocs-blog.git
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "fix: retranslate posts flagged by quality validation (automated)"
+            git push origin HEAD
+          fi
+
+      - name: Commit validation report
+        shell: bash
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          set -euo pipefail
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git remote set-url origin https://x-access-token:${REPO_PAT}@github.com/${{ github.repository }}.git
+          git add validation_report.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update translation validation report"
+            git push origin HEAD
+          fi
+
+      - name: Log to Redmine
+        if: steps.retranslate.outputs.retranslated == 'true'
+        env:
+          REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
+          REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
+          REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}
+          REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
+          REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
+          REDMINE_HOURS: 1.0
+        run: |
+          set -euo pipefail
+
+          python tools/blog-post-translator/create_redmine_comment.py \
+            --posts-json retranslated_posts.json \
+            --output redmine_comment.txt
+
+          python tools/blog-post-translator/create_simplified_time_comment.py \
+            --posts-json retranslated_posts.json \
+            --output redmine_time_comment.txt
+
+          python tools/blog-post-translator/log_to_redmine.py
+
+      - name: Trigger deploy-qa workflow
+        if: steps.retranslate.outputs.retranslated == 'true'
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${REPO_PAT}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/groupdocs/groupdocs-blog-workflows/actions/workflows/deploy-qa.yml/dispatches \
+            -d '{"ref":"main"}'
+
+      - name: Trigger deploy-prod workflow
+        if: steps.retranslate.outputs.retranslated == 'true'
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${REPO_PAT}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/groupdocs/groupdocs-blog-workflows/actions/workflows/deploy-prod.yml/dispatches \
+            -d '{"ref":"main"}'

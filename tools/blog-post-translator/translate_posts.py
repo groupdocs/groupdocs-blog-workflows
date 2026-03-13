@@ -17,6 +17,16 @@ from typing import Dict, List, Optional
 from openai import OpenAI
 
 
+LANG_NAMES = {
+    'ar': 'Arabic', 'cs': 'Czech', 'de': 'German', 'es': 'Spanish',
+    'fa': 'Persian/Farsi', 'fr': 'French', 'he': 'Hebrew', 'id': 'Indonesian',
+    'it': 'Italian', 'ja': 'Japanese', 'ko': 'Korean', 'nl': 'Dutch',
+    'pl': 'Polish', 'pt': 'Portuguese', 'ru': 'Russian', 'th': 'Thai',
+    'tr': 'Turkish', 'uk': 'Ukrainian', 'vi': 'Vietnamese',
+    'zh': 'Chinese (Simplified)', 'zh-hant': 'Chinese (Traditional)',
+}
+
+
 def create_client() -> OpenAI:
     """Create OpenAI client from environment variables."""
     api_key = os.getenv("PROFESSIONALIZE_API_KEY")
@@ -100,33 +110,36 @@ def translate_text(client: OpenAI, model: str, text: str, target_lang: str, cont
     Returns:
         Translated text or None if translation fails
     """
-    # Language name mapping
-    lang_names = {
-        'ar': 'Arabic', 'cs': 'Czech', 'de': 'German', 'es': 'Spanish',
-        'fa': 'Persian/Farsi', 'fr': 'French', 'he': 'Hebrew', 'id': 'Indonesian',
-        'it': 'Italian', 'ja': 'Japanese', 'ko': 'Korean', 'nl': 'Dutch',
-        'pl': 'Polish', 'pt': 'Portuguese', 'ru': 'Russian', 'th': 'Thai',
-        'tr': 'Turkish', 'uk': 'Ukrainian', 'vi': 'Vietnamese',
-        'zh': 'Chinese (Simplified)', 'zh-hant': 'Chinese (Traditional)'
-    }
+    target_lang_name = LANG_NAMES.get(target_lang, target_lang)
     
-    target_lang_name = lang_names.get(target_lang, target_lang)
-    
-    prompt = f"""Translate the following text to {target_lang_name}. 
-{context}
-Preserve all markdown formatting, code blocks, links, and special characters exactly as they are.
-Only translate the text content, not the markdown syntax or URLs.
+    prompt = (
+        f"Translate to {target_lang_name}. {context}\n"
+        "\n"
+        "Rules:\n"
+        "- Output the COMPLETE translation. Every section, table, and link must appear.\n"
+        "- Preserve markdown formatting exactly (##, |, **, [](), ```).\n"
+        "- Do NOT translate: URLs, code blocks, version numbers, package names.\n"
+        "- Copy Hugo shortcodes verbatim: {{< figure ... >}}\n"
+        "- Copy link reference definitions verbatim: [N]: https://...\n"
+        "\n"
+        "Glossary — keep these terms in English:\n"
+        "GroupDocs.Total, GroupDocs.Watermark, GroupDocs.Annotation, GroupDocs.Assembly, "
+        "GroupDocs.Comparison, GroupDocs.Conversion, GroupDocs.Editor, GroupDocs.Merger, "
+        "GroupDocs.Metadata, GroupDocs.Parser, GroupDocs.Redaction, GroupDocs.Search, "
+        "GroupDocs.Signature, GroupDocs.Viewer, GroupDocs.Markdown, "
+        ".NET, .NET Framework, NuGet, C#, net6.0, Free Support Forum\n"
+        "\n"
+        f"{text}"
+    )
 
-Text to translate:
-{text}"""
-    
     try:
         response = client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": f"You are a professional translator specializing in technical documentation. Translate content to {target_lang_name} while preserving all formatting, code, and links."},
+                {"role": "system", "content": f"Translate to {target_lang_name}. Preserve all markdown and code. Complete translation only, no commentary."},
                 {"role": "user", "content": prompt}
-            ]
+            ],
+            temperature=0.1
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
@@ -155,57 +168,76 @@ def update_url_for_language(url: str, lang_code: str) -> str:
 
 def translate_front_matter(client: OpenAI, model: str, front_matter: Dict, lang_code: str) -> Dict:
     """
-    Translate front-matter fields.
-    
+    Translate front-matter fields as a single JSON batch (reduces API calls).
+
     Args:
         client: OpenAI client
         model: Model name
         front_matter: Original front-matter dictionary
         lang_code: Target language code
-    
+
     Returns:
         Translated front-matter dictionary
     """
+    target_lang_name = LANG_NAMES.get(lang_code, lang_code)
+
     translated = front_matter.copy()
-    
-    # Fields to translate
-    fields_to_translate = ['title', 'seoTitle', 'description', 'summary']
-    
-    for field in fields_to_translate:
-        if field in translated and translated[field]:
-            translated_text = translate_text(
-                client, model, translated[field], lang_code,
-                context=f"This is a {field} field for a technical blog post."
-            )
-            if translated_text:
-                translated[field] = translated_text
-    
-    # Translate cover fields if present
+
+    # Collect all translatable fields into a JSON batch
+    fields = {}
+    for key in ['title', 'seoTitle', 'description', 'summary']:
+        if key in translated and translated[key]:
+            fields[key] = str(translated[key])
     if 'cover' in translated and isinstance(translated['cover'], dict):
-        cover = translated['cover']
-        if 'alt' in cover and cover['alt']:
-            alt_text = translate_text(
-                client, model, cover['alt'], lang_code,
-                context="This is an alt text for an image in a technical blog post."
+        for key in ['alt', 'caption']:
+            if key in translated['cover'] and translated['cover'][key]:
+                fields[f'cover.{key}'] = str(translated['cover'][key])
+
+    if fields:
+        prompt = (
+            f"Translate these blog post metadata values to {target_lang_name}.\n"
+            f"Keep product names (GroupDocs.*, .NET, NuGet, C#) and version numbers in English.\n"
+            f"Return ONLY a valid JSON object with the same keys. No explanation, no code fences.\n"
+            f"\n"
+            f"{json.dumps(fields, ensure_ascii=False, indent=2)}"
+        )
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": f"Translate to {target_lang_name}. Preserve all markdown and code. Complete translation only, no commentary."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.1
             )
-            if alt_text:
-                cover['alt'] = alt_text
-        
-        if 'caption' in cover and cover['caption']:
-            caption_text = translate_text(
-                client, model, cover['caption'], lang_code,
-                context="This is a caption for an image in a technical blog post."
-            )
-            if caption_text:
-                cover['caption'] = caption_text
-    
+            raw = response.choices[0].message.content.strip()
+            # Strip markdown code fences if present
+            raw = re.sub(r'```(?:json)?\s*', '', raw).strip()
+            json_match = re.search(r'\{[\s\S]*\}', raw)
+            if json_match:
+                batch_translated = json.loads(json_match.group())
+                for key in ['title', 'seoTitle', 'description', 'summary']:
+                    if key in batch_translated:
+                        translated[key] = batch_translated[key]
+                if 'cover' in translated and isinstance(translated['cover'], dict):
+                    for key in ['alt', 'caption']:
+                        dotkey = f'cover.{key}'
+                        if dotkey in batch_translated:
+                            translated['cover'][key] = batch_translated[dotkey]
+        except Exception as e:
+            print(f"Warning: Batch front-matter translation failed ({e}), falling back to individual fields")
+            # Fallback: translate fields individually
+            for field in ['title', 'seoTitle', 'description', 'summary']:
+                if field in translated and translated[field]:
+                    result = translate_text(client, model, translated[field], lang_code,
+                                            context=f"This is a {field} field for a technical blog post.")
+                    if result:
+                        translated[field] = result
+
     # Update URL for language
     if 'url' in translated:
         translated['url'] = update_url_for_language(translated['url'], lang_code)
-    
-    # Translate author name if it's a common name (optional - can be skipped)
-    # For now, we'll keep author as is since it might be a proper name
-    
+
     return translated
 
 
@@ -402,7 +434,7 @@ def translate_post(
             # Translate content body
             translated_content = translate_text(
                 client, model, content_body, lang_code,
-                context="This is the main content of a technical blog post. Preserve all markdown formatting, code blocks, and links."
+                context=""
             )
             
             if not translated_content:
