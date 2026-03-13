@@ -68,7 +68,7 @@ jobs:
           REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}
           REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
           REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
-          REDMINE_HOURS: 0.5
+          REDMINE_HOURS: 1.0
         run: |
           set -euo pipefail
 
@@ -77,8 +77,9 @@ jobs:
             --report-json validation_report.json \
             --output redmine_comment.txt
 
-          # Use same comment for time entry
-          cp redmine_comment.txt redmine_time_comment.txt
+          # Generate short time entry comment (Redmine has character limit on time entries)
+          posts_to_fix=${{ steps.validate.outputs.posts_to_fix }}
+          echo "Translation quality validation: ${posts_to_fix} posts flagged for retranslation" > redmine_time_comment.txt
 
           # Add comment and log time
           python tools/blog-post-translator/log_to_redmine.py
