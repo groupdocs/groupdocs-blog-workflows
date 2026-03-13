@@ -60,6 +60,29 @@ jobs:
             echo "needs_retranslation=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Log validation results to Redmine
+        if: steps.validate.outputs.needs_retranslation == 'true'
+        env:
+          REDMINE_ENDPOINT: ${{ secrets.REDMINE_ENDPOINT }}
+          REDMINE_API_KEY: ${{ secrets.REDMINE_API_KEY }}
+          REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}
+          REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
+          REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
+          REDMINE_HOURS: 0.5
+        run: |
+          set -euo pipefail
+
+          # Generate Redmine comment listing posts to retranslate
+          python tools/translation-validator/create_validation_redmine_comment.py \
+            --report-json validation_report.json \
+            --output redmine_comment.txt
+
+          # Use same comment for time entry
+          cp redmine_comment.txt redmine_time_comment.txt
+
+          # Add comment and log time
+          python tools/blog-post-translator/log_to_redmine.py
+
       - name: Retranslate flagged posts
         if: steps.validate.outputs.needs_retranslation == 'true'
         id: retranslate
@@ -73,7 +96,7 @@ jobs:
           cd blog-repo
           python ../tools/blog-post-translator/translate_posts.py \
             ../validation_report.json \
-            --limit 3 --verbose 2>&1 | tee ../retranslation_output.txt || true
+            --verbose 2>&1 | tee ../retranslation_output.txt || true
           cd ..
 
           # Process output to check if translations were made
