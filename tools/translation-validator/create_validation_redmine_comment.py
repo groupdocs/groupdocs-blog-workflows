@@ -34,36 +34,36 @@ def main():
         lines.append(f"@{report_to_user}")
         lines.append("")
 
-    lines.append("h3. Translation Quality Validation Report")
+    lines.append("### Translation Quality Validation Report")
     lines.append("")
-    lines.append(f"* Posts scanned: {summary.get('total_posts_scanned', 0)}")
-    lines.append(f"* Translations checked: {summary.get('total_translations_checked', 0)}")
-    lines.append(f"* Valid: {summary.get('valid_translations', 0)}")
-    lines.append(f"* Invalid (flagged for retranslation): {summary.get('invalid_translations', 0)}")
-    lines.append(f"* Posts needing retranslation: {summary.get('posts_needing_retranslation', 0)}")
+    lines.append(f"- Posts scanned: {summary.get('total_posts_scanned', 0)}")
+    lines.append(f"- Translations checked: {summary.get('total_translations_checked', 0)}")
+    lines.append(f"- Valid: {summary.get('valid_translations', 0)}")
+    lines.append(f"- Invalid (flagged for retranslation): {summary.get('invalid_translations', 0)}")
+    lines.append(f"- Posts needing retranslation: {summary.get('posts_needing_retranslation', 0)}")
     lines.append("")
 
     # Issues breakdown
     issues = summary.get('issues_breakdown', {})
     if issues:
-        lines.append("h4. Issues found")
+        lines.append("#### Issues found")
         lines.append("")
         for issue, count in sorted(issues.items(), key=lambda x: -x[1]):
-            lines.append(f"* {issue}: {count}")
+            lines.append(f"- `{issue}`: {count}")
         lines.append("")
 
     # Posts to retranslate
     if posts:
-        lines.append("h4. Posts flagged for retranslation")
+        lines.append("#### Posts flagged for retranslation")
         lines.append("")
         for post in posts:
             post_name = Path(post['path']).name
             langs = ', '.join(post['missing_languages'])
             lang_count = len(post['missing_languages'])
-            lines.append(f"* *{post_name}* ({lang_count} languages): {langs}")
+            lines.append(f"- **{post_name}** ({lang_count} languages): {langs}")
         lines.append("")
 
-    lines.append(f"\"View workflow run\":{job_url}")
+    lines.append(f"[View workflow run]({job_url})")
 
     comment = '\n'.join(lines)
 
