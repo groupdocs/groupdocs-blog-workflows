@@ -41,6 +41,11 @@ def get_model_name() -> str:
     return os.getenv("PROFESSIONALIZE_MODEL_NAME", "recommended")
 
 
+def get_reviewer_model() -> Optional[str]:
+    """Get reviewer model name. Returns None if review is disabled."""
+    return os.getenv("PROFESSIONALIZE_REVIEWER_MODEL", None)
+
+
 def load_translation_report(report_path: str) -> Dict:
     """Load translation status report."""
     try:
@@ -96,6 +101,33 @@ def parse_front_matter(content: str):
         return None, content
 
 
+def _strip_prompt_leakage(text: str, target_lang_name: str) -> str:
+    """
+    Strip prompt instructions that the model may have echoed at the start of its response.
+
+    Detects patterns like "Translate to Portuguese.\n\nRules:\n- ..." and removes
+    everything up to and including the glossary block, leaving only the actual translation.
+    """
+    # Pattern: "Translate to <language>" followed by rules/glossary block
+    # The glossary ends with "Free Support Forum\n"
+    leakage_pattern = re.compile(
+        r'^Translate\s+to\s+.+?\.\s*\n'   # "Translate to Portuguese."
+        r'(?:.*?\n)*?'                      # rules lines
+        r'.*?Free Support Forum\s*\n'       # end of glossary
+        r'\s*',                             # trailing whitespace
+        re.IGNORECASE | re.DOTALL
+    )
+    cleaned = leakage_pattern.sub('', text, count=1)
+
+    # Also catch partial leakage: just "Translate to <lang>." at the start
+    if cleaned.startswith(f"Translate to {target_lang_name}"):
+        first_newline = cleaned.find('\n')
+        if first_newline > 0:
+            cleaned = cleaned[first_newline:].lstrip()
+
+    return cleaned
+
+
 def translate_text(client: OpenAI, model: str, text: str, target_lang: str, context: str = "") -> Optional[str]:
     """
     Translate text using LLM.
@@ -141,7 +173,9 @@ def translate_text(client: OpenAI, model: str, text: str, target_lang: str, cont
             ],
             temperature=0.1
         )
-        return response.choices[0].message.content.strip()
+        result = response.choices[0].message.content.strip()
+        result = _strip_prompt_leakage(result, target_lang_name)
+        return result
     except Exception as e:
         print(f"Error translating text: {e}")
         return None
@@ -164,6 +198,117 @@ def update_url_for_language(url: str, lang_code: str) -> str:
     # Remove leading slash if present, add language prefix
     url_clean = url.lstrip('/')
     return f"/{lang_code}/{url_clean}"
+
+
+# ---------------------------------------------------------------------------
+# Structural checks (fast, no LLM needed)
+# ---------------------------------------------------------------------------
+def structural_check(source_body: str, translated_body: str) -> List[str]:
+    """
+    Run programmatic structural checks on a translation.
+    Returns a list of issue names (empty = all good).
+    """
+    issues = []
+
+    # Code blocks
+    src_cb = len(re.findall(r'```', source_body))
+    tr_cb = len(re.findall(r'```', translated_body))
+    if src_cb > 0 and abs(src_cb - tr_cb) > 2:
+        issues.append("code_blocks_mismatch")
+
+    # Markdown headers
+    src_h = len(re.findall(r'^#{1,6}\s+', source_body, re.MULTILINE))
+    tr_h = len(re.findall(r'^#{1,6}\s+', translated_body, re.MULTILINE))
+    if src_h > 0 and abs(src_h - tr_h) > 2:
+        issues.append("headers_mismatch")
+
+    # Hugo shortcodes preserved
+    src_sc = set(re.findall(r'\{\{<.*?>}}', source_body))
+    if src_sc:
+        missing = [sc for sc in src_sc if sc not in translated_body]
+        if missing:
+            issues.append(f"shortcodes_missing({len(missing)})")
+
+    # Link reference definitions preserved
+    src_refs = set(re.findall(r'^\[\d+\]:\s*https?://\S+', source_body, re.MULTILINE))
+    if src_refs:
+        missing = [ref for ref in src_refs if ref not in translated_body]
+        if missing:
+            issues.append(f"link_refs_missing({len(missing)})")
+
+    # Length ratio (catch severe truncation)
+    if len(source_body) > 500:
+        ratio = len(translated_body) / len(source_body)
+        if ratio < 0.3:
+            issues.append("likely_truncated")
+
+    # Prompt leakage detection
+    if re.search(r'^Translate\s+to\s+\w+', translated_body, re.MULTILINE):
+        issues.append("prompt_leakage")
+    if 'Free Support Forum' in translated_body and 'Glossary' in translated_body:
+        issues.append("prompt_leakage")
+
+    # Product names preserved
+    names = set(re.findall(r'GroupDocs\.\w+', source_body))
+    if names:
+        missing = [n for n in names if n not in translated_body]
+        if len(missing) > len(names) * 0.5:
+            issues.append("product_names_missing")
+
+    return issues
+
+
+# ---------------------------------------------------------------------------
+# LLM review (cross-model quality check)
+# ---------------------------------------------------------------------------
+REVIEW_PROMPT = """\
+You are reviewing a translation from English to {target_language}.
+
+Check for these issues:
+1. Are markdown headers (##) translated or left in English?
+2. Are Hugo shortcodes ({{{{< figure ... >}}}}) preserved exactly?
+3. Are code blocks preserved without modification?
+4. Are product names (GroupDocs.*, .NET, NuGet) kept in English?
+5. Is the translation complete or truncated?
+
+If the translation is GOOD, respond with exactly: PASS
+If there are issues, respond with: FAIL followed by a brief list of specific problems found.
+
+ORIGINAL (English, first 2000 chars):
+{source}
+
+TRANSLATION ({target_language}, first 2000 chars):
+{translation}"""
+
+
+def review_translation(client: OpenAI, reviewer_model: str,
+                       source_body: str, translated_body: str,
+                       lang_code: str) -> Optional[str]:
+    """
+    Use a separate model to review translation quality.
+    Returns None if PASS, or a string with issues if FAIL.
+    """
+    target_lang = LANG_NAMES.get(lang_code, lang_code)
+    prompt = REVIEW_PROMPT.format(
+        target_language=target_lang,
+        source=source_body[:2000],
+        translation=translated_body[:2000],
+    )
+    try:
+        response = client.chat.completions.create(
+            model=reviewer_model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.1,
+        )
+        result = response.choices[0].message.content.strip()
+        # Strip <think> blocks from qwen3-style models
+        result = re.sub(r'<think>[\s\S]*?</think>', '', result).strip()
+        if result.upper().startswith("PASS"):
+            return None
+        return result
+    except Exception as e:
+        print(f"Warning: Review call failed ({e}), skipping review")
+        return None
 
 
 def translate_front_matter(client: OpenAI, model: str, front_matter: Dict, lang_code: str) -> Dict:
@@ -395,68 +540,109 @@ def translate_post(
     post_path: str,
     lang_code: str,
     verbose: bool = False,
-    max_retries: int = 3
+    max_retries: int = 3,
+    reviewer_model: Optional[str] = None,
 ) -> bool:
     """
-    Translate a single blog post to target language with retry logic.
-    
+    Translate a single blog post to target language with structural checks
+    and optional cross-model review.
+
+    Flow per attempt:
+      1. Translate front-matter (batch JSON) + body
+      2. Run structural checks (free, no LLM)
+      3. If reviewer_model set, run LLM review (cross-model)
+      4. If issues found, retry with feedback included in context
+
     Args:
         client: OpenAI client
-        model: Model name
+        model: Model name for translation
         post_path: Path to post directory
         lang_code: Target language code
         verbose: Enable verbose output
         max_retries: Maximum number of retry attempts (default: 3)
-    
+        reviewer_model: Model name for quality review (None = skip review)
+
     Returns:
         True if translation succeeded, False otherwise
     """
     if verbose:
         print(f"Translating {post_path} to {lang_code}...")
-    
+
     # Read English post
     original_content = read_post_file(post_path)
     if not original_content:
         return False
-    
+
     # Parse front-matter and content
     front_matter, content_body = parse_front_matter(original_content)
     if not front_matter:
         print(f"Warning: Could not parse front-matter for {post_path}")
         return False
-    
+
+    feedback_context = ""  # Accumulated feedback from failed attempts
+
     # Try translation with retries
     for attempt in range(1, max_retries + 1):
         try:
             # Translate front-matter
             translated_front_matter = translate_front_matter(client, model, front_matter, lang_code)
-            
-            # Translate content body
+
+            # Translate content body (include feedback from prior attempts)
             translated_content = translate_text(
                 client, model, content_body, lang_code,
-                context=""
+                context=feedback_context
             )
-            
+
             if not translated_content:
                 if attempt < max_retries:
                     print(f"Warning: Translation attempt {attempt} failed for {post_path} ({lang_code}), retrying...")
-                    time.sleep(2)  # Brief delay before retry
+                    time.sleep(2)
                     continue
                 else:
                     print(f"Error: Failed to translate content for {post_path} ({lang_code}) after {max_retries} attempts")
                     return False
-            
+
+            # --- Step 2: Structural checks (fast, no LLM) ---
+            struct_issues = structural_check(content_body, translated_content)
+            if struct_issues and attempt < max_retries:
+                issues_str = ", ".join(struct_issues)
+                if verbose:
+                    print(f"    Structural issues (attempt {attempt}): {issues_str}")
+                feedback_context = (
+                    f"IMPORTANT: Your previous translation had these structural issues: {issues_str}. "
+                    f"Fix them in this attempt."
+                )
+                time.sleep(1)
+                continue
+
+            # --- Step 3: LLM review (cross-model, optional) ---
+            if reviewer_model and attempt < max_retries:
+                review_result = review_translation(
+                    client, reviewer_model, content_body, translated_content, lang_code
+                )
+                if review_result:
+                    if verbose:
+                        print(f"    Review issues (attempt {attempt}): {review_result[:200]}")
+                    feedback_context = (
+                        f"IMPORTANT: A reviewer found these issues in your previous translation: "
+                        f"{review_result[:500]}. Fix them in this attempt."
+                    )
+                    time.sleep(1)
+                    continue
+                elif verbose:
+                    print(f"    Review: PASS")
+
             # Save translated post
             save_success = save_translated_post(post_path, lang_code, translated_front_matter, translated_content)
             if not save_success:
                 if attempt < max_retries:
                     print(f"Warning: Failed to save translation attempt {attempt} for {post_path} ({lang_code}), retrying...")
-                    time.sleep(1)  # Brief delay before retry
+                    time.sleep(1)
                     continue
                 else:
                     print(f"Error: Failed to save translation for {post_path} ({lang_code}) after {max_retries} attempts")
                     return False
-            
+
             # Verify translation was successful (including checking key parts are translated)
             if verify_translation(post_path, lang_code, original_content):
                 if verbose:
@@ -475,21 +661,22 @@ def translate_post(
                             output_file.unlink()
                     except Exception:
                         pass
-                    time.sleep(2)  # Brief delay before retry
+                    feedback_context = "IMPORTANT: Your previous translation left headers untranslated. Translate ALL headers."
+                    time.sleep(2)
                     continue
                 else:
                     print(f"Error: Translation verification failed for {post_path} ({lang_code}) after {max_retries} attempts - key parts may not be translated")
                     return False
-                    
+
         except Exception as e:
             if attempt < max_retries:
                 print(f"Warning: Exception during translation attempt {attempt} for {post_path} ({lang_code}): {e}, retrying...")
-                time.sleep(2)  # Brief delay before retry
+                time.sleep(2)
                 continue
             else:
                 print(f"Error: Exception during translation for {post_path} ({lang_code}) after {max_retries} attempts: {e}")
                 return False
-    
+
     return False
 
 
@@ -590,18 +777,22 @@ Examples:
     try:
         client = create_client()
         model = get_model_name()
+        reviewer_model = get_reviewer_model()
     except SystemExit as e:
         print(e)
         sys.exit(1)
-    
+
+    if reviewer_model:
+        print(f"Reviewer model: {reviewer_model} (cross-model quality review enabled)")
+
     # Process each post
     total_translated = 0
     total_failed = 0
-    
+
     for post_idx, post in enumerate(posts, 1):
         post_path = post['path']
         missing_langs = post['missing_languages']
-        
+
         # Filter languages if --lang specified
         if args.lang:
             if args.lang not in missing_langs:
@@ -609,14 +800,14 @@ Examples:
                     print(f"Skipping {post_path} - {args.lang} not in missing languages")
                 continue
             missing_langs = [args.lang]
-        
+
         print(f"\n[{post_idx}/{len(posts)}] Processing: {post_path}")
         print(f"Missing languages: {', '.join(missing_langs)}")
-        
+
         for lang_idx, lang_code in enumerate(missing_langs, 1):
             print(f"  [{lang_idx}/{len(missing_langs)}] Translating to {lang_code}...", end=' ', flush=True)
-            
-            success = translate_post(client, model, post_path, lang_code, args.verbose, args.retries)
+
+            success = translate_post(client, model, post_path, lang_code, args.verbose, args.retries, reviewer_model)
             
             if success:
                 print("✓")

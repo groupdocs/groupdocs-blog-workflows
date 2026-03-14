@@ -133,6 +133,12 @@ def structural_checks(source_body: str, translated_body: str) -> Dict[str, float
     else:
         scores['link_refs'] = 1.0
 
+    # 9. Prompt leakage (translation instructions leaked into output)
+    has_leakage = bool(re.search(r'^Translate\s+to\s+\w+', translated_body, re.MULTILINE))
+    if not has_leakage:
+        has_leakage = 'Free Support Forum' in translated_body and 'Glossary' in translated_body
+    scores['no_prompt_leakage'] = 0.0 if has_leakage else 1.0
+
     return scores
 
 
