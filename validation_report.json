@@ -2,18 +2,18 @@
   "summary": {
     "total_posts_scanned": 99,
     "total_translations_checked": 2079,
-    "valid_translations": 2001,
-    "invalid_translations": 78,
-    "posts_needing_retranslation": 32,
+    "valid_translations": 2045,
+    "invalid_translations": 34,
+    "posts_needing_retranslation": 18,
     "issues_breakdown": {
-      "structural_shortcodes": 22,
-      "headers_untranslated": 44,
-      "structural_headers": 8,
-      "structural_links": 6,
+      "headers_untranslated": 19,
+      "structural_links": 5,
+      "structural_code_blocks": 1,
+      "structural_headers": 6,
+      "structural_tables": 3,
       "structural_length": 1,
-      "likely_truncated": 4,
-      "structural_tables": 1,
-      "structural_link_refs": 2
+      "likely_truncated": 1,
+      "structural_shortcodes": 8
     },
     "languages_checked": [
       "ar",
@@ -39,64 +39,26 @@
       "zh-hant"
     ],
     "min_year": 2025,
-    "date_generated": "2026-03-14T08:01:11.057315+00:00"
+    "date_generated": "2026-03-15T07:40:31.113647+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/comparison/2025-01-20-compare-documents-using-nodejs",
-      "missing_languages": [
-        "es"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/comparison/compare-documents-using-nodejs/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/comparison/2025-09-01-groupdocs-comparison-for-net-25-8",
-      "missing_languages": [
-        "de"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/comparison/groupdocs-comparison-for-net-25-8/"
-    },
-    {
       "path": "content/Groupdocs.Blog/comparison/2025-09-26-groupdocs-comparison-for-net-25-9",
       "missing_languages": [
-        "th",
         "tr"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/comparison/groupdocs-comparison-for-net-25-9/"
     },
     {
       "path": "content/Groupdocs.Blog/comparison/2025-11-07-groupdocs-comparison-for-net-25-10",
       "missing_languages": [
-        "ja",
         "tr"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/comparison/groupdocs-comparison-for-net-25-10/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/comparison/2025-11-28-groupdocs-comparison-for-net-25-11",
-      "missing_languages": [
-        "tr"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/comparison/groupdocs-comparison-for-net-25-11/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/comparison/2025-12-19-groupdocs-comparison-for-net-25-12",
-      "missing_languages": [
-        "ko"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/comparison/groupdocs-comparison-for-net-25-12/"
     },
     {
       "path": "content/Groupdocs.Blog/comparison/2025-12-25-groupdocs-comparison-for-python-25-12",
@@ -110,10 +72,9 @@
     {
       "path": "content/Groupdocs.Blog/comparison/2026-01-15-legal-document-comparison-api-contract-review-automation-nodejs",
       "missing_languages": [
-        "th",
-        "zh-hant"
+        "th"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/comparison/legal-document-comparison-api-contract-review-automation-nodejs/"
     },
@@ -129,11 +90,9 @@
     {
       "path": "content/Groupdocs.Blog/comparison/2026-01-29-groupdocs-comparison-for-net-26-1",
       "missing_languages": [
-        "id",
-        "th",
-        "uk"
+        "id"
       ],
-      "missing_count": 3,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/comparison/groupdocs-comparison-for-net-26-1/"
     },
@@ -142,58 +101,31 @@
       "missing_languages": [
         "ar",
         "de",
-        "ja",
         "nl",
         "pt",
         "ru",
-        "tr",
         "uk",
         "zh"
       ],
-      "missing_count": 9,
+      "missing_count": 7,
       "total_expected": 21,
       "url": "/markdown/groupdocs-markdown-for-net-first-public-release/"
     },
     {
-      "path": "content/Groupdocs.Blog/merger/2025-09-08-groupdocs-merger-for-net-25-9",
+      "path": "content/Groupdocs.Blog/metadata/2025-07-29-how-to-work-with-tags",
       "missing_languages": [
         "vi"
       ],
       "missing_count": 1,
-      "total_expected": 21,
-      "url": "/merger/groupdocs-merger-for-net-25-9/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/metadata/2025-07-29-how-to-work-with-tags",
-      "missing_languages": [
-        "ar",
-        "vi"
-      ],
-      "missing_count": 2,
       "total_expected": 21,
       "url": "/metadata/how-to-work-with-tag/"
     },
     {
-      "path": "content/Groupdocs.Blog/search/2025-10-28-groupdocs-search-python-integration",
-      "missing_languages": [
-        "he"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/search/python-integration/"
-    },
-    {
       "path": "content/Groupdocs.Blog/signature/2025-04-14-custom-hash-sign-with-azure-key-vault",
       "missing_languages": [
-        "cs",
-        "id",
-        "ja",
-        "ko",
-        "nl",
-        "pt",
-        "ru"
+        "nl"
       ],
-      "missing_count": 7,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/signature/custom-hash-sign-with-azure-key-vault/"
     },
@@ -208,21 +140,11 @@
       "url": "/signature/sign-documents-with-form-field-python/"
     },
     {
-      "path": "content/Groupdocs.Blog/signature/2025-10-01-blog-sign-documents-with-pkcs11-dotnet",
-      "missing_languages": [
-        "th"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/signature/sign-documents-with-pkcs11-dotnet/"
-    },
-    {
       "path": "content/Groupdocs.Blog/total/2025-08-20-groupdocs-total-for-net-25-7",
       "missing_languages": [
-        "ja",
-        "tr"
+        "ja"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/total/groupdocs-total-for-net-25-7/"
     },
@@ -231,31 +153,11 @@
       "missing_languages": [
         "fa",
         "ja",
-        "ko",
         "zh-hant"
       ],
-      "missing_count": 4,
+      "missing_count": 3,
       "total_expected": 21,
       "url": "/total/groupdocs-total-for-net-25-8/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/total/2025-10-07-groupdocs-total-for-net-25-9",
-      "missing_languages": [
-        "ja",
-        "ko"
-      ],
-      "missing_count": 2,
-      "total_expected": 21,
-      "url": "/total/groupdocs-total-for-net-25-9/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/total/2025-10-27-groupdocs-total-for-python-25-10",
-      "missing_languages": [
-        "fa"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/total/groupdocs-total-for-python-25-10/"
     },
     {
       "path": "content/Groupdocs.Blog/total/2026-01-02-groupdocs-total-for-net-25-11",
@@ -267,100 +169,43 @@
       "url": "/total/groupdocs-total-for-net-25-11/"
     },
     {
-      "path": "content/Groupdocs.Blog/viewer/2025-03-25-view-word-documents",
-      "missing_languages": [
-        "cs",
-        "id",
-        "ja"
-      ],
-      "missing_count": 3,
-      "total_expected": 21,
-      "url": "/viewer/view-word-documents/"
-    },
-    {
       "path": "content/Groupdocs.Blog/viewer/2025-04-04-view-pptx-presentations",
       "missing_languages": [
-        "he",
         "pl"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/viewer/view-powerpoint-presentations/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/viewer/2025-09-22-viewer-for-net-ui-8-1-1",
-      "missing_languages": [
-        "ja"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/viewer/groupdocs-viewer-for-net-ui-8-1-1/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/viewer/2025-09-30-viewer-for-net-25-9",
-      "missing_languages": [
-        "nl"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/viewer/groupdocs-viewer-for-net-25-9/"
     },
     {
       "path": "content/Groupdocs.Blog/viewer/2025-10-15-working-with-spreadsheets",
       "missing_languages": [
         "ar",
-        "de",
-        "fa",
         "fr",
         "ko",
-        "pl",
         "ru",
         "tr"
       ],
-      "missing_count": 8,
+      "missing_count": 5,
       "total_expected": 21,
       "url": "/viewer/working-with-spreadsheets/"
     },
     {
-      "path": "content/Groupdocs.Blog/watermark/2025-05-30-tiling-watermark-python",
-      "missing_languages": [
-        "fr",
-        "pt",
-        "zh-hant"
-      ],
-      "missing_count": 3,
-      "total_expected": 21,
-      "url": "/watermark/tiling-watermark-python/"
-    },
-    {
       "path": "content/Groupdocs.Blog/watermark/2025-06-16-ai-driven-dynamic-watermarks",
       "missing_languages": [
-        "he",
         "it",
-        "pl",
-        "pt"
+        "pl"
       ],
-      "missing_count": 4,
+      "missing_count": 2,
       "total_expected": 21,
       "url": "/watermark/ai-driven-dynamic-watermarks/"
     },
     {
-      "path": "content/Groupdocs.Blog/watermark/2025-10-23-groupdocs-watermark-vs-microsoft-word",
-      "missing_languages": [
-        "tr"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/watermark/secure-word-documents-groupdocs-watermark-methods/"
-    },
-    {
       "path": "content/Groupdocs.Blog/watermark/2025-11-11-groupdocs-watermark-for-net-25-10",
       "missing_languages": [
-        "fa",
-        "ko",
         "vi"
       ],
-      "missing_count": 3,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/watermark/groupdocs-watermark-for-net-25-10/"
     },
@@ -369,10 +214,9 @@
       "missing_languages": [
         "ko",
         "pl",
-        "ru",
-        "zh-hant"
+        "ru"
       ],
-      "missing_count": 4,
+      "missing_count": 3,
       "total_expected": 21,
       "url": "/watermark/groupdocs-watermark-for-python-25-12/"
     }
