@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 import os
 import logging
 import json
+import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -20,11 +21,28 @@ class DraftInputs:
     title: str
     release_notes_url: str
     review_enabled: bool = False
+    max_retries: int = 3
 
 
 def get_model_name() -> str:
     """Get model name from environment variable."""
     return os.getenv("PROFESSIONALIZE_MODEL_NAME", "recommended")
+
+
+def get_reviewer_model() -> Optional[str]:
+    """Get reviewer model name. Returns None if review is disabled."""
+    return os.getenv("PROFESSIONALIZE_REVIEWER_MODEL", None)
+
+
+def create_client() -> OpenAI:
+    """Create OpenAI client from environment variables."""
+    api_key = os.getenv("PROFESSIONALIZE_API_KEY")
+    base_url = os.getenv("PROFESSIONALIZE_API_URL")
+    if not api_key:
+        raise RuntimeError("Missing PROFESSIONALIZE_API_KEY environment variable")
+    if not base_url:
+        raise RuntimeError("Missing PROFESSIONALIZE_API_URL environment variable")
+    return OpenAI(api_key=api_key, base_url=base_url)
 
 
 def parse_cli_args(argv: Optional[list[str]] = None) -> DraftInputs:
@@ -45,6 +63,12 @@ def parse_cli_args(argv: Optional[list[str]] = None) -> DraftInputs:
         action="store_true",
         help="Enable LLM review suggestions after generating the post (disabled by default)",
     )
+    parser.add_argument(
+        "--retries",
+        type=int,
+        default=3,
+        help="Maximum number of retry attempts when judge model finds issues (default: 3)",
+    )
 
     ns = parser.parse_args(argv)
 
@@ -52,7 +76,7 @@ def parse_cli_args(argv: Optional[list[str]] = None) -> DraftInputs:
     # Allow a leading '@' prefix (e.g. copied from chat)
     url = url[1:] if url.startswith("@") else url
 
-    inputs = DraftInputs(product=ns.product, version=ns.version, title=ns.title, release_notes_url=url, review_enabled=bool(ns.review))
+    inputs = DraftInputs(product=ns.product, version=ns.version, title=ns.title, release_notes_url=url, review_enabled=bool(ns.review), max_retries=ns.retries)
     logging.debug("Parsed inputs: product='%s', version='%s', title='%s'", inputs.product, inputs.version, inputs.title)
     logging.debug("Release notes URL: %s", inputs.release_notes_url)
     return inputs
@@ -90,10 +114,6 @@ def fetch_release_notes_main_html(url: str) -> str:
 
 def _parse_month_year_from_title(title: str) -> Tuple[Optional[str], Optional[int]]:
     logging.debug("Parsing month/year from title: %s", title)
-    months = {
-        "january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6,
-        "july": 7, "august": 8, "september": 9, "october": 10, "november": 11, "december": 12,
-    }
     m = re.search(r"(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{4})",
                   title, flags=re.IGNORECASE)
     if not m:
@@ -151,9 +171,13 @@ def build_front_matter_yaml(inputs: DraftInputs) -> str:
     logging.debug("Post URL: %s", url)
 
     # Title and SEO
-    title = f"{inputs.product} {inputs.version} – {month_year} Release Highlights"
-    seo_title = f"{inputs.product} {inputs.version} – Latest Updates and Fixes ({month_year})"
-    description = f"Explore what’s new in {inputs.product} {inputs.version}. Available now on NuGet and GroupDocs website."
+    title = f"{inputs.product} {inputs.version} \u2013 {month_year} Release Highlights"
+    seo_title = f"{inputs.product} {inputs.version} \u2013 Latest Updates and Fixes ({month_year})"
+    package_manager = {
+        ".NET": "NuGet", ".NET UI": "NuGet", "Java": "Maven",
+        "Node.js": "npm", "Python": "PyPI",
+    }.get(platform_label, "the GroupDocs")
+    description = f"Explore what's new in {inputs.product} {inputs.version}. Available now on {package_manager} and GroupDocs website."
     summary = f"{inputs.product} {inputs.version} is here."
 
     # Date in RFC 1123 format at midnight UTC
@@ -199,60 +223,69 @@ def build_front_matter_yaml(inputs: DraftInputs) -> str:
 
 
 def build_draft_prompt(inputs: DraftInputs, release_notes_html: str) -> str:
-    # Provide the model with clear structure and a concrete example to emulate.
+    """Build the user prompt for draft generation.
+
+    Structure: all instructions grouped before data blocks. Example templates
+    are cleaned of typos and release-specific content so the model learns
+    structure and tone without parroting stale details.
+    """
     viewer_example_template = (
-        "We’re happy to announce the major release of **{product} {version}**, available as of **{month_year}**. "
-        "This major release delivers two new features with public API changes, one enhancement and 4 fixed bug.\n\n"
-        "## What’s new in this release\n\n"
-        "* **[New feature]** Introduce distinct font type for each formats family (VIEWERNET-5486)\n"
+        "We're happy to announce the release of **{product} {version}**, available as of **{month_year}**. "
+        "This release delivers two new features with public API changes, one enhancement, and four bug fixes.\n\n"
+        "## What's new in this release\n\n"
+        "* **[New feature]** Introduce distinct font type for each format family (VIEWERNET-5486)\n"
         "* **[New feature]** List substituted fonts when getting all fonts for the WordProcessing family formats (VIEWERNET-5484)\n\n"
-        "Both these features continue to improve the mechanism of extracting and listing used fonts of the loaded document. "
-        "In short, with VIEWERNET-5484 the GroupDocs.Viewer is now possible to list and return the _substitutuion fonts_, which are not present in original document, "
-        "but are used to replace those original fonts, which are missing and thus unavailable on a target machine (where the GroupDocs.Viewer is running). "
-        "The VIEWERNET-5486 feature improves the public API — instead of a single `UsedFontInfo` type now there is a `IFontInfo` interfave and a plenty of its inheritors — one per each formats family. "
-        "Visit the article \"[Getting all used fonts in the loaded document ](https://docs.groupdocs.com/viewer/net/getting-used-fonts/)\" in public documentation for the further details.\n\n"
+        "Both features improve the mechanism for extracting and listing fonts used in a loaded document. "
+        "With VIEWERNET-5484, GroupDocs.Viewer can now list and return _substitution fonts_ \u2014 fonts not present in the original document "
+        "but used to replace missing originals on the target machine. "
+        "VIEWERNET-5486 improves the public API: instead of a single `UsedFontInfo` type, there is now an `IFontInfo` interface "
+        "with format-family-specific implementations. "
+        "See \"[Getting all used fonts in the loaded document](https://docs.groupdocs.com/viewer/net/getting-used-fonts/)\" for details.\n\n"
         "## Fixes and enhancements\n\n"
         "* **[Enhancement]** Embed fonts when converting Spreadsheet documents to embedded HTML. (VIEWERNET-5490)\n"
-        "* **[Fix]** PDF attachment in base PDF in rendered to HTML format with issues. (VIEWERNET-5374)  \n"
-        "* **[Fix]** Gradient on background is not correct when rendering PDF to HTML. (VIEWERNET-5345)  \n"
-        "* **[Fix]** Failed to load specific PSD. (VIEWERNET-3780)  \n"
-        "* **[Fix]** [UI] Groupdocs Viewer 8.0.7 - Wrong page no displayed initially during server delays to return pages. (VIEWERNET-5485)  \n\n"
+        "* **[Fix]** PDF attachment in base PDF rendered to HTML with issues. (VIEWERNET-5374)\n"
+        "* **[Fix]** Gradient on background is incorrect when rendering PDF to HTML. (VIEWERNET-5345)\n"
+        "* **[Fix]** Failed to load specific PSD. (VIEWERNET-3780)\n"
+        "* **[Fix]** Wrong page number displayed initially during server delays. (VIEWERNET-5485)\n\n"
         "## How to get the update\n\n"
-        "- **NuGet** – Upgrade to the latest `{product}` package via NuGet. Choose the package for your target platform: "
+        "- **NuGet** \u2013 Upgrade to the latest `{product}` package via NuGet. Choose the package for your target platform: "
         "[Cross-platform .NET 6 Package](https://www.nuget.org/packages/GroupDocs.Viewer.CrossPlatform/{version}) or "
-        "[Windows-only .NET Framework 4.6.2 and .NET 6 Package](https://www.nuget.org/packages/GroupDocs.Viewer/{version})  \n"
-        "- **Direct Download** – Download assemblies for both .NET and .NET Framework from the "
+        "[Windows-only .NET Framework 4.6.2 and .NET 6 Package](https://www.nuget.org/packages/GroupDocs.Viewer/{version})\n"
+        "- **Direct Download** \u2013 Download assemblies from the "
         "[GroupDocs.Viewer for .NET {version}](https://releases.groupdocs.com/viewer/net/new-releases/groupdocs.viewer-for-.net-{version}-dlls-only/) page\n\n"
         "## Resources\n\n"
-        "* [Full Release Notes]({release_notes_url})  \n"
-        "* [Documentation](https://docs.groupdocs.com/viewer/net/)  \n"
-        "* [GroupDocs.Viewer Free Support Forum](https://forum.groupdocs.com/c/viewer/9)  \n\n"
+        "* [Full Release Notes]({release_notes_url})\n"
+        "* [Documentation](https://docs.groupdocs.com/viewer/net/)\n"
+        "* [Free Support Forum](https://forum.groupdocs.com/c/viewer/9)\n\n"
         "---\n"
     )
 
     total_example_template = (
-        "We’re happy to announce the **GroupDocs.Total for .NET {version}** release, available as of **{month_year}**. "
-        "This update brings a few critical bug fixes, an important packaging change, and the usual version upgrades of the individual libraries that compose the Total suite.\n\n"
-        "## Important notice\n\n"
-        "> Starting with version **25.9**, **GroupDocs.Classification** will no longer be included in the **GroupDocs.Total** package. The library contains large machine-learning model files, which significantly increase the overall package size and may affect performance for users who do not need classification features.  \n"
-        "> If your project requires classification, you can add the library separately from [NuGet](https://www.nuget.org/packages/GroupDocs.Classification) or [GroupDocs Releases](https://releases.groupdocs.com/classification/net/).  \n\n"
-        "## What’s new in this release\n\n"
+        "We're happy to announce the **GroupDocs.Total for .NET {version}** release, available as of **{month_year}**. "
+        "This update brings bug fixes and version upgrades of the individual libraries that compose the Total suite.\n\n"
+        "## What's new in this release\n\n"
         "The following products were updated in this version:\n\n"
-        "* GroupDocs.Conversion for .NET (25.7 → 25.8)\n"
-        "* GroupDocs.Viewer for .NET (25.7 → 25.8)\n"
-        "* GroupDocs.Comparison for .NET (25.7 → 25.8)\n"
-        "* GroupDocs.Metadata for .NET (25.7 → 25.8)\n"
-        "* GroupDocs.Parser for .NET (25.7 → 25.8)\n\n"
+        "* GroupDocs.Conversion for .NET (25.7 \u2192 25.8)\n"
+        "* GroupDocs.Viewer for .NET (25.7 \u2192 25.8)\n"
+        "* GroupDocs.Comparison for .NET (25.7 \u2192 25.8)\n"
+        "* GroupDocs.Metadata for .NET (25.7 \u2192 25.8)\n"
+        "* GroupDocs.Parser for .NET (25.7 \u2192 25.8)\n\n"
         "### Fixes\n\n"
-        "| Issue | Product | Description |\n|-------|-----------|-------------|\n| **TOTALNET‑204** | Conversion | Fixed incorrect table formatting when converting HTML → PDF. |\n| **TOTALNET‑287** | Annotation | Resolved missing localized string error: “CONSTRUCTOR.WITH.PARAMETERS.STARTED” key does not exist. |\n| **TOTALNET‑298** | Viewer | Fixed a null‑reference exception that occurred on diagram rendering. |\n\n"
-        "No new public‑API features or enhancements were introduced in this release.\n\n"
+        "| Issue | Product | Description |\n"
+        "|-------|---------|-------------|\n"
+        "| **TOTALNET-204** | Conversion | Fixed incorrect table formatting when converting HTML to PDF. |\n"
+        "| **TOTALNET-287** | Annotation | Resolved missing localized string error. |\n"
+        "| **TOTALNET-298** | Viewer | Fixed a null-reference exception on diagram rendering. |\n\n"
+        "No new public-API features or enhancements were introduced in this release.\n\n"
         "## How to get the update\n\n"
         "### NuGet\n\n"
-        "Upgrade the **GroupDocs.Total** package (or the .NET Framework‑specific package) to the latest version:  \n\n"
-        "  * [.NET 6](https://www.nuget.org/packages/GroupDocs.Total)  \n"
-        "  * [.NET Framework 4.6.2+](https://www.nuget.org/packages/GroupDocs.Total.NETFramework)\n\n"
+        "Upgrade the **GroupDocs.Total** package (or the .NET Framework-specific package) to the latest version:\n\n"
+        "* [.NET 6](https://www.nuget.org/packages/GroupDocs.Total)\n"
+        "* [.NET Framework 4.6.2+](https://www.nuget.org/packages/GroupDocs.Total.NETFramework)\n\n"
         "### Direct download\n\n"
-        "Grab the compiled assemblies for both .NET 6 and .NET Framework from the [GroupDocs.Total for .NET {version} download page](https://releases.groupdocs.com/total/net/new-releases/groupdocs.total-for-.net-{version}/).\n\n"
+        "Download the compiled assemblies from the "
+        "[GroupDocs.Total for .NET {version} download page]"
+        "(https://releases.groupdocs.com/total/net/new-releases/groupdocs.total-for-.net-{version}/).\n\n"
         "## Resources\n\n"
         "- [Full release notes]({release_notes_url})\n"
         "- [Documentation](https://docs.groupdocs.com/total/net/)\n"
@@ -262,23 +295,51 @@ def build_draft_prompt(inputs: DraftInputs, release_notes_html: str) -> str:
 
     example_template = total_example_template if "Total" in inputs.product else viewer_example_template
 
+    # All instructions grouped before data blocks; CRITICAL RULES style
+    # from MCP optimizer testing (numbered constraints > prose instructions).
     prompt = (
-        f"You are drafting a public release blog post for {inputs.product} v{inputs.version}.\n"
-        f"Title: {inputs.title}\n\n"
-        "Use the following release notes HTML (from the main content of the page) as the source of truth. "
-        "Extract the key changes, list new features, improvements, and fixed issues, and produce a clear, reader-friendly "
-        "blog draft in Markdown. Follow the tone and structure of the example template below, "
-        "adapting names, links, and counts to match this release. Keep wording precise and technical, not marketing-heavy. "
-        "In case there are additional sections in release notes use them to expand the post."
-        "Make sure to include code examples when they provided in release notes. \n\n"
+        f"Draft a public release blog post for **{inputs.product} v{inputs.version}** "
+        f"(title: \"{inputs.title}\").\n\n"
+        "**CRITICAL RULES:**\n"
+        "1. Use the <release_notes> HTML as the **single source of truth**. "
+        "Do NOT invent version numbers, issue IDs, or URLs not present in the notes.\n"
+        "2. Follow the structure and tone of the <example_template>, adapting names, "
+        "links, issue IDs, and counts to match this release.\n"
+        "3. ONLY list products whose version actually changed "
+        "(the Version column contains an arrow, e.g. \"25.12 -> 26.2\"). "
+        "Do NOT list products with unchanged versions.\n"
+        "4. Include ALL detailed fix descriptions from the release notes, "
+        "especially performance benchmarks, migration notes, or deprecation notices. "
+        "Keep each fix description to 2\u20133 sentences.\n"
+        "5. Include code examples from the release notes when present, "
+        "using fenced code blocks.\n"
+        "6. Use ONLY links found in the release notes. If a link is not available, "
+        "omit it rather than guessing.\n"
+        "7. Tone: technical and factual \u2014 no hype, no exclamation marks.\n"
+        "8. **Do NOT output YAML front matter.** The <front_matter> is provided for "
+        "context only \u2014 it is prepended automatically. "
+        "Start your output directly with the opening paragraph.\n\n"
+        "**OUTPUT STRUCTURE (follow exactly):**\n\n"
+        "[Opening paragraph]\n"
+        "## What's new in this release\n"
+        "[Products with version changes in \"old \u2192 new\" format]\n"
+        "### Fixes\n"
+        "[Table: Issue | Product | Description]\n"
+        "[2\u20133 sentence descriptions per fix]\n"
+        "## How to get the update\n"
+        "### NuGet\n"
+        "[NuGet links from release notes]\n"
+        "### Direct download\n"
+        "[Download links from release notes]\n"
+        "## Resources\n"
+        "[Links]\n"
+        "---\n\n"
         "<example_template>\n"
-        f"{example_template}\n"
+        f"{example_template}"
         "</example_template>\n\n"
-        "Use the provided front matter below as the exact header (YAML) for the post. Generate ONLY the body content after it.\n\n"
         "<front_matter>\n"
         f"{build_front_matter_yaml(inputs)}\n"
         "</front_matter>\n\n"
-        "When generating links, prefer those found in the release notes. If unavailable, omit.\n\n"
         "<release_notes>\n"
         f"{release_notes_html}\n"
         "</release_notes>\n"
@@ -287,26 +348,24 @@ def build_draft_prompt(inputs: DraftInputs, release_notes_html: str) -> str:
     return prompt
 
 
-def generate_draft_with_llm(prompt: str) -> str:
+def generate_draft_with_llm(client: OpenAI, prompt: str, feedback_context: str = "") -> str:
     logging.info("Calling LLM to generate draft body...")
-    api_key = os.getenv("PROFESSIONALIZE_API_KEY")
-    if not api_key:
-        raise RuntimeError("Missing PROFESSIONALIZE_API_KEY environment variable")
 
-    api_url = os.getenv("PROFESSIONALIZE_API_URL")
-    if not api_url:
-        raise RuntimeError("Missing PROFESSIONALIZE_API_URL environment variable")
-
-    client = OpenAI(api_key=api_key, base_url=api_url)
+    system_content = (
+        "You are a professional technical writer specializing in GroupDocs product releases. "
+        "Generate ONLY the Markdown body content for a public release blog post "
+        "\u2014 NO YAML front matter, NO extra text, NO commentary. "
+        "Start directly with the opening paragraph. "
+        "Keep all sections complete but concise. "
+        "Use ## for top-level sections, ### for subsections."
+    )
+    if feedback_context:
+        system_content += f"\n\n{feedback_context}"
 
     messages = [
         {
             "role": "system",
-            "content": (
-                "You are a professional tech blog writer. "
-                "Write articles for Hugo in Markdown"
-                "Keep the content accurate and concise."
-            ),
+            "content": system_content,
         },
         {
             "role": "user",
@@ -314,7 +373,6 @@ def generate_draft_with_llm(prompt: str) -> str:
         },
     ]
 
-    # For Professionalize
     model = get_model_name()
     response = client.chat.completions.create(model=model, messages=messages)
     content = response.choices[0].message.content.strip()
@@ -358,56 +416,48 @@ def generate_draft_with_llm(prompt: str) -> str:
     return content
 
 
-def review_full_post_with_llm(full_post_markdown: str) -> str:
-    logging.info("Reviewing full post with LLM for improvement suggestions")
-    api_key = os.getenv("PROFESSIONALIZE_API_KEY")
-    if not api_key:
-        raise RuntimeError("Missing PROFESSIONALIZE_API_KEY environment variable")
+def review_full_post_with_llm(client: OpenAI, reviewer_model: str,
+                              full_post_markdown: str) -> Optional[str]:
+    """
+    Use a separate judge model to review the generated post.
+    Returns None if PASS, or a string with issues if FAIL.
+    """
+    logging.info("Reviewing full post with judge model (%s)...", reviewer_model)
 
-    api_url = os.getenv("PROFESSIONALIZE_API_URL")
-    if not api_url:
-        raise RuntimeError("Missing PROFESSIONALIZE_API_URL environment variable")
-
-    client = OpenAI(api_key=api_key, base_url=api_url)
-
-    review_instructions = (
-        "Review the blog post and provide concise, actionable suggestions without rewriting the entire post. Focus on: "
-        "structure and clarity, correctness and formatting."
-        "Keep it short and output suggestions a list of bullet points."
+    review_prompt = (
+        "You are reviewing a release blog post draft.\n\n"
+        "Check for these issues:\n"
+        "1. Does the post have proper markdown structure (## headings, lists, links)?\n"
+        "2. Are product names and version numbers accurate and consistent?\n"
+        "3. Is the content complete and not truncated?\n"
+        "4. Are code examples properly formatted in code blocks?\n"
+        "5. Does the post follow the expected sections (What's new, Fixes/Enhancements, How to get, Resources)?\n"
+        "6. Are links well-formed and not broken markdown?\n\n"
+        "If the post is GOOD, respond with exactly: PASS\n"
+        "If there are issues, respond with: FAIL followed by a brief list of specific problems found.\n\n"
+        f"POST:\n{full_post_markdown}"
     )
 
-    messages = [
-        {"role": "system", "content": review_instructions},
-        {
-            "role": "user",
-            "content": (
-                "Here is the full post. Suggest improvements as a checklist and short notes, "
-                "organized under two sections: Summary, Suggestions.\n\n"
-                "<post>\n"
-                f"{full_post_markdown}\n"
-                "</post>\n"
-            ),
-        },
-    ]
-
-    model = get_model_name()
-    response = client.chat.completions.create(model=model, messages=messages)
-    suggestions = response.choices[0].message.content.strip()
-    logging.debug("LLM review suggestions length: %d", len(suggestions))
-    return suggestions
+    try:
+        response = client.chat.completions.create(
+            model=reviewer_model,
+            messages=[{"role": "user", "content": review_prompt}],
+            temperature=0.1,
+        )
+        result = response.choices[0].message.content.strip()
+        # Strip <think> blocks from qwen3-style models
+        result = re.sub(r'<think>[\s\S]*?</think>', '', result).strip()
+        if result.upper().startswith("PASS"):
+            return None
+        return result
+    except Exception as e:
+        logging.warning("Review call failed (%s), skipping review", e)
+        return None
 
 
-def refine_front_matter_with_llm(full_post_markdown: str) -> Dict[str, Any]:
-    logging.debug("Improving front matter with LLM")
-    api_key = os.getenv("PROFESSIONALIZE_API_KEY")
-    if not api_key:
-        raise RuntimeError("Missing PROFESSIONALIZE_API_KEY environment variable")
-
-    api_url = os.getenv("PROFESSIONALIZE_API_URL")
-    if not api_url:
-        raise RuntimeError("Missing PROFESSIONALIZE_API_URL environment variable")
-
-    client = OpenAI(api_key=api_key, base_url=api_url)
+def refine_front_matter_with_llm(client: OpenAI, model: str,
+                                 full_post_markdown: str) -> Dict[str, Any]:
+    logging.debug("Improving front matter with LLM (model=%s)", model)
 
     system_msg = (
         "You are refining YAML front matter for a release blog post. "
@@ -427,9 +477,10 @@ def refine_front_matter_with_llm(full_post_markdown: str) -> Dict[str, Any]:
         {"role": "user", "content": user_msg},
     ]
 
-    model = get_model_name()
     response = client.chat.completions.create(model=model, messages=messages)
     raw = response.choices[0].message.content.strip()
+    # Strip <think> blocks from qwen3-style models
+    raw = re.sub(r'<think>[\s\S]*?</think>', '', raw).strip()
     logging.debug("Front matter improvement JSON length: %d", len(raw))
 
     # Extract JSON payload (in case model wrapped in code fences)
@@ -454,21 +505,21 @@ def _escape_single_quotes(s: str) -> str:
 
 def apply_front_matter_improvements(fm: str, improvements: Dict[str, Any]) -> str:
     # Replace simple scalar fields
-    def rep_line(key: str, value: str) -> str:
+    def rep_line(text: str, key: str, value: str) -> str:
         def _escape_double_quotes(s: str) -> str:
             return s.replace('"', '\\"')
         pattern = rf"^(" + re.escape(key) + r":\s*)\"[^\"]*\"\s*$"
         return re.sub(
             pattern,
             lambda m: m.group(1) + f"\"{_escape_double_quotes(value)}\"",
-            fm,
+            text,
             flags=re.MULTILINE,
         )
 
     fm_updated = fm
-    fm_updated = rep_line("seoTitle", improvements.get("seoTitle", ""))
-    fm_updated = rep_line("description", improvements.get("description", ""))
-    fm_updated = rep_line("summary", improvements.get("summary", ""))
+    fm_updated = rep_line(fm_updated, "seoTitle", improvements.get("seoTitle", ""))
+    fm_updated = rep_line(fm_updated, "description", improvements.get("description", ""))
+    fm_updated = rep_line(fm_updated, "summary", improvements.get("summary", ""))
 
     # Update tags list
     tags: List[str] = [str(t) for t in improvements.get("tags", [])]
@@ -512,8 +563,13 @@ def main(argv: Optional[list[str]] = None) -> int:
         front_matter = build_front_matter_yaml(inputs)
         prompt = build_draft_prompt(inputs, notes_html)
 
-        # Generate blog body via LLM
-        body_md = generate_draft_with_llm(prompt)
+        # Initialize LLM client
+        client = create_client()
+        model = get_model_name()
+        reviewer_model = get_reviewer_model()
+
+        if reviewer_model:
+            logging.info("Judge model: %s (cross-model quality review enabled)", reviewer_model)
 
         # If the model returned front matter (despite instructions), strip it
         def _strip_front_matter(text: str) -> str:
@@ -525,17 +581,49 @@ def main(argv: Optional[list[str]] = None) -> int:
                     return t[m.end():]
             return t
 
-        before_len = len(body_md)
-        body_md = _strip_front_matter(body_md).lstrip()
-        logging.debug("Post-processed body: before=%d, after=%d", before_len, len(body_md))
+        # Generate blog body via LLM with retry loop (judge model feedback)
+        max_retries = inputs.max_retries
+        feedback_context = ""
+        body_md = None
+
+        for attempt in range(1, max_retries + 1):
+            logging.info("Generation attempt %d/%d", attempt, max_retries)
+            body_md = generate_draft_with_llm(client, prompt, feedback_context)
+
+            before_len = len(body_md)
+            body_md = _strip_front_matter(body_md).lstrip()
+            logging.debug("Post-processed body: before=%d, after=%d", before_len, len(body_md))
+
+            # If no reviewer model, accept the first generation
+            if not reviewer_model:
+                break
+
+            # Run judge model review
+            candidate_md = f"{front_matter}\n\n{body_md}\n"
+            review_result = review_full_post_with_llm(client, reviewer_model, candidate_md)
+            if review_result is None:
+                logging.info("Judge review: PASS")
+                break
+            elif attempt < max_retries:
+                logging.info("Judge review: FAIL (attempt %d) \u2014 %s", attempt, review_result[:200])
+                feedback_context = (
+                    f"IMPORTANT: A reviewer found these issues in your previous draft: "
+                    f"{review_result[:500]}. Fix them in this attempt."
+                )
+                time.sleep(1)
+                continue
+            else:
+                logging.warning("Judge review: FAIL on final attempt %d \u2014 proceeding anyway", attempt)
 
         final_md = f"{front_matter}\n\n{body_md}\n"
 
         # Improve front matter fields using LLM (seoTitle, description, summary, tags, cover alt/caption)
-        logging.info("Improving front matter fields using LLM...")
+        # Use reviewer model for refinement if available, otherwise main model
+        refine_model = reviewer_model or model
+        logging.info("Improving front matter fields using LLM (model=%s)...", refine_model)
         try:
             fm_text, body_text = split_front_matter_blocks(final_md)
-            improvements = refine_front_matter_with_llm(final_md)
+            improvements = refine_front_matter_with_llm(client, refine_model, final_md)
             improved_fm = apply_front_matter_improvements(fm_text, improvements)
             final_md = f"{improved_fm}\n\n{body_text}"
         except Exception as e:
@@ -551,10 +639,13 @@ def main(argv: Optional[list[str]] = None) -> int:
         logging.info("Saved final markdown: %s (chars=%d)", out_path, len(final_md))
 
         # Review the complete post and print suggestions (optional)
-        if inputs.review_enabled:
-            suggestions = review_full_post_with_llm(final_md)
-            print("\nReviewer suggestions:\n")
-            print(suggestions)
+        if inputs.review_enabled and reviewer_model:
+            review_result = review_full_post_with_llm(client, reviewer_model, final_md)
+            if review_result:
+                print("\nReviewer suggestions:\n")
+                print(review_result)
+            else:
+                print("\nReviewer: PASS \u2014 no issues found.")
         return 0
     except Exception as exc:
         logging.error("Error: %s", exc)

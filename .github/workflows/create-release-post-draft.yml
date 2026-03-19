@@ -146,6 +146,7 @@ jobs:
           PROFESSIONALIZE_API_KEY: ${{ secrets.PROFESSIONALIZE_API_KEY }}
           PROFESSIONALIZE_API_URL: ${{ secrets.PROFESSIONALIZE_API_URL }}
           PROFESSIONALIZE_MODEL_NAME: ${{ secrets.PROFESSIONALIZE_MODEL_NAME }}
+          PROFESSIONALIZE_REVIEWER_MODEL: ${{ secrets.PROFESSIONALIZE_REVIEWER_MODEL }}
           LOG_LEVEL: INFO
         run: |
           source .venv/bin/activate
