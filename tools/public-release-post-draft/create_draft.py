@@ -91,6 +91,10 @@ def fetch_release_notes_main_html(url: str) -> str:
     resp.raise_for_status()
     logging.debug("Fetched release notes: status=%s, bytes=%d", resp.status_code, len(resp.text))
 
+    # Force UTF-8: the server often reports ISO-8859-1 but the actual content
+    # is UTF-8, causing characters like U+2011 (non-breaking hyphen) in issue
+    # IDs to be mangled.
+    resp.encoding = resp.apparent_encoding or "utf-8"
     soup = BeautifulSoup(resp.text, "html.parser")
     main_section = soup.find("section", attrs={"role": "main"})
     if not main_section:
@@ -108,6 +112,10 @@ def fetch_release_notes_main_html(url: str) -> str:
     # e.g., <section role="main"> ... </section>
     match = re.match(r"^<section[^>]*>([\s\S]*?)</section>\s*$", html, flags=re.IGNORECASE)
     inner = match.group(1) if match else html
+    # Normalize non-breaking hyphens (U+2011), soft hyphens (U+00AD), and
+    # figure dashes (U+2012) to regular hyphens so issue IDs like
+    # VIEWERNET-5551 aren't corrupted when the LLM processes them.
+    inner = inner.replace("\u2011", "-").replace("\u00ad", "-").replace("\u2012", "-")
     logging.debug("Extracted main section HTML length: %d", len(inner))
     return inner
 
@@ -295,6 +303,27 @@ def build_draft_prompt(inputs: DraftInputs, release_notes_html: str) -> str:
 
     example_template = total_example_template if "Total" in inputs.product else viewer_example_template
 
+    # Platform-aware package manager for the output skeleton
+    family_slug, _, platform_label = _extract_family_and_platform(inputs.product)
+    pkg_manager = {
+        ".NET": "NuGet", ".NET UI": "NuGet", "Java": "Maven",
+        "Node.js": "npm", "Python": "PyPI",
+    }.get(platform_label, "Package manager")
+
+    # For Total products, use Issue|Product|Description table with descriptions.
+    # For individual products, use the exact Key|Category|Summary format from release notes.
+    is_total = "Total" in inputs.product
+    if is_total:
+        table_instruction = (
+            "[Table: Issue | Product | Description]\n"
+            "[Brief description per fix from release notes]\n"
+        )
+    else:
+        table_instruction = (
+            "[EXACT Key|Category|Summary table from release notes \u2014 "
+            "reproduce ALL rows, do NOT rewrite summaries]\n"
+        )
+
     # All instructions grouped before data blocks; CRITICAL RULES style
     # from MCP optimizer testing (numbered constraints > prose instructions).
     prompt = (
@@ -302,17 +331,17 @@ def build_draft_prompt(inputs: DraftInputs, release_notes_html: str) -> str:
         f"(title: \"{inputs.title}\").\n\n"
         "**CRITICAL RULES:**\n"
         "1. Use the <release_notes> HTML as the **single source of truth**. "
-        "Do NOT invent version numbers, issue IDs, or URLs not present in the notes.\n"
+        "Do NOT invent version numbers, issue IDs, URLs, or technical details "
+        "not present in the notes.\n"
         "2. Follow the structure and tone of the <example_template>, adapting names, "
         "links, issue IDs, and counts to match this release.\n"
         "3. ONLY list products whose version actually changed "
         "(the Version column contains an arrow, e.g. \"25.12 -> 26.2\"). "
         "Do NOT list products with unchanged versions.\n"
-        "4. Include ALL detailed fix descriptions from the release notes, "
-        "especially performance benchmarks, migration notes, or deprecation notices. "
-        "Keep each fix description to 2\u20133 sentences.\n"
+        "4. Reproduce fix/change descriptions **exactly as written** in the release "
+        "notes. Do NOT embellish, add root-cause analysis, or invent details.\n"
         "5. Include code examples from the release notes when present, "
-        "using fenced code blocks.\n"
+        "using fenced code blocks with the correct language tag.\n"
         "6. Use ONLY links found in the release notes. If a link is not available, "
         "omit it rather than guessing.\n"
         "7. Tone: technical and factual \u2014 no hype, no exclamation marks.\n"
@@ -322,17 +351,20 @@ def build_draft_prompt(inputs: DraftInputs, release_notes_html: str) -> str:
         "**OUTPUT STRUCTURE (follow exactly):**\n\n"
         "[Opening paragraph]\n"
         "## What's new in this release\n"
-        "[Products with version changes in \"old \u2192 new\" format]\n"
-        "### Fixes\n"
-        "[Table: Issue | Product | Description]\n"
-        "[2\u20133 sentence descriptions per fix]\n"
+        f"{table_instruction}"
+        "## Public API changes\n"
+        "[Verbatim from release notes, if present \u2014 omit section if absent]\n"
+        "## New features\n"
+        "[Verbatim from release notes, if present \u2014 omit section if absent]\n"
+        "## Code example\n"
+        "[Fenced code block from release notes, if present \u2014 omit section if absent]\n"
         "## How to get the update\n"
-        "### NuGet\n"
-        "[NuGet links from release notes]\n"
+        f"### {pkg_manager}\n"
+        f"[{pkg_manager} dependency/links from release notes]\n"
         "### Direct download\n"
-        "[Download links from release notes]\n"
+        "[Download links from release notes \u2014 omit if absent]\n"
         "## Resources\n"
-        "[Links]\n"
+        "[Links from release notes]\n"
         "---\n\n"
         "<example_template>\n"
         f"{example_template}"
