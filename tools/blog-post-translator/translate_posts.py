@@ -128,6 +128,39 @@ def _strip_prompt_leakage(text: str, target_lang_name: str) -> str:
     return cleaned
 
 
+def _extract_shortcode_blocks(text: str):
+    """
+    Extract paired shortcode blocks (e.g. {{< fixedheight >}}...{{< /fixedheight >}})
+    and replace them with placeholders.
+
+    These blocks contain non-translatable content (code samples, raw markdown)
+    that should be preserved verbatim. Extracting them prevents the LLM from
+    truncating or translating the content.
+
+    Returns:
+        Tuple of (text_with_placeholders, list_of_extracted_blocks)
+    """
+    # Match paired shortcodes: {{< name ... >}} ... {{< /name >}}
+    pattern = r'(\{\{<\s*(\w[\w-]*)\s[^>]*>}}[\s\S]*?\{\{<\s*/\s*\2\s*>}})'
+    blocks = []
+
+    def _replacer(match):
+        blocks.append(match.group(0))
+        idx = len(blocks) - 1
+        return f'SHORTCODE_BLOCK_{idx}_PRESERVED'
+
+    cleaned = re.sub(pattern, _replacer, text)
+    return cleaned, blocks
+
+
+def _restore_shortcode_blocks(text: str, blocks: list) -> str:
+    """Restore extracted shortcode blocks from placeholders."""
+    for idx, block in enumerate(blocks):
+        placeholder = f'SHORTCODE_BLOCK_{idx}_PRESERVED'
+        text = text.replace(placeholder, block)
+    return text
+
+
 def _fix_shortcodes(source_body: str, translated_body: str) -> str:
     """
     Auto-fix shortcode issues in translated text.
@@ -610,6 +643,12 @@ def translate_post(
         print(f"Warning: Could not parse front-matter for {post_path}")
         return False
 
+    # Extract paired shortcode blocks (e.g. fixedheight) before translation
+    # so the LLM doesn't need to reproduce their (potentially huge) content
+    translatable_body, shortcode_blocks = _extract_shortcode_blocks(content_body)
+    if shortcode_blocks and verbose:
+        print(f"    Extracted {len(shortcode_blocks)} shortcode block(s) for preservation")
+
     feedback_context = ""  # Accumulated feedback from failed attempts
 
     # Try translation with retries
@@ -620,7 +659,7 @@ def translate_post(
 
             # Translate content body (include feedback from prior attempts)
             translated_content = translate_text(
-                client, model, content_body, lang_code,
+                client, model, translatable_body, lang_code,
                 context=feedback_context
             )
 
@@ -633,7 +672,11 @@ def translate_post(
                     print(f"Error: Failed to translate content for {post_path} ({lang_code}) after {max_retries} attempts")
                     return False
 
-            # --- Step 1b: Auto-fix shortcode issues ---
+            # --- Step 1b: Restore preserved shortcode blocks ---
+            if shortcode_blocks:
+                translated_content = _restore_shortcode_blocks(translated_content, shortcode_blocks)
+
+            # --- Step 1c: Auto-fix shortcode issues ---
             translated_content = _fix_shortcodes(content_body, translated_content)
 
             # --- Step 2: Structural checks (fast, no LLM) ---
@@ -691,9 +734,9 @@ def translate_post(
             if verify_translation(post_path, lang_code, original_content):
                 if verbose:
                     if attempt > 1:
-                        print(f"✓ Successfully translated {post_path} to {lang_code} (attempt {attempt})")
+                        print(f"Successfully translated {post_path} to {lang_code} (attempt {attempt})")
                     else:
-                        print(f"✓ Successfully translated {post_path} to {lang_code}")
+                        print(f"Successfully translated {post_path} to {lang_code}")
                 return True
             else:
                 if attempt < max_retries:
@@ -854,10 +897,10 @@ Examples:
             success = translate_post(client, model, post_path, lang_code, args.verbose, args.retries, reviewer_model)
             
             if success:
-                print("✓")
+                print("OK")
                 total_translated += 1
             else:
-                print("✗")
+                print("FAIL")
                 total_failed += 1
     
     # Summary
