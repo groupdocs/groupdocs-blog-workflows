@@ -117,11 +117,14 @@ def structural_checks(source_body: str, translated_body: str) -> Dict[str, float
     else:
         scores['products'] = 1.0
 
-    # 7. Hugo shortcodes preserved
-    src_sc = set(re.findall(r'\{\{<.*?>}}', source_body))
-    if src_sc:
-        preserved = sum(1 for sc in src_sc if sc in translated_body)
-        scores['shortcodes'] = preserved / len(src_sc)
+    # 7. Hugo shortcodes preserved (name-based check, handles multi-line shortcodes)
+    sc_name_re = r'\{\{<\s*(/?[\w][\w-]*)'
+    src_sc_names = re.findall(sc_name_re, source_body)
+    tr_sc_names = re.findall(sc_name_re, translated_body)
+    if src_sc_names:
+        preserved = sum(1 for name in set(src_sc_names)
+                        if tr_sc_names.count(name) >= src_sc_names.count(name))
+        scores['shortcodes'] = preserved / len(set(src_sc_names))
     else:
         scores['shortcodes'] = 1.0
 

@@ -128,6 +128,31 @@ def _strip_prompt_leakage(text: str, target_lang_name: str) -> str:
     return cleaned
 
 
+def _fix_shortcodes(source_body: str, translated_body: str) -> str:
+    """
+    Auto-fix shortcode issues in translated text.
+
+    Removes closing shortcode tags (e.g. {{< /iframe >}}) that the LLM
+    may have invented but that do not exist in the source text.
+    """
+    closing_tag_re = r'\{\{<\s*/\s*(\w[\w-]*)\s*>}}'
+
+    source_closing_names = set(re.findall(closing_tag_re, source_body))
+
+    def _remove_if_spurious(match):
+        name = match.group(1)
+        if name not in source_closing_names:
+            return ''
+        return match.group(0)
+
+    fixed = re.sub(closing_tag_re, _remove_if_spurious, translated_body)
+    if fixed != translated_body:
+        removed = set(re.findall(closing_tag_re, translated_body)) - source_closing_names
+        for name in sorted(removed):
+            print(f"    Auto-fixed: removed spurious {{{{< /{name} >}}}}")
+    return fixed
+
+
 def translate_text(client: OpenAI, model: str, text: str, target_lang: str, context: str = "") -> Optional[str]:
     """
     Translate text using LLM.
@@ -151,7 +176,9 @@ def translate_text(client: OpenAI, model: str, text: str, target_lang: str, cont
         "- Output the COMPLETE translation. Every section, table, and link must appear.\n"
         "- Preserve markdown formatting exactly (##, |, **, [](), ```).\n"
         "- Do NOT translate: URLs, code blocks, version numbers, package names.\n"
-        "- Copy Hugo shortcodes verbatim: {{< figure ... >}}\n"
+        "- Copy Hugo shortcodes EXACTLY as they appear, including opening AND closing tags "
+        "(e.g. {{< figure ... >}}, {{< fixedheight ... >}}...{{< /fixedheight >}}). "
+        "Do NOT add closing tags ({{< /name >}}) that are not in the original.\n"
         "- Copy link reference definitions verbatim: [N]: https://...\n"
         "\n"
         "Glossary — keep these terms in English:\n"
@@ -222,12 +249,16 @@ def structural_check(source_body: str, translated_body: str) -> List[str]:
     if src_h > 0 and abs(src_h - tr_h) > 2:
         issues.append("headers_mismatch")
 
-    # Hugo shortcodes preserved
-    src_sc = set(re.findall(r'\{\{<.*?>}}', source_body))
-    if src_sc:
-        missing = [sc for sc in src_sc if sc not in translated_body]
-        if missing:
-            issues.append(f"shortcodes_missing({len(missing)})")
+    # Hugo shortcodes preserved (name-based check, handles multi-line shortcodes)
+    sc_name_re = r'\{\{<\s*(/?[\w][\w-]*)'
+    src_sc_names = re.findall(sc_name_re, source_body)
+    tr_sc_names = re.findall(sc_name_re, translated_body)
+    if src_sc_names:
+        for name in set(src_sc_names):
+            src_count = src_sc_names.count(name)
+            tr_count = tr_sc_names.count(name)
+            if tr_count < src_count:
+                issues.append(f"shortcodes_missing({name})")
 
     # Link reference definitions preserved
     src_refs = set(re.findall(r'^\[\d+\]:\s*https?://\S+', source_body, re.MULTILINE))
@@ -602,18 +633,31 @@ def translate_post(
                     print(f"Error: Failed to translate content for {post_path} ({lang_code}) after {max_retries} attempts")
                     return False
 
+            # --- Step 1b: Auto-fix shortcode issues ---
+            translated_content = _fix_shortcodes(content_body, translated_content)
+
             # --- Step 2: Structural checks (fast, no LLM) ---
             struct_issues = structural_check(content_body, translated_content)
-            if struct_issues and attempt < max_retries:
+            if struct_issues:
                 issues_str = ", ".join(struct_issues)
-                if verbose:
-                    print(f"    Structural issues (attempt {attempt}): {issues_str}")
-                feedback_context = (
-                    f"IMPORTANT: Your previous translation had these structural issues: {issues_str}. "
-                    f"Fix them in this attempt."
-                )
-                time.sleep(1)
-                continue
+                if attempt < max_retries:
+                    if verbose:
+                        print(f"    Structural issues (attempt {attempt}): {issues_str}")
+                    feedback_context = (
+                        f"IMPORTANT: Your previous translation had these structural issues: {issues_str}. "
+                        f"Fix them in this attempt."
+                    )
+                    time.sleep(1)
+                    continue
+                else:
+                    # On final attempt, fail for shortcode issues (cause Hugo build errors)
+                    shortcode_issues = [i for i in struct_issues if 'shortcode' in i]
+                    if shortcode_issues:
+                        print(f"Error: Shortcode issues persist after {max_retries} attempts "
+                              f"for {post_path} ({lang_code}): {', '.join(shortcode_issues)}")
+                        return False
+                    if verbose:
+                        print(f"    Warning: minor structural issues on final attempt: {issues_str}")
 
             # --- Step 3: LLM review (cross-model, optional) ---
             if reviewer_model and attempt < max_retries:
