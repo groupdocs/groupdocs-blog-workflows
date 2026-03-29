@@ -192,8 +192,8 @@ jobs:
           fi
 
           python tools/agent-metrics-reporter/report_metrics.py \
-            --agent-name "Docs Translator" \
-            --job-type "Docs Translation" \
+            --agent-name "Blog Post Translator Agent" \
+            --job-type "Blog Translation" \
             --status "$STATUS" \
             --run-id "translate_posts_${{ github.run_id }}" \
             --item-name "Translation" \

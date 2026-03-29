@@ -240,7 +240,7 @@ jobs:
           fi
 
           python tools/agent-metrics-reporter/report_metrics.py \
-            --agent-name "Docs Translator" \
+            --agent-name "Blog Post Translator Agent" \
             --job-type "Docs Translation" \
             --status "$STATUS" \
             --run-id "validate_translations_${{ github.run_id }}" \
