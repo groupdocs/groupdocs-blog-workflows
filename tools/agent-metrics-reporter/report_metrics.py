@@ -68,8 +68,11 @@ def main():
         slug = args.agent_name.lower().replace(" ", "_")
         run_id = f"{slug}_{uuid.uuid4().hex[:8]}"
 
+    now = datetime.now(timezone.utc)
+    timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.") + f"{now.microsecond // 1000:03d}Z"
+
     payload = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": timestamp,
         "agent_name": args.agent_name,
         "agent_owner": args.agent_owner,
         "job_type": args.job_type,
