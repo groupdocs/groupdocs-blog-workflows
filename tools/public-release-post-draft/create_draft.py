@@ -14,6 +14,17 @@ from bs4 import BeautifulSoup
 from openai import OpenAI
 
 
+# Metrics tracking for token usage and API calls
+_metrics = {"token_usage": 0, "api_calls_count": 0}
+
+
+def _track_usage(response):
+    """Extract and accumulate token usage from an API response."""
+    _metrics["api_calls_count"] += 1
+    if hasattr(response, 'usage') and response.usage:
+        _metrics["token_usage"] += getattr(response.usage, 'total_tokens', 0)
+
+
 @dataclass
 class DraftInputs:
     product: str
@@ -407,6 +418,7 @@ def generate_draft_with_llm(client: OpenAI, prompt: str, feedback_context: str =
 
     model = get_model_name()
     response = client.chat.completions.create(model=model, messages=messages)
+    _track_usage(response)
     content = response.choices[0].message.content.strip()
     logging.debug("LLM response length: %d", len(content))
 
@@ -476,6 +488,7 @@ def review_full_post_with_llm(client: OpenAI, reviewer_model: str,
             messages=[{"role": "user", "content": review_prompt}],
             temperature=0.1,
         )
+        _track_usage(response)
         result = response.choices[0].message.content.strip()
         # Strip <think> blocks from qwen3-style models
         result = re.sub(r'<think>[\s\S]*?</think>', '', result).strip()
@@ -510,6 +523,7 @@ def refine_front_matter_with_llm(client: OpenAI, model: str,
     ]
 
     response = client.chat.completions.create(model=model, messages=messages)
+    _track_usage(response)
     raw = response.choices[0].message.content.strip()
     # Strip <think> blocks from qwen3-style models
     raw = re.sub(r'<think>[\s\S]*?</think>', '', raw).strip()
@@ -669,6 +683,15 @@ def main(argv: Optional[list[str]] = None) -> int:
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(final_md)
         logging.info("Saved final markdown: %s (chars=%d)", out_path, len(final_md))
+
+        # Write metrics for workflow consumption
+        metrics_file = os.path.join(out_dir, "draft_metrics.json")
+        try:
+            with open(metrics_file, 'w') as f:
+                json.dump(_metrics, f)
+            logging.info("Token usage: %d, API calls: %d", _metrics['token_usage'], _metrics['api_calls_count'])
+        except Exception as e:
+            logging.warning("Could not write metrics file: %s", e)
 
         # Review the complete post and print suggestions (optional)
         if inputs.review_enabled and reviewer_model:

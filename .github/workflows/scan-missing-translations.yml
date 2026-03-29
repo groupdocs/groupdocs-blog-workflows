@@ -17,6 +17,10 @@ jobs:
         with:
           token: ${{ secrets.REPO_PAT }}
 
+      - name: Record start time
+        id: start_time
+        run: echo "start_ms=$(date +%s%3N)" >> $GITHUB_OUTPUT
+
       - name: Checkout GroupDocs Blog repo
         shell: bash
         env:
@@ -111,3 +115,40 @@ jobs:
             git commit -m "chore: update translation status report"
             git push origin HEAD
           fi
+
+      - name: Report metrics
+        if: always()
+        env:
+          AGENT_METRICS_ENDPOINT: ${{ secrets.AGENT_METRICS_ENDPOINT }}
+        run: |
+          set +e
+          END_MS=$(date +%s%3N)
+          START_MS=${{ steps.start_time.outputs.start_ms }}
+          if [ -n "$START_MS" ]; then
+            DURATION_MS=$((END_MS - START_MS))
+          else
+            DURATION_MS=0
+          fi
+
+          if [ -f translations_scan_report.json ]; then
+            DISCOVERED=$(python -c "import json; r=json.load(open('translations_scan_report.json')); print(r['summary']['total_posts_scanned'])")
+            SUCCEEDED=$DISCOVERED
+            FAILED=0
+            STATUS="success"
+          else
+            DISCOVERED=0
+            SUCCEEDED=0
+            FAILED=0
+            STATUS="failure"
+          fi
+
+          python tools/agent-metrics-reporter/report_metrics.py \
+            --agent-name "Docs Translator" \
+            --job-type "Docs Translation" \
+            --status "$STATUS" \
+            --run-id "scan_translations_${{ github.run_id }}" \
+            --item-name "Translation" \
+            --items-discovered "$DISCOVERED" \
+            --items-succeeded "$SUCCEEDED" \
+            --items-failed "$FAILED" \
+            --run-duration-ms "$DURATION_MS" || true

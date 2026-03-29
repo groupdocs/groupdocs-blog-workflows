@@ -18,6 +18,10 @@ jobs:
         with:
           token: ${{ secrets.REPO_PAT }}
 
+      - name: Record start time
+        id: start_time
+        run: echo "start_ms=$(date +%s%3N)" >> $GITHUB_OUTPUT
+
       - name: Checkout GroupDocs Blog repo
         shell: bash
         env:
@@ -199,3 +203,52 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/groupdocs/groupdocs-blog-workflows/actions/workflows/deploy-prod.yml/dispatches \
             -d '{"ref":"main"}'
+
+      - name: Report metrics
+        if: always()
+        env:
+          AGENT_METRICS_ENDPOINT: ${{ secrets.AGENT_METRICS_ENDPOINT }}
+        run: |
+          set +e
+          END_MS=$(date +%s%3N)
+          START_MS=${{ steps.start_time.outputs.start_ms }}
+          if [ -n "$START_MS" ]; then
+            DURATION_MS=$((END_MS - START_MS))
+          else
+            DURATION_MS=0
+          fi
+
+          TOKEN_USAGE=0
+          API_CALLS=0
+
+          if [ -f validation_report.json ]; then
+            COUNTS=$(python -c "import json; s=json.load(open('validation_report.json'))['summary']; print(s['total_translations_checked'], s['valid_translations'], s['invalid_translations'])")
+            DISCOVERED=$(echo "$COUNTS" | awk '{print $1}')
+            SUCCEEDED=$(echo "$COUNTS" | awk '{print $2}')
+            FAILED=$(echo "$COUNTS" | awk '{print $3}')
+            STATUS="success"
+          else
+            DISCOVERED=0
+            SUCCEEDED=0
+            FAILED=0
+            STATUS="failure"
+          fi
+
+          # Pick up token metrics from retranslation if it ran
+          if [ -f blog-repo/translation_metrics.json ]; then
+            TOKEN_USAGE=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('token_usage', 0))" 2>/dev/null || echo "0")
+            API_CALLS=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('api_calls_count', 0))" 2>/dev/null || echo "0")
+          fi
+
+          python tools/agent-metrics-reporter/report_metrics.py \
+            --agent-name "Docs Translator" \
+            --job-type "Docs Translation" \
+            --status "$STATUS" \
+            --run-id "validate_translations_${{ github.run_id }}" \
+            --item-name "Translation" \
+            --items-discovered "$DISCOVERED" \
+            --items-succeeded "$SUCCEEDED" \
+            --items-failed "$FAILED" \
+            --run-duration-ms "$DURATION_MS" \
+            --token-usage "$TOKEN_USAGE" \
+            --api-calls-count "$API_CALLS" || true

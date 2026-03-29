@@ -26,6 +26,16 @@ LANG_NAMES = {
     'zh': 'Chinese (Simplified)', 'zh-hant': 'Chinese (Traditional)',
 }
 
+# Metrics tracking for token usage and API calls
+_metrics = {"token_usage": 0, "api_calls_count": 0}
+
+
+def _track_usage(response):
+    """Extract and accumulate token usage from an API response."""
+    _metrics["api_calls_count"] += 1
+    if hasattr(response, 'usage') and response.usage:
+        _metrics["token_usage"] += getattr(response.usage, 'total_tokens', 0)
+
 
 def create_client() -> OpenAI:
     """Create OpenAI client from environment variables."""
@@ -233,6 +243,7 @@ def translate_text(client: OpenAI, model: str, text: str, target_lang: str, cont
             ],
             temperature=0.1
         )
+        _track_usage(response)
         result = response.choices[0].message.content.strip()
         result = _strip_prompt_leakage(result, target_lang_name)
         return result
@@ -364,6 +375,7 @@ def review_translation(client: OpenAI, reviewer_model: str,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.1,
         )
+        _track_usage(response)
         result = response.choices[0].message.content.strip()
         # Strip <think> blocks from qwen3-style models
         result = re.sub(r'<think>[\s\S]*?</think>', '', result).strip()
@@ -419,6 +431,7 @@ def translate_front_matter(client: OpenAI, model: str, front_matter: Dict, lang_
                 ],
                 temperature=0.1
             )
+            _track_usage(response)
             raw = response.choices[0].message.content.strip()
             # Strip markdown code fences if present
             raw = re.sub(r'```(?:json)?\s*', '', raw).strip()
@@ -903,12 +916,21 @@ Examples:
                 print("FAIL")
                 total_failed += 1
     
+    # Write metrics for workflow consumption
+    try:
+        with open('translation_metrics.json', 'w') as f:
+            json.dump(_metrics, f)
+    except Exception as e:
+        print(f"Warning: Could not write metrics file: {e}", file=sys.stderr)
+
     # Summary
     print(f"\n{'='*80}")
     print("TRANSLATION SUMMARY")
     print(f"{'='*80}")
     print(f"Total translations completed: {total_translated}")
     print(f"Total translations failed: {total_failed}")
+    print(f"Token usage: {_metrics['token_usage']}")
+    print(f"API calls: {_metrics['api_calls_count']}")
     print(f"{'='*80}")
 
 
