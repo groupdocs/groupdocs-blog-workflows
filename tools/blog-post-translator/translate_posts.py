@@ -26,8 +26,8 @@ LANG_NAMES = {
     'zh': 'Chinese (Simplified)', 'zh-hant': 'Chinese (Traditional)',
 }
 
-# Metrics tracking for token usage and API calls
-_metrics = {"token_usage": 0, "api_calls_count": 0}
+# Metrics tracking for token usage, API calls, and item counts
+_metrics = {"token_usage": 0, "api_calls_count": 0, "items_translated": 0, "items_failed": 0}
 
 
 def _track_usage(response):
@@ -917,6 +917,8 @@ Examples:
                 total_failed += 1
     
     # Write metrics for workflow consumption
+    _metrics["items_translated"] = total_translated
+    _metrics["items_failed"] = total_failed
     try:
         with open('translation_metrics.json', 'w') as f:
             json.dump(_metrics, f)

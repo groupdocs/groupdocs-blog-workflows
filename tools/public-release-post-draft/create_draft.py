@@ -14,8 +14,8 @@ from bs4 import BeautifulSoup
 from openai import OpenAI
 
 
-# Metrics tracking for token usage and API calls
-_metrics = {"token_usage": 0, "api_calls_count": 0}
+# Metrics tracking for token usage, API calls, and item counts
+_metrics = {"token_usage": 0, "api_calls_count": 0, "items_succeeded": 0, "items_failed": 0}
 
 
 def _track_usage(response):
@@ -685,6 +685,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         logging.info("Saved final markdown: %s (chars=%d)", out_path, len(final_md))
 
         # Write metrics for workflow consumption
+        _metrics["items_succeeded"] = 1
+        _metrics["items_failed"] = 0
         metrics_file = os.path.join(out_dir, "draft_metrics.json")
         try:
             with open(metrics_file, 'w') as f:

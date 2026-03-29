@@ -170,22 +170,25 @@ jobs:
 
           TOKEN_USAGE=0
           API_CALLS=0
+          DISCOVERED=0
+          SUCCEEDED=0
+          FAILED=0
 
-          if [ "${{ steps.translate.outputs.translated }}" = "true" ] && [ -f translated_posts.json ]; then
-            STATUS="success"
-            SUCCEEDED=$(python -c "import json; data=json.load(open('translated_posts.json')); print(sum(len(v.get('languages',[])) for v in data.values()))" 2>/dev/null || echo "0")
-            DISCOVERED=$SUCCEEDED
-            FAILED=0
-          else
-            STATUS="failure"
-            DISCOVERED=0
-            SUCCEEDED=0
-            FAILED=0
+          # Read all metrics from translation_metrics.json (written by translate_posts.py)
+          METRICS_FILE="blog-repo/translation_metrics.json"
+          if [ -f "$METRICS_FILE" ]; then
+            SUCCEEDED=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('items_translated',0))" 2>/dev/null || echo "0")
+            FAILED=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('items_failed',0))" 2>/dev/null || echo "0")
+            DISCOVERED=$((SUCCEEDED + FAILED))
+            TOKEN_USAGE=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('token_usage',0))" 2>/dev/null || echo "0")
+            API_CALLS=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('api_calls_count',0))" 2>/dev/null || echo "0")
           fi
 
-          if [ -f blog-repo/translation_metrics.json ]; then
-            TOKEN_USAGE=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('token_usage', 0))" 2>/dev/null || echo "0")
-            API_CALLS=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('api_calls_count', 0))" 2>/dev/null || echo "0")
+          # Determine status from step outcome, not from translated flag
+          if [ "${{ steps.translate.outcome }}" = "failure" ]; then
+            STATUS="failure"
+          else
+            STATUS="success"
           fi
 
           python tools/agent-metrics-reporter/report_metrics.py \

@@ -220,24 +220,23 @@ jobs:
 
           TOKEN_USAGE=0
           API_CALLS=0
+          DISCOVERED=0
+          SUCCEEDED=0
+          FAILED=0
 
           if [ -f validation_report.json ]; then
-            COUNTS=$(python -c "import json; s=json.load(open('validation_report.json'))['summary']; print(s['total_translations_checked'], s['valid_translations'], s['invalid_translations'])")
-            DISCOVERED=$(echo "$COUNTS" | awk '{print $1}')
-            SUCCEEDED=$(echo "$COUNTS" | awk '{print $2}')
-            FAILED=$(echo "$COUNTS" | awk '{print $3}')
+            DISCOVERED=$(python -c "import json; print(json.load(open('validation_report.json'))['summary']['total_translations_checked'])" 2>/dev/null || echo "0")
+            SUCCEEDED=$(python -c "import json; print(json.load(open('validation_report.json'))['summary']['valid_translations'])" 2>/dev/null || echo "0")
+            FAILED=$(python -c "import json; print(json.load(open('validation_report.json'))['summary']['invalid_translations'])" 2>/dev/null || echo "0")
             STATUS="success"
           else
-            DISCOVERED=0
-            SUCCEEDED=0
-            FAILED=0
             STATUS="failure"
           fi
 
           # Pick up token metrics from retranslation if it ran
           if [ -f blog-repo/translation_metrics.json ]; then
-            TOKEN_USAGE=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('token_usage', 0))" 2>/dev/null || echo "0")
-            API_CALLS=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('api_calls_count', 0))" 2>/dev/null || echo "0")
+            TOKEN_USAGE=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('token_usage',0))" 2>/dev/null || echo "0")
+            API_CALLS=$(python -c "import json; print(json.load(open('blog-repo/translation_metrics.json')).get('api_calls_count',0))" 2>/dev/null || echo "0")
           fi
 
           python tools/agent-metrics-reporter/report_metrics.py \

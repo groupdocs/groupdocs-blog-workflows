@@ -72,32 +72,46 @@ def extract_translated_posts(output_file: str, scan_report_path: str = None) -> 
     
     # Extract translated posts from output
     translated_posts = []
-    current_post = None
     lines = output.split('\n')
-    
-    for i, line in enumerate(lines):
-        if 'Processing:' in line:
-            # Extract post path - handle format like "[1/3] Processing: path"
-            match = re.search(r'Processing:\s*(.+)', line)
-            if match:
-                current_post = match.group(1).strip()
-        elif 'Translating to' in line and current_post:
-            # Extract language
-            lang_match = re.search(r'Translating to\s+(\w+(?:-\w+)?)', line)
-            if lang_match:
-                lang = lang_match.group(1)
-                # Check if success marker (✓) is on this line or within next 2 lines
-                # (handles case where print statements might be split across lines)
-                check_lines = lines[i:min(i+3, len(lines))]
-                combined_text = ' '.join(check_lines)
-                if '✓' in combined_text:
-                    # Only add if not already added
-                    if not any(p['path'] == current_post and p['language'] == lang 
-                              for p in translated_posts):
-                        translated_posts.append({
-                            'path': current_post,
-                            'language': lang
-                        })
+
+    # Method 1: Look for "Successfully translated {path} to {lang}" (verbose mode)
+    for match in re.finditer(r'Successfully translated\s+(\S+)\s+to\s+(\w+(?:-\w+)?)', output):
+        path = match.group(1)
+        lang = match.group(2)
+        if not any(p['path'] == path and p['language'] == lang
+                   for p in translated_posts):
+            translated_posts.append({'path': path, 'language': lang})
+
+    # Method 2: Stateful scan for OK/FAIL after "Translating to" (non-verbose fallback)
+    if not translated_posts:
+        current_post = None
+        pending_lang = None
+        for line in lines:
+            proc_match = re.search(r'Processing:\s*(.+)', line)
+            if proc_match:
+                current_post = proc_match.group(1).strip()
+                pending_lang = None
+
+            if current_post:
+                lang_match = re.search(r'Translating to\s+(\w+(?:-\w+)?)', line)
+                if lang_match:
+                    pending_lang = lang_match.group(1)
+                    # Check if OK is on the same line (non-verbose single-line output)
+                    after_lang = line[lang_match.end():]
+                    if re.search(r'\bOK\b', after_lang):
+                        if not any(p['path'] == current_post and p['language'] == pending_lang
+                                   for p in translated_posts):
+                            translated_posts.append({'path': current_post, 'language': pending_lang})
+                        pending_lang = None
+                elif pending_lang:
+                    stripped = line.strip()
+                    if stripped == 'OK':
+                        if not any(p['path'] == current_post and p['language'] == pending_lang
+                                   for p in translated_posts):
+                            translated_posts.append({'path': current_post, 'language': pending_lang})
+                        pending_lang = None
+                    elif stripped == 'FAIL':
+                        pending_lang = None
     
     # Load scan report for URL information
     scan_report = {}

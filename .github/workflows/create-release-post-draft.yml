@@ -282,21 +282,23 @@ jobs:
 
           TOKEN_USAGE=0
           API_CALLS=0
+          SUCCEEDED=0
+          FAILED=0
 
-          ROOT="${{ steps.slugs.outputs.root_dir }}"
-          if [ -n "$ROOT" ] && [ -f "$ROOT/index.md" ]; then
-            STATUS="success"
-            SUCCEEDED=1
-            FAILED=0
-          else
-            STATUS="failure"
-            SUCCEEDED=0
-            FAILED=1
+          # Read all metrics from draft_metrics.json (written by create_draft.py)
+          METRICS_FILE="tools/public-release-post-draft/output/draft_metrics.json"
+          if [ -f "$METRICS_FILE" ]; then
+            SUCCEEDED=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('items_succeeded',0))" 2>/dev/null || echo "0")
+            FAILED=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('items_failed',0))" 2>/dev/null || echo "0")
+            TOKEN_USAGE=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('token_usage',0))" 2>/dev/null || echo "0")
+            API_CALLS=$(python -c "import json; print(json.load(open('$METRICS_FILE')).get('api_calls_count',0))" 2>/dev/null || echo "0")
           fi
 
-          if [ -f tools/public-release-post-draft/output/draft_metrics.json ]; then
-            TOKEN_USAGE=$(python -c "import json; print(json.load(open('tools/public-release-post-draft/output/draft_metrics.json')).get('token_usage', 0))" 2>/dev/null || echo "0")
-            API_CALLS=$(python -c "import json; print(json.load(open('tools/public-release-post-draft/output/draft_metrics.json')).get('api_calls_count', 0))" 2>/dev/null || echo "0")
+          if [ "$SUCCEEDED" -gt 0 ]; then
+            STATUS="success"
+          else
+            STATUS="failure"
+            FAILED=1
           fi
 
           python tools/agent-metrics-reporter/report_metrics.py \
