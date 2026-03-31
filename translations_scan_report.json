@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 102,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 103,
+    "posts_with_missing_translations": 1,
     "posts_complete": 102,
     "filters_applied": [
       {
@@ -45,9 +45,42 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-03-30T07:12:45.117920+00:00"
+    "date_generated": "2026-03-31T06:59:07.536401+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/watermark/2026-03-30-groupdocs-watermark-for-net-26-3",
+      "url": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-26-3/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-26-3/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
