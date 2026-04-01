@@ -24,16 +24,17 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+⚠️ **2 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 103
-- **Posts with complete translations**: 102
-- **Posts missing translations**: 1
+- **Total posts scanned**: 105
+- **Posts with complete translations**: 103
+- **Posts missing translations**: 2
 - **Expected languages**: 21
-- **Last updated**: 2026-03-31 06:59:07 UTC
+- **Last updated**: 2026-04-01 07:05:47 UTC
 
 ### Posts Needing Attention
 
-- [2026-03-30-groupdocs-watermark-for-net-26-3](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-net-26-3/) - 21/21 translations missing
+- [2026-03-31-groupdocs-metadata-for-net-26-3](https://blog.groupdocs.com/metadata/groupdocs-metadata-for-net-26-3/) - 21/21 translations missing
+- [2026-03-31-groupdocs-conversion-for-net-26-3](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-3/) - 21/21 translations missing
