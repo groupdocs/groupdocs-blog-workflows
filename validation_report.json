@@ -1,12 +1,12 @@
 {
   "summary": {
-    "total_posts_scanned": 102,
-    "total_translations_checked": 2142,
-    "valid_translations": 2121,
-    "invalid_translations": 21,
-    "posts_needing_retranslation": 6,
+    "total_posts_scanned": 106,
+    "total_translations_checked": 2226,
+    "valid_translations": 2188,
+    "invalid_translations": 38,
+    "posts_needing_retranslation": 8,
     "issues_breakdown": {
-      "headers_untranslated": 21
+      "headers_untranslated": 38
     },
     "languages_checked": [
       "ar",
@@ -32,7 +32,7 @@
       "zh-hant"
     ],
     "min_year": 2025,
-    "date_generated": "2026-03-29T21:29:05.849553+00:00"
+    "date_generated": "2026-04-05T07:51:44.420987+00:00"
   },
   "posts": [
     {
@@ -45,51 +45,68 @@
       "url": "/comparison/groupdocs-comparison-for-net-26-1/"
     },
     {
-      "path": "content/Groupdocs.Blog/total/2026-03-19-groupdocs-total-for-net-26-3",
+      "path": "content/Groupdocs.Blog/conversion/2026-03-31-groupdocs-conversion-for-net-26-3",
       "missing_languages": [
+        "fa",
+        "fr",
         "he",
-        "ja"
+        "ko",
+        "nl",
+        "uk",
+        "zh"
       ],
-      "missing_count": 2,
+      "missing_count": 7,
       "total_expected": 21,
-      "url": "/total/groupdocs-total-for-net-26-3/"
+      "url": "/conversion/groupdocs-conversion-for-net-26-3/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-03-31-groupdocs-metadata-for-net-26-3",
+      "missing_languages": [
+        "ar",
+        "de",
+        "es",
+        "he",
+        "id",
+        "it",
+        "ko",
+        "pl",
+        "th",
+        "tr",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 12,
+      "total_expected": 21,
+      "url": "/metadata/groupdocs-metadata-for-net-26-3/"
     },
     {
       "path": "content/Groupdocs.Blog/viewer/2025-10-15-working-with-spreadsheets",
       "missing_languages": [
-        "ko",
         "ru"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/viewer/working-with-spreadsheets/"
     },
     {
       "path": "content/Groupdocs.Blog/viewer/2026-03-16-render-email-messages",
       "missing_languages": [
-        "ar",
         "de",
-        "id",
         "ja",
         "ko",
-        "ru",
         "tr",
-        "uk",
         "vi"
       ],
-      "missing_count": 9,
+      "missing_count": 5,
       "total_expected": 21,
       "url": "/viewer/rendering-email-messages/"
     },
     {
       "path": "content/Groupdocs.Blog/viewer/2026-03-25-groupdocs-viewer-for-java-26-3",
       "missing_languages": [
-        "fr",
-        "ko",
-        "uk",
         "zh-hant"
       ],
-      "missing_count": 4,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/viewer/groupdocs-viewer-for-java-26-3/"
     },
@@ -97,12 +114,28 @@
       "path": "content/Groupdocs.Blog/watermark/2025-12-12-groupdocs-watermark-for-python-25-12",
       "missing_languages": [
         "ko",
-        "pl",
         "ru"
       ],
-      "missing_count": 3,
+      "missing_count": 2,
       "total_expected": 21,
       "url": "/watermark/groupdocs-watermark-for-python-25-12/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/watermark/2026-03-30-groupdocs-watermark-for-net-26-3",
+      "missing_languages": [
+        "cs",
+        "de",
+        "he",
+        "id",
+        "ko",
+        "pl",
+        "ru",
+        "tr",
+        "vi"
+      ],
+      "missing_count": 9,
+      "total_expected": 21,
+      "url": "/watermark/groupdocs-watermark-for-net-26-3/"
     }
   ]
 }
