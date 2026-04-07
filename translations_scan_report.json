@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 106,
+    "total_posts_scanned": 107,
     "posts_with_missing_translations": 0,
-    "posts_complete": 106,
+    "posts_complete": 107,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,7 +47,7 @@
     "total_expected_languages": 21,
     "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-04-06T07:14:32.732717+00:00"
+    "date_generated": "2026-04-07T07:01:24.718160+00:00"
   },
   "posts": []
 }
