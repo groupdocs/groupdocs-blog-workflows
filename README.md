@@ -24,12 +24,16 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-✅ **All blog posts have complete translations!**
+⚠️ **1 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 109
+- **Total posts scanned**: 110
 - **Posts with complete translations**: 109
-- **Posts missing translations**: 0
+- **Posts missing translations**: 1
 - **Expected languages**: 21
-- **Last updated**: 2026-04-14 07:14:43 UTC
+- **Last updated**: 2026-04-15 07:15:01 UTC
+
+### Posts Needing Attention
+
+- [2026-04-14-indicate-pdf-a](https://blog.groupdocs.com/metadata/net/detect-pdfa-conformance/) - 21/21 translations missing
