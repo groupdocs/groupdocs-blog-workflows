@@ -28,13 +28,13 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ### Summary
 
-- **Total posts scanned**: 112
-- **Posts with complete translations**: 110
+- **Total posts scanned**: 113
+- **Posts with complete translations**: 111
 - **Posts missing translations**: 2
 - **Expected languages**: 21
-- **Last updated**: 2026-04-17 07:15:56 UTC
+- **Last updated**: 2026-04-18 06:53:55 UTC
 
 ### Posts Needing Attention
 
 - [2026-04-16-batch-watermark-pipeline-csharp-dotnet](https://blog.groupdocs.com/watermark/batch-watermark-pipeline/) - 21/21 translations missing
-- [2026-04-16-groupdocs-conversion-for-python-26-3](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-python-26-3/) - 21/21 translations missing
+- [2026-04-14-groupdocs-markdown-for-python-first-public-release](https://blog.groupdocs.com/markdown/groupdocs-markdown-for-python-first-public-release/) - 21/21 translations missing
