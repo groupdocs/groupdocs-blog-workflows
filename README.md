@@ -24,16 +24,17 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+⚠️ **2 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 113
+- **Total posts scanned**: 114
 - **Posts with complete translations**: 112
-- **Posts missing translations**: 1
+- **Posts missing translations**: 2
 - **Expected languages**: 21
-- **Last updated**: 2026-04-19 07:04:29 UTC
+- **Last updated**: 2026-04-20 07:46:28 UTC
 
 ### Posts Needing Attention
 
+- [2026-04-19-watermark-audit-tool](https://blog.groupdocs.com/watermark/audit-automation/net/) - 21/21 translations missing
 - [2026-04-16-batch-watermark-pipeline-csharp-dotnet](https://blog.groupdocs.com/watermark/batch-watermark-pipeline/) - 21/21 translations missing

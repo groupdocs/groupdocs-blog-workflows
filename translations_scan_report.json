@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 113,
-    "posts_with_missing_translations": 1,
+    "total_posts_scanned": 114,
+    "posts_with_missing_translations": 2,
     "posts_complete": 112,
     "filters_applied": [
       {
@@ -47,7 +47,7 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-04-19T07:04:29.221972+00:00"
+    "date_generated": "2026-04-20T07:46:28.522701+00:00"
   },
   "posts": [
     {
@@ -55,6 +55,38 @@
       "url": "https://blog.groupdocs.com/watermark/batch-watermark-pipeline/",
       "urls": {
         "en": "https://blog.groupdocs.com/watermark/batch-watermark-pipeline/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/watermark/2026-04-19-watermark-audit-tool",
+      "url": "https://blog.groupdocs.com/watermark/audit-automation/net/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/watermark/audit-automation/net/"
       },
       "missing_languages": [
         "ar",
