@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 114,
+    "total_posts_scanned": 115,
     "posts_with_missing_translations": 1,
-    "posts_complete": 113,
+    "posts_complete": 114,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,14 +47,14 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-04-21T07:18:46.243985+00:00"
+    "date_generated": "2026-04-22T07:16:32.581896+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/watermark/2026-04-19-watermark-audit-tool",
-      "url": "https://blog.groupdocs.com/watermark/audit-automation/net/",
+      "path": "content/Groupdocs.Blog/markdown/2026-04-21-groupdocs-markdown-for-net-26-3",
+      "url": "https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-26-3/",
       "urls": {
-        "en": "https://blog.groupdocs.com/watermark/audit-automation/net/"
+        "en": "https://blog.groupdocs.com/markdown/groupdocs-markdown-for-net-26-3/"
       },
       "missing_languages": [
         "ar",
