@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 117,
+    "total_posts_scanned": 122,
     "posts_with_missing_translations": 0,
-    "posts_complete": 117,
+    "posts_complete": 122,
     "filters_applied": [
       {
         "name": "archived",
@@ -13,13 +13,13 @@
       {
         "name": "date_range",
         "config": {
-          "min_year": 2025
+          "min_date": "2024-07-01"
         }
       }
     ],
     "filters_counts": {
       "archived": 150,
-      "date_range": 821
+      "date_range": 816
     },
     "expected_languages": [
       "ar",
@@ -47,7 +47,7 @@
     "total_expected_languages": 21,
     "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-04-27T08:00:54.344044+00:00"
+    "date_generated": "2026-04-27T09:59:53.479747+00:00"
   },
   "posts": []
 }

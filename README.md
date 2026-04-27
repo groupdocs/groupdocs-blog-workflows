@@ -28,8 +28,8 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ### Summary
 
-- **Total posts scanned**: 117
-- **Posts with complete translations**: 117
+- **Total posts scanned**: 122
+- **Posts with complete translations**: 122
 - **Posts missing translations**: 0
 - **Expected languages**: 21
-- **Last updated**: 2026-04-27 08:00:54 UTC
+- **Last updated**: 2026-04-27 09:59:53 UTC
