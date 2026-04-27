@@ -4,7 +4,7 @@ Blog Translation Scanner
 
 Scans the content folder for blog posts and identifies missing translations.
 Expected languages are read from config.yml. Uses declarative filters to exclude
-archived posts and posts published before 2025.
+archived posts and posts published before the configured cutoff date.
 """
 
 import os
@@ -150,21 +150,27 @@ class PostFilter:
         date_str = front_matter.get('date')
         if not date_str:
             return False
-        
+
         try:
             date_obj = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S %z')
-            year = date_obj.year
-            
-            # Check minimum year (skip posts before this year)
+
+            # Check minimum date (skip posts before this date) — month-precision cutoff
+            min_date = self.config.get('min_date')
+            if min_date is not None:
+                min_date_obj = datetime.strptime(min_date, '%Y-%m-%d').date()
+                if date_obj.date() < min_date_obj:
+                    return True
+
+            # Check minimum year (skip posts before this year) — legacy year-precision cutoff
             min_year = self.config.get('min_year')
-            if min_year is not None and year < min_year:
+            if min_year is not None and date_obj.year < min_year:
                 return True
-            
+
             # Check maximum year (skip posts after this year)
             max_year = self.config.get('max_year')
-            if max_year is not None and year > max_year:
+            if max_year is not None and date_obj.year > max_year:
                 return True
-            
+
             return False
         except (ValueError, AttributeError):
             return False
@@ -197,7 +203,7 @@ def create_default_filters() -> List[PostFilter]:
         PostFilter(
             name='date_range',
             enabled=True,
-            min_year=2025  # Skip posts published before 2025
+            min_date='2024-07-01'  # Skip posts published before July 2024 (6-month extension behind 2025-01-01)
         )
     ]
 

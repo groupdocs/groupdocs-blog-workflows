@@ -54,13 +54,13 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Translate 1 post (working directory is blog-repo)
+          # Translate up to 10 posts per day (working directory is blog-repo)
           cd blog-repo
           # Run translation script and capture output
           # Use tee to both save to file and show in console
           python ../tools/blog-post-translator/translate_posts.py \
             ../translations_scan_report.json \
-            --limit 1 --verbose 2>&1 | tee ../translation_output.txt || true
+            --limit 10 --verbose 2>&1 | tee ../translation_output.txt || true
           cd ..
           
           # Show translation output for debugging
@@ -111,20 +111,28 @@ jobs:
           REDMINE_ISSUE_ID: ${{ secrets.REDMINE_ISSUE_ID_BLOG_LOCALIZATION }}
           REDMINE_ACTIVITY_ID: ${{ secrets.REDMINE_ACTIVITY_ID_LOCALIZATION }}
           REDMINE_REPORT_TO_USER: ${{ secrets.REDMINE_REPORT_TO_USER }}
-          REDMINE_HOURS: 1.0
         run: |
           set -euo pipefail
-          
+
+          # Compute actual elapsed hours since the workflow started, rounded to 0.1h (6 min).
+          # Floor at 0.1h so a near-instant run still logs a non-zero entry.
+          END_MS=$(date +%s%3N)
+          START_MS=${{ steps.start_time.outputs.start_ms }}
+          DURATION_MS=$((END_MS - START_MS))
+          REDMINE_HOURS=$(python -c "ms=$DURATION_MS; print(max(0.1, round(ms/3600000.0, 1)))")
+          export REDMINE_HOURS
+          echo "Logging $REDMINE_HOURS hours to Redmine (elapsed: ${DURATION_MS} ms)"
+
           # Generate full Redmine comment from translated posts and save to file
           python tools/blog-post-translator/create_redmine_comment.py \
             --posts-json translated_posts.json \
             --output redmine_comment.txt
-          
+
           # Generate simplified time comment with just URLs
           python tools/blog-post-translator/create_simplified_time_comment.py \
             --posts-json translated_posts.json \
             --output redmine_time_comment.txt
-          
+
           # Add full comment to the issue and log time with simplified comment
           python tools/blog-post-translator/log_to_redmine.py
 

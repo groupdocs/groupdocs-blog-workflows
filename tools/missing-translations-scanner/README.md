@@ -8,7 +8,7 @@ Scans all blog post directories and identifies posts that are missing translatio
 - Reads expected languages from `config.yml`
 - Checks for `index.{lang}.md` files for each language
 - Reports which posts are missing which translations
-- Filters out archived posts (`zArchive` tag) and posts before 2025
+- Filters out archived posts (`zArchive` tag) and posts published before 2024-07-01
 
 This tool checks for **file existence only** — it does not validate translation quality. Use the **translation-validator** for quality checks.
 
@@ -55,7 +55,7 @@ The JSON report is consumed directly by `translate_posts.py`:
 | Filter | What it skips | Default |
 |--------|--------------|---------|
 | `archived` | Posts with `zArchive` tag | Enabled |
-| `date_range` | Posts before `min_year` | 2025 |
+| `date_range` | Posts before `min_date` (YYYY-MM-DD) or `min_year` | `min_date=2024-07-01` |
 
 ## Exit codes
 

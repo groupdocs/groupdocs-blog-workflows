@@ -304,7 +304,8 @@ def validate_translation(
 def scan_and_validate(
     content_dir: str,
     languages: List[str],
-    min_year: int = 2025,
+    min_year: Optional[int] = None,
+    min_date: Optional[str] = '2024-07-01',
     verbose: bool = False,
 ) -> Dict:
     """
@@ -341,14 +342,19 @@ def scan_and_validate(
         date_str = source_fm.get('date', '')
         if date_str:
             try:
+                post_date = None
+                post_year = None
                 if hasattr(date_str, 'year'):
                     post_year = date_str.year
+                    post_date = date_str if hasattr(date_str, 'month') else None
                 else:
                     # Try parsing common date formats
                     date_str_s = str(date_str)
                     for fmt in ['%Y-%m-%d', '%a, %d %b %Y %H:%M:%S %z']:
                         try:
-                            post_year = datetime.strptime(date_str_s.strip(), fmt).year
+                            parsed = datetime.strptime(date_str_s.strip(), fmt)
+                            post_year = parsed.year
+                            post_date = parsed.date()
                             break
                         except ValueError:
                             continue
@@ -356,7 +362,12 @@ def scan_and_validate(
                         # Try extracting year with regex
                         year_match = re.search(r'20\d{2}', date_str_s)
                         post_year = int(year_match.group()) if year_match else 9999
-                if post_year < min_year:
+
+                if min_date is not None and post_date is not None:
+                    cutoff = datetime.strptime(min_date, '%Y-%m-%d').date()
+                    if post_date < cutoff:
+                        continue
+                elif min_year is not None and post_year is not None and post_year < min_year:
                     continue
             except Exception:
                 continue
@@ -413,6 +424,7 @@ def scan_and_validate(
             'issues_breakdown': stats['by_issue'],
             'languages_checked': languages,
             'min_year': min_year,
+            'min_date': min_date,
             'date_generated': datetime.now(timezone.utc).isoformat(),
         },
         'posts': posts_to_retranslate,
@@ -466,8 +478,14 @@ to the translator to retranslate flagged posts:
     parser.add_argument(
         '--min-year',
         type=int,
-        default=2025,
-        help='Only check posts from this year onwards (default: 2025)',
+        default=None,
+        help='Only check posts from this year onwards (legacy year-precision cutoff; overridden by --min-date)',
+    )
+    parser.add_argument(
+        '--min-date',
+        type=str,
+        default='2024-07-01',
+        help='Only check posts published on/after this date (YYYY-MM-DD, default: 2024-07-01)',
     )
     parser.add_argument(
         '--verbose', '-v',
@@ -481,13 +499,17 @@ to the translator to retranslate flagged posts:
 
     print(f"Scanning translations in: {args.content}")
     print(f"Languages: {', '.join(languages)}")
-    print(f"Min year: {args.min_year}")
+    if args.min_date:
+        print(f"Min date: {args.min_date}")
+    else:
+        print(f"Min year: {args.min_year}")
     print(f"{'=' * 70}")
 
     report = scan_and_validate(
         content_dir=args.content,
         languages=languages,
         min_year=args.min_year,
+        min_date=args.min_date,
         verbose=args.verbose,
     )
 

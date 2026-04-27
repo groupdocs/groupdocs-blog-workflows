@@ -30,7 +30,7 @@ Unlike the **missing-translations-scanner** (which finds posts without translati
 ## Usage
 
 ```bash
-# Validate all translations (posts from 2025+)
+# Validate all translations (posts from 2024-07-01 onward by default)
 python validate_translations.py --content content/Groupdocs.Blog
 
 # Save report for retranslation
@@ -42,8 +42,8 @@ python validate_translations.py --content content/Groupdocs.Blog --lang de -v
 # Check specific post
 python validate_translations.py --content content/Groupdocs.Blog --post "watermark" -v
 
-# Check older posts
-python validate_translations.py --content content/Groupdocs.Blog --min-year 2024
+# Check older posts (override the default 2024-07-01 cutoff)
+python validate_translations.py --content content/Groupdocs.Blog --min-date 2024-01-01
 ```
 
 ## Integration with translator
