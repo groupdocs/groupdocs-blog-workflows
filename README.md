@@ -24,12 +24,16 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-✅ **All blog posts have complete translations!**
+⚠️ **1 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 122
+- **Total posts scanned**: 123
 - **Posts with complete translations**: 122
-- **Posts missing translations**: 0
+- **Posts missing translations**: 1
 - **Expected languages**: 21
-- **Last updated**: 2026-04-29 07:54:53 UTC
+- **Last updated**: 2026-04-30 07:58:12 UTC
+
+### Posts Needing Attention
+
+- [2026-04-29-groupdocs-parser-for-net-26-4](https://blog.groupdocs.com/parser/groupdocs-parser-for-net-26-4/) - 21/21 translations missing
