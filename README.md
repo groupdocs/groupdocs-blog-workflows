@@ -24,16 +24,17 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+⚠️ **2 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 129
+- **Total posts scanned**: 130
 - **Posts with complete translations**: 128
-- **Posts missing translations**: 1
+- **Posts missing translations**: 2
 - **Expected languages**: 21
-- **Last updated**: 2026-05-11 08:52:19 UTC
+- **Last updated**: 2026-05-12 08:17:39 UTC
 
 ### Posts Needing Attention
 
-- [2026-05-10-demo-password-merge](https://blog.groupdocs.com/groupdocs.merger/password-merge-java/) - 21/21 translations missing
+- [2026-05-11-groupdocs-total-for-net-26-4](https://blog.groupdocs.com/total/groupdocs-total-for-net-26-4/) - 21/21 translations missing
+- [2026-05-10-demo-password-merge](https://blog.groupdocs.com/groupdocs.merger/password-merge-java/) - 18/21 translations missing
