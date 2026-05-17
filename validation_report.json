@@ -1,12 +1,13 @@
 {
   "summary": {
-    "total_posts_scanned": 128,
-    "total_translations_checked": 2688,
-    "valid_translations": 2653,
-    "invalid_translations": 35,
-    "posts_needing_retranslation": 14,
+    "total_posts_scanned": 132,
+    "total_translations_checked": 2772,
+    "valid_translations": 2742,
+    "invalid_translations": 30,
+    "posts_needing_retranslation": 9,
     "issues_breakdown": {
-      "headers_untranslated": 35
+      "headers_untranslated": 30,
+      "structural_links": 1
     },
     "languages_checked": [
       "ar",
@@ -33,7 +34,7 @@
     ],
     "min_year": null,
     "min_date": "2024-07-01",
-    "date_generated": "2026-05-10T08:49:59.862409+00:00"
+    "date_generated": "2026-05-17T08:59:22.920740+00:00"
   },
   "posts": [
     {
@@ -41,71 +42,56 @@
       "missing_languages": [
         "ar",
         "cs",
-        "es",
         "fa",
-        "fr",
         "ko",
         "nl",
         "pl",
-        "ru",
-        "th",
-        "tr"
+        "th"
       ],
-      "missing_count": 11,
+      "missing_count": 7,
       "total_expected": 21,
       "url": "/comparison/groupdocs-comparison-for-net-26-4/"
     },
     {
       "path": "content/Groupdocs.Blog/comparison/2026-05-05-compare-pdf-documents",
       "missing_languages": [
-        "de",
-        "ja",
-        "nl",
-        "pl",
-        "th"
+        "pl"
       ],
-      "missing_count": 5,
+      "missing_count": 1,
       "total_expected": 21,
-      "url": "/comparison/compare-pdf-documents/"
+      "url": "/comparison/pdf-comparison-net-display-modes/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/comparison/2026-05-14-groupdocs-comparison-for-python-26-5",
+      "missing_languages": [
+        "ar",
+        "zh"
+      ],
+      "missing_count": 2,
+      "total_expected": 21,
+      "url": "/comparison/groupdocs-comparison-for-python-26-5/"
     },
     {
       "path": "content/Groupdocs.Blog/conversion/2024-06-18-word-to-pdf-node-js",
       "missing_languages": [
-        "ko",
         "th"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/conversion/convert-word-doc-docx-to-pdf-in-nodejs/"
     },
     {
-      "path": "content/Groupdocs.Blog/conversion/2024-12-26-convert-svg-to-png-in-nodejs",
+      "path": "content/Groupdocs.Blog/merger/2026-05-10-demo-password-merge",
       "missing_languages": [
-        "ar",
-        "id",
-        "ru"
+        "fa",
+        "ja",
+        "th",
+        "tr",
+        "uk"
       ],
-      "missing_count": 3,
+      "missing_count": 5,
       "total_expected": 21,
-      "url": "/conversion/convert-svg-to-png-using-nodejs/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/conversion/2026-04-16-groupdocs-conversion-for-python-26-3",
-      "missing_languages": [
-        "ru"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/conversion/groupdocs-conversion-for-python-26-3/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/merger/2026-04-24-demo-pdf-binder",
-      "missing_languages": [
-        "zh-hant"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/groupdocs.merger/pdf-binder-merge-documents-net/"
+      "url": "/groupdocs.merger/password-merge-java/"
     },
     {
       "path": "content/Groupdocs.Blog/metadata/2026-03-31-groupdocs-metadata-for-net-26-3",
@@ -126,62 +112,32 @@
       "url": "/metadata/net/detect-pdfa-conformance/"
     },
     {
-      "path": "content/Groupdocs.Blog/metadata/2026-05-06-groupdocs-metadata-for-net-26-5",
-      "missing_languages": [
-        "th"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/metadata/groupdocs-metadata-for-net-26-5/"
-    },
-    {
       "path": "content/Groupdocs.Blog/parser/2026-04-29-groupdocs-parser-for-net-26-4",
       "missing_languages": [
-        "ja",
-        "th"
+        "ja"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/parser/groupdocs-parser-for-net-26-4/"
     },
     {
-      "path": "content/Groupdocs.Blog/viewer/2026-04-22-groupdocs-viewer-for-net-26-4",
+      "path": "content/Groupdocs.Blog/total/2026-05-11-groupdocs-total-for-net-26-4",
       "missing_languages": [
-        "th"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/viewer/groupdocs-viewer-for-net-26-4/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/viewer/2026-04-30-groupdocs-viewer-for-net-ui-26-4",
-      "missing_languages": [
+        "ar",
         "cs",
-        "ko",
+        "de",
+        "fa",
+        "he",
+        "nl",
+        "pl",
+        "ru",
         "th",
-        "vi"
+        "tr",
+        "zh-hant"
       ],
-      "missing_count": 4,
+      "missing_count": 11,
       "total_expected": 21,
-      "url": "/viewer/groupdocs-viewer-for-net-ui-26-4/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/watermark/2025-12-12-groupdocs-watermark-for-python-25-12",
-      "missing_languages": [
-        "ru"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/watermark/groupdocs-watermark-for-python-25-12/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/watermark/2026-04-16-batch-watermark-pipeline-csharp-dotnet",
-      "missing_languages": [
-        "es"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/watermark/batch-watermark-pipeline/"
+      "url": "/total/groupdocs-total-for-net-26-4/"
     }
   ]
 }
