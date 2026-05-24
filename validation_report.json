@@ -1,13 +1,12 @@
 {
   "summary": {
-    "total_posts_scanned": 132,
-    "total_translations_checked": 2772,
-    "valid_translations": 2742,
-    "invalid_translations": 30,
-    "posts_needing_retranslation": 9,
+    "total_posts_scanned": 133,
+    "total_translations_checked": 2793,
+    "valid_translations": 2773,
+    "invalid_translations": 20,
+    "posts_needing_retranslation": 6,
     "issues_breakdown": {
-      "headers_untranslated": 30,
-      "structural_links": 1
+      "headers_untranslated": 20
     },
     "languages_checked": [
       "ar",
@@ -34,7 +33,7 @@
     ],
     "min_year": null,
     "min_date": "2024-07-01",
-    "date_generated": "2026-05-17T08:59:22.920740+00:00"
+    "date_generated": "2026-05-24T09:16:08.678081+00:00"
   },
   "posts": [
     {
@@ -42,54 +41,22 @@
       "missing_languages": [
         "ar",
         "cs",
-        "fa",
-        "ko",
         "nl",
         "pl",
         "th"
       ],
-      "missing_count": 7,
+      "missing_count": 5,
       "total_expected": 21,
       "url": "/comparison/groupdocs-comparison-for-net-26-4/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/comparison/2026-05-05-compare-pdf-documents",
-      "missing_languages": [
-        "pl"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/comparison/pdf-comparison-net-display-modes/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/comparison/2026-05-14-groupdocs-comparison-for-python-26-5",
-      "missing_languages": [
-        "ar",
-        "zh"
-      ],
-      "missing_count": 2,
-      "total_expected": 21,
-      "url": "/comparison/groupdocs-comparison-for-python-26-5/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/conversion/2024-06-18-word-to-pdf-node-js",
-      "missing_languages": [
-        "th"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/conversion/convert-word-doc-docx-to-pdf-in-nodejs/"
     },
     {
       "path": "content/Groupdocs.Blog/merger/2026-05-10-demo-password-merge",
       "missing_languages": [
         "fa",
-        "ja",
         "th",
-        "tr",
         "uk"
       ],
-      "missing_count": 5,
+      "missing_count": 3,
       "total_expected": 21,
       "url": "/groupdocs.merger/password-merge-java/"
     },
@@ -112,32 +79,30 @@
       "url": "/metadata/net/detect-pdfa-conformance/"
     },
     {
-      "path": "content/Groupdocs.Blog/parser/2026-04-29-groupdocs-parser-for-net-26-4",
-      "missing_languages": [
-        "ja"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/parser/groupdocs-parser-for-net-26-4/"
-    },
-    {
       "path": "content/Groupdocs.Blog/total/2026-05-11-groupdocs-total-for-net-26-4",
       "missing_languages": [
-        "ar",
         "cs",
         "de",
-        "fa",
         "he",
         "nl",
         "pl",
-        "ru",
-        "th",
-        "tr",
-        "zh-hant"
+        "tr"
       ],
-      "missing_count": 11,
+      "missing_count": 6,
       "total_expected": 21,
       "url": "/total/groupdocs-total-for-net-26-4/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/viewer/2026-05-21-groupdocs-viewer-for-python-26-5",
+      "missing_languages": [
+        "de",
+        "fr",
+        "it",
+        "ko"
+      ],
+      "missing_count": 4,
+      "total_expected": 21,
+      "url": "/viewer/groupdocs-viewer-for-python-26-5/"
     }
   ]
 }
