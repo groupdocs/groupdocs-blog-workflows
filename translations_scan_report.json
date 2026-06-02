@@ -47,39 +47,39 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-01T11:02:33.174838+00:00"
+    "date_generated": "2026-06-02T09:56:39.728844+00:00"
   },
   "posts": [
     {
       "path": "content/Groupdocs.Blog/comparison/2026-05-29-groupdocs-comparison-for-net-26-5",
       "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/",
       "urls": {
-        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/"
+        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/",
+        "ar": "https://blog.groupdocs.com/ar/comparison/groupdocs-comparison-for-net-26-5/",
+        "de": "https://blog.groupdocs.com/de/comparison/groupdocs-comparison-for-net-26-5/",
+        "es": "https://blog.groupdocs.com/es/comparison/groupdocs-comparison-for-net-26-5/",
+        "fa": "https://blog.groupdocs.com/fa/comparison/groupdocs-comparison-for-net-26-5/",
+        "fr": "https://blog.groupdocs.com/fr/comparison/groupdocs-comparison-for-net-26-5/",
+        "he": "https://blog.groupdocs.com/he/comparison/groupdocs-comparison-for-net-26-5/",
+        "id": "https://blog.groupdocs.com/id/comparison/groupdocs-comparison-for-net-26-5/",
+        "it": "https://blog.groupdocs.com/it/comparison/groupdocs-comparison-for-net-26-5/",
+        "ja": "https://blog.groupdocs.com/ja/comparison/groupdocs-comparison-for-net-26-5/",
+        "ko": "https://blog.groupdocs.com/ko/comparison/groupdocs-comparison-for-net-26-5/",
+        "nl": "https://blog.groupdocs.com/nl/comparison/groupdocs-comparison-for-net-26-5/",
+        "pt": "https://blog.groupdocs.com/pt/comparison/groupdocs-comparison-for-net-26-5/",
+        "ru": "https://blog.groupdocs.com/ru/comparison/groupdocs-comparison-for-net-26-5/",
+        "th": "https://blog.groupdocs.com/th/comparison/groupdocs-comparison-for-net-26-5/",
+        "tr": "https://blog.groupdocs.com/tr/comparison/groupdocs-comparison-for-net-26-5/",
+        "uk": "https://blog.groupdocs.com/uk/comparison/groupdocs-comparison-for-net-26-5/",
+        "vi": "https://blog.groupdocs.com/vi/comparison/groupdocs-comparison-for-net-26-5/",
+        "zh": "https://blog.groupdocs.com/zh/comparison/groupdocs-comparison-for-net-26-5/",
+        "zh-hant": "https://blog.groupdocs.com/zh-hant/comparison/groupdocs-comparison-for-net-26-5/"
       },
       "missing_languages": [
-        "ar",
         "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
+        "pl"
       ],
-      "missing_count": 21,
+      "missing_count": 2,
       "total_expected": 21
     }
   ]
