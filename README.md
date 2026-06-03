@@ -32,8 +32,8 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - **Posts with complete translations**: 136
 - **Posts missing translations**: 1
 - **Expected languages**: 21
-- **Last updated**: 2026-06-02 09:56:39 UTC
+- **Last updated**: 2026-06-03 10:27:49 UTC
 
 ### Posts Needing Attention
 
-- [2026-05-29-groupdocs-comparison-for-net-26-5](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/) - 2/21 translations missing
+- [2026-05-29-groupdocs-comparison-for-net-26-5](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/) - 1/21 translations missing
