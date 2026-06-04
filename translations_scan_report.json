@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 137,
-    "posts_with_missing_translations": 1,
+    "total_posts_scanned": 139,
+    "posts_with_missing_translations": 3,
     "posts_complete": 136,
     "filters_applied": [
       {
@@ -47,7 +47,7 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-03T10:27:49.287138+00:00"
+    "date_generated": "2026-06-04T09:38:34.978991+00:00"
   },
   "posts": [
     {
@@ -80,6 +80,70 @@
         "pl"
       ],
       "missing_count": 1,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/editor/2026-06-03-groupdocs-editor-for-python-26-5",
+      "url": "https://blog.groupdocs.com/editor/groupdocs-editor-for-python-26-5/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/editor/groupdocs-editor-for-python-26-5/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/merger/2026-06-03-groupdocs-merger-for-python-26-6",
+      "url": "https://blog.groupdocs.com/merger/groupdocs-merger-for-python-26-6/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/merger/groupdocs-merger-for-python-26-6/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
       "total_expected": 21
     }
   ]

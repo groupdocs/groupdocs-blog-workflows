@@ -24,16 +24,18 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+⚠️ **3 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 137
+- **Total posts scanned**: 139
 - **Posts with complete translations**: 136
-- **Posts missing translations**: 1
+- **Posts missing translations**: 3
 - **Expected languages**: 21
-- **Last updated**: 2026-06-03 10:27:49 UTC
+- **Last updated**: 2026-06-04 09:38:34 UTC
 
 ### Posts Needing Attention
 
+- [2026-06-03-groupdocs-merger-for-python-26-6](https://blog.groupdocs.com/merger/groupdocs-merger-for-python-26-6/) - 21/21 translations missing
+- [2026-06-03-groupdocs-editor-for-python-26-5](https://blog.groupdocs.com/editor/groupdocs-editor-for-python-26-5/) - 21/21 translations missing
 - [2026-05-29-groupdocs-comparison-for-net-26-5](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/) - 1/21 translations missing
