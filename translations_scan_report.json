@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 139,
-    "posts_with_missing_translations": 3,
-    "posts_complete": 136,
+    "posts_with_missing_translations": 1,
+    "posts_complete": 138,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,103 +47,39 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-04T09:38:34.978991+00:00"
+    "date_generated": "2026-06-05T09:00:28.904521+00:00"
   },
   "posts": [
-    {
-      "path": "content/Groupdocs.Blog/comparison/2026-05-29-groupdocs-comparison-for-net-26-5",
-      "url": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-5/",
-        "ar": "https://blog.groupdocs.com/ar/comparison/groupdocs-comparison-for-net-26-5/",
-        "cs": "https://blog.groupdocs.com/cs/comparison/groupdocs-comparison-for-net-26-5/",
-        "de": "https://blog.groupdocs.com/de/comparison/groupdocs-comparison-for-net-26-5/",
-        "es": "https://blog.groupdocs.com/es/comparison/groupdocs-comparison-for-net-26-5/",
-        "fa": "https://blog.groupdocs.com/fa/comparison/groupdocs-comparison-for-net-26-5/",
-        "fr": "https://blog.groupdocs.com/fr/comparison/groupdocs-comparison-for-net-26-5/",
-        "he": "https://blog.groupdocs.com/he/comparison/groupdocs-comparison-for-net-26-5/",
-        "id": "https://blog.groupdocs.com/id/comparison/groupdocs-comparison-for-net-26-5/",
-        "it": "https://blog.groupdocs.com/it/comparison/groupdocs-comparison-for-net-26-5/",
-        "ja": "https://blog.groupdocs.com/ja/comparison/groupdocs-comparison-for-net-26-5/",
-        "ko": "https://blog.groupdocs.com/ko/comparison/groupdocs-comparison-for-net-26-5/",
-        "nl": "https://blog.groupdocs.com/nl/comparison/groupdocs-comparison-for-net-26-5/",
-        "pt": "https://blog.groupdocs.com/pt/comparison/groupdocs-comparison-for-net-26-5/",
-        "ru": "https://blog.groupdocs.com/ru/comparison/groupdocs-comparison-for-net-26-5/",
-        "th": "https://blog.groupdocs.com/th/comparison/groupdocs-comparison-for-net-26-5/",
-        "tr": "https://blog.groupdocs.com/tr/comparison/groupdocs-comparison-for-net-26-5/",
-        "uk": "https://blog.groupdocs.com/uk/comparison/groupdocs-comparison-for-net-26-5/",
-        "vi": "https://blog.groupdocs.com/vi/comparison/groupdocs-comparison-for-net-26-5/",
-        "zh": "https://blog.groupdocs.com/zh/comparison/groupdocs-comparison-for-net-26-5/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/comparison/groupdocs-comparison-for-net-26-5/"
-      },
-      "missing_languages": [
-        "pl"
-      ],
-      "missing_count": 1,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/editor/2026-06-03-groupdocs-editor-for-python-26-5",
-      "url": "https://blog.groupdocs.com/editor/groupdocs-editor-for-python-26-5/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/editor/groupdocs-editor-for-python-26-5/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
     {
       "path": "content/Groupdocs.Blog/merger/2026-06-03-groupdocs-merger-for-python-26-6",
       "url": "https://blog.groupdocs.com/merger/groupdocs-merger-for-python-26-6/",
       "urls": {
-        "en": "https://blog.groupdocs.com/merger/groupdocs-merger-for-python-26-6/"
+        "en": "https://blog.groupdocs.com/merger/groupdocs-merger-for-python-26-6/",
+        "ar": "https://blog.groupdocs.com/ar/merger/groupdocs-merger-for-python-26-6/",
+        "cs": "https://blog.groupdocs.com/cs/merger/groupdocs-merger-for-python-26-6/",
+        "de": "https://blog.groupdocs.com/de/merger/groupdocs-merger-for-python-26-6/",
+        "es": "https://blog.groupdocs.com/es/merger/groupdocs-merger-for-python-26-6/",
+        "fa": "https://blog.groupdocs.com/fa/merger/groupdocs-merger-for-python-26-6/",
+        "fr": "https://blog.groupdocs.com/fr/merger/groupdocs-merger-for-python-26-6/",
+        "he": "https://blog.groupdocs.com/he/merger/groupdocs-merger-for-python-26-6/",
+        "id": "https://blog.groupdocs.com/id/merger/groupdocs-merger-for-python-26-6/",
+        "it": "https://blog.groupdocs.com/it/merger/groupdocs-merger-for-python-26-6/",
+        "ja": "https://blog.groupdocs.com/ja/merger/groupdocs-merger-for-python-26-6/",
+        "ko": "https://blog.groupdocs.com/ko/merger/groupdocs-merger-for-python-26-6/",
+        "pl": "https://blog.groupdocs.com/pl/merger/groupdocs-merger-for-python-26-6/",
+        "pt": "https://blog.groupdocs.com/pt/merger/groupdocs-merger-for-python-26-6/",
+        "ru": "https://blog.groupdocs.com/ru/merger/groupdocs-merger-for-python-26-6/",
+        "th": "https://blog.groupdocs.com/th/merger/groupdocs-merger-for-python-26-6/",
+        "tr": "https://blog.groupdocs.com/tr/merger/groupdocs-merger-for-python-26-6/",
+        "uk": "https://blog.groupdocs.com/uk/merger/groupdocs-merger-for-python-26-6/",
+        "vi": "https://blog.groupdocs.com/vi/merger/groupdocs-merger-for-python-26-6/",
+        "zh": "https://blog.groupdocs.com/zh/merger/groupdocs-merger-for-python-26-6/",
+        "zh-hant": "https://blog.groupdocs.com/zh-hant/merger/groupdocs-merger-for-python-26-6/"
       },
       "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
+        "nl"
       ],
-      "missing_count": 21,
+      "missing_count": 1,
       "total_expected": 21
     }
   ]
