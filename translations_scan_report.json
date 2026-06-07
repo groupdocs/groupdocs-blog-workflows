@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 141,
-    "posts_with_missing_translations": 2,
-    "posts_complete": 139,
+    "total_posts_scanned": 142,
+    "posts_with_missing_translations": 1,
+    "posts_complete": 141,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,46 +47,14 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-06T08:20:25.818505+00:00"
+    "date_generated": "2026-06-07T08:41:04.050819+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/search/2026-06-05-groupdocs-search-for-net-26-6",
-      "url": "https://blog.groupdocs.com/search/groupdocs-search-for-net-26-6/",
+      "path": "content/Groupdocs.Blog/viewer/2026-06-06-groupdocs-viewer-for-node-js-26-5",
+      "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-node-js-26-5/",
       "urls": {
-        "en": "https://blog.groupdocs.com/search/groupdocs-search-for-net-26-6/"
-      },
-      "missing_languages": [
-        "ar",
-        "cs",
-        "de",
-        "es",
-        "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
-        "pl",
-        "pt",
-        "ru",
-        "th",
-        "tr",
-        "uk",
-        "vi",
-        "zh",
-        "zh-hant"
-      ],
-      "missing_count": 21,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/viewer/2026-06-05-groupdocs-viewer-for-java-26-5",
-      "url": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-26-5/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-java-26-5/"
+        "en": "https://blog.groupdocs.com/viewer/groupdocs-viewer-for-node-js-26-5/"
       },
       "missing_languages": [
         "ar",
