@@ -24,16 +24,12 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+✅ **All blog posts have complete translations!**
 
 ### Summary
 
 - **Total posts scanned**: 142
-- **Posts with complete translations**: 141
-- **Posts missing translations**: 1
+- **Posts with complete translations**: 142
+- **Posts missing translations**: 0
 - **Expected languages**: 21
-- **Last updated**: 2026-06-07 08:41:04 UTC
-
-### Posts Needing Attention
-
-- [2026-06-06-groupdocs-viewer-for-node-js-26-5](https://blog.groupdocs.com/viewer/groupdocs-viewer-for-node-js-26-5/) - 21/21 translations missing
+- **Last updated**: 2026-06-08 10:10:42 UTC
