@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 145,
+    "total_posts_scanned": 146,
     "posts_with_missing_translations": 1,
-    "posts_complete": 144,
+    "posts_complete": 145,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,14 +47,14 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-16T10:48:02.713195+00:00"
+    "date_generated": "2026-06-17T10:21:10.241598+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/redaction/2026-06-15-groupdocs-redaction-for-python-26-6",
-      "url": "https://blog.groupdocs.com/redaction/groupdocs-redaction-for-python-26-6/",
+      "path": "content/Groupdocs.Blog/total/2026-06-17-groupdocs-total-for-java-26-6",
+      "url": "https://blog.groupdocs.com/total/groupdocs-total-for-java-26-6/",
       "urls": {
-        "en": "https://blog.groupdocs.com/redaction/groupdocs-redaction-for-python-26-6/"
+        "en": "https://blog.groupdocs.com/total/groupdocs-total-for-java-26-6/"
       },
       "missing_languages": [
         "ar",
