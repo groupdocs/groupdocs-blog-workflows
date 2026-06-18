@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 146,
-    "posts_with_missing_translations": 1,
-    "posts_complete": 145,
+    "total_posts_scanned": 148,
+    "posts_with_missing_translations": 2,
+    "posts_complete": 146,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,14 +47,46 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-17T10:21:10.241598+00:00"
+    "date_generated": "2026-06-18T10:00:29.062590+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/total/2026-06-17-groupdocs-total-for-java-26-6",
-      "url": "https://blog.groupdocs.com/total/groupdocs-total-for-java-26-6/",
+      "path": "content/Groupdocs.Blog/merger/2026-06-17-demo-billing-consolidator",
+      "url": "https://blog.groupdocs.com/groupdocs-merger/billing-consolidator-python/",
       "urls": {
-        "en": "https://blog.groupdocs.com/total/groupdocs-total-for-java-26-6/"
+        "en": "https://blog.groupdocs.com/groupdocs-merger/billing-consolidator-python/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-06-17-groupdocs-metadata-for-net-26-6",
+      "url": "https://blog.groupdocs.com/metadata/groupdocs-metadata-for-net-26-6/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/metadata/groupdocs-metadata-for-net-26-6/"
       },
       "missing_languages": [
         "ar",
