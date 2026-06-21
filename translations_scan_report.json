@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 148,
-    "posts_with_missing_translations": 1,
-    "posts_complete": 147,
+    "posts_with_missing_translations": 0,
+    "posts_complete": 148,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,42 +45,9 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": false,
+    "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-20T08:37:10.743039+00:00"
+    "date_generated": "2026-06-21T09:31:17.220693+00:00"
   },
-  "posts": [
-    {
-      "path": "content/Groupdocs.Blog/merger/2026-06-17-demo-billing-consolidator",
-      "url": "https://blog.groupdocs.com/groupdocs-merger/billing-consolidator-python/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/groupdocs-merger/billing-consolidator-python/",
-        "ar": "https://blog.groupdocs.com/ar/groupdocs-merger/billing-consolidator-python/",
-        "cs": "https://blog.groupdocs.com/cs/groupdocs-merger/billing-consolidator-python/",
-        "de": "https://blog.groupdocs.com/de/groupdocs-merger/billing-consolidator-python/",
-        "es": "https://blog.groupdocs.com/es/groupdocs-merger/billing-consolidator-python/",
-        "fa": "https://blog.groupdocs.com/fa/groupdocs-merger/billing-consolidator-python/",
-        "fr": "https://blog.groupdocs.com/fr/groupdocs-merger/billing-consolidator-python/",
-        "he": "https://blog.groupdocs.com/he/groupdocs-merger/billing-consolidator-python/",
-        "id": "https://blog.groupdocs.com/id/groupdocs-merger/billing-consolidator-python/",
-        "it": "https://blog.groupdocs.com/it/groupdocs-merger/billing-consolidator-python/",
-        "ja": "https://blog.groupdocs.com/ja/groupdocs-merger/billing-consolidator-python/",
-        "ko": "https://blog.groupdocs.com/ko/groupdocs-merger/billing-consolidator-python/",
-        "nl": "https://blog.groupdocs.com/nl/groupdocs-merger/billing-consolidator-python/",
-        "pt": "https://blog.groupdocs.com/pt/groupdocs-merger/billing-consolidator-python/",
-        "ru": "https://blog.groupdocs.com/ru/groupdocs-merger/billing-consolidator-python/",
-        "th": "https://blog.groupdocs.com/th/groupdocs-merger/billing-consolidator-python/",
-        "tr": "https://blog.groupdocs.com/tr/groupdocs-merger/billing-consolidator-python/",
-        "uk": "https://blog.groupdocs.com/uk/groupdocs-merger/billing-consolidator-python/",
-        "vi": "https://blog.groupdocs.com/vi/groupdocs-merger/billing-consolidator-python/",
-        "zh": "https://blog.groupdocs.com/zh/groupdocs-merger/billing-consolidator-python/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/groupdocs-merger/billing-consolidator-python/"
-      },
-      "missing_languages": [
-        "pl"
-      ],
-      "missing_count": 1,
-      "total_expected": 21
-    }
-  ]
+  "posts": []
 }
