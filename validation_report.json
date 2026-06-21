@@ -1,18 +1,17 @@
 {
   "summary": {
-    "total_posts_scanned": 143,
-    "total_translations_checked": 3003,
-    "valid_translations": 2920,
-    "invalid_translations": 83,
-    "posts_needing_retranslation": 13,
+    "total_posts_scanned": 148,
+    "total_translations_checked": 3108,
+    "valid_translations": 3017,
+    "invalid_translations": 91,
+    "posts_needing_retranslation": 16,
     "issues_breakdown": {
-      "headers_untranslated": 39,
-      "structural_links": 35,
-      "structural_headers": 49,
-      "structural_code_blocks": 40,
-      "structural_length": 6,
-      "likely_truncated": 27,
-      "structural_tables": 1
+      "headers_untranslated": 66,
+      "structural_links": 31,
+      "structural_headers": 33,
+      "likely_truncated": 5,
+      "structural_code_blocks": 18,
+      "structural_length": 3
     },
     "languages_checked": [
       "ar",
@@ -39,9 +38,27 @@
     ],
     "min_year": null,
     "min_date": "2024-07-01",
-    "date_generated": "2026-06-14T10:20:55.092931+00:00"
+    "date_generated": "2026-06-21T10:26:25.041246+00:00"
   },
   "posts": [
+    {
+      "path": "content/Groupdocs.Blog/annotation/2026-06-14-groupdocs-annotation-for-net-26-6",
+      "missing_languages": [
+        "ar",
+        "fa",
+        "id",
+        "it",
+        "ko",
+        "th",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 10,
+      "total_expected": 21,
+      "url": "/annotation/groupdocs-annotation-for-net-26-6/"
+    },
     {
       "path": "content/Groupdocs.Blog/comparison/2026-04-30-groupdocs-comparison-for-net-26-4",
       "missing_languages": [
@@ -59,16 +76,14 @@
         "de",
         "fr",
         "he",
-        "id",
         "ko",
         "nl",
-        "ru",
         "th",
         "tr",
         "uk",
         "vi"
       ],
-      "missing_count": 12,
+      "missing_count": 10,
       "total_expected": 21,
       "url": "/comparison/groupdocs-comparison-for-net-26-5/"
     },
@@ -106,41 +121,39 @@
       "missing_languages": [
         "he",
         "id",
-        "pt",
-        "tr",
         "vi"
       ],
-      "missing_count": 5,
+      "missing_count": 3,
       "total_expected": 21,
       "url": "/editor/groupdocs-editor-for-net-26-6/"
-    },
-    {
-      "path": "content/Groupdocs.Blog/merger/2026-05-10-demo-password-merge",
-      "missing_languages": [
-        "uk"
-      ],
-      "missing_count": 1,
-      "total_expected": 21,
-      "url": "/groupdocs.merger/password-merge-java/"
     },
     {
       "path": "content/Groupdocs.Blog/merger/2026-06-03-groupdocs-merger-for-python-26-6",
       "missing_languages": [
         "ar",
-        "cs",
-        "fa",
         "he",
         "it",
         "pl",
         "ru",
         "tr",
         "uk",
-        "vi",
         "zh-hant"
       ],
-      "missing_count": 11,
+      "missing_count": 8,
       "total_expected": 21,
       "url": "/merger/groupdocs-merger-for-python-26-6/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/merger/2026-06-17-demo-billing-consolidator",
+      "missing_languages": [
+        "fr",
+        "he",
+        "th",
+        "uk"
+      ],
+      "missing_count": 4,
+      "total_expected": 21,
+      "url": "/groupdocs-merger/billing-consolidator-python/"
     },
     {
       "path": "content/Groupdocs.Blog/metadata/2026-05-27-groupdocs-metadata-for-python-26-5",
@@ -157,75 +170,93 @@
       "url": "/metadata/groupdocs-metadata-for-python-26-5/"
     },
     {
-      "path": "content/Groupdocs.Blog/search/2026-06-05-groupdocs-search-for-net-26-6",
+      "path": "content/Groupdocs.Blog/metadata/2026-06-17-groupdocs-metadata-for-net-26-6",
       "missing_languages": [
-        "ar",
-        "cs",
+        "he",
+        "ja",
+        "ko",
+        "pl",
+        "vi"
+      ],
+      "missing_count": 5,
+      "total_expected": 21,
+      "url": "/metadata/groupdocs-metadata-for-net-26-6/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/redaction/2026-06-15-groupdocs-redaction-for-python-26-6",
+      "missing_languages": [
         "de",
         "es",
         "fa",
         "fr",
-        "he",
         "id",
         "it",
-        "ja",
-        "ko",
-        "nl",
         "pl",
         "pt",
-        "ru",
         "th",
-        "tr",
         "uk",
         "vi",
-        "zh",
-        "zh-hant"
+        "zh"
       ],
-      "missing_count": 21,
+      "missing_count": 12,
+      "total_expected": 21,
+      "url": "/redaction/groupdocs-redaction-for-python-26-6/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/search/2026-06-05-groupdocs-search-for-net-26-6",
+      "missing_languages": [
+        "es",
+        "ja",
+        "nl",
+        "tr",
+        "vi"
+      ],
+      "missing_count": 5,
       "total_expected": 21,
       "url": "/search/groupdocs-search-for-net-26-6/"
     },
     {
       "path": "content/Groupdocs.Blog/total/2026-05-11-groupdocs-total-for-net-26-4",
       "missing_languages": [
-        "cs",
         "nl"
       ],
-      "missing_count": 2,
+      "missing_count": 1,
       "total_expected": 21,
       "url": "/total/groupdocs-total-for-net-26-4/"
     },
     {
-      "path": "content/Groupdocs.Blog/viewer/2026-05-21-groupdocs-viewer-for-python-26-5",
+      "path": "content/Groupdocs.Blog/total/2026-06-17-groupdocs-total-for-java-26-6",
       "missing_languages": [
-        "fr"
+        "ar",
+        "he",
+        "id",
+        "ja",
+        "th",
+        "uk"
       ],
-      "missing_count": 1,
+      "missing_count": 6,
       "total_expected": 21,
-      "url": "/viewer/groupdocs-viewer-for-python-26-5/"
+      "url": "/total/groupdocs-total-for-java-26-6/"
     },
     {
       "path": "content/Groupdocs.Blog/viewer/2026-06-05-groupdocs-viewer-for-java-26-5",
       "missing_languages": [
-        "ja",
         "ru",
         "uk"
       ],
-      "missing_count": 3,
+      "missing_count": 2,
       "total_expected": 21,
       "url": "/viewer/groupdocs-viewer-for-java-26-5/"
     },
     {
       "path": "content/Groupdocs.Blog/viewer/2026-06-06-groupdocs-viewer-for-node-js-26-5",
       "missing_languages": [
-        "cs",
         "de",
-        "es",
         "pl",
         "tr",
         "uk"
       ],
-      "missing_count": 6,
+      "missing_count": 4,
       "total_expected": 21,
       "url": "/viewer/groupdocs-viewer-for-node-js-26-5/"
     }
