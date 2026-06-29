@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 149,
-    "posts_with_missing_translations": 0,
-    "posts_complete": 149,
+    "posts_with_missing_translations": 1,
+    "posts_complete": 148,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,9 +45,42 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-06-28T08:37:15.333912+00:00"
+    "date_generated": "2026-06-29T10:15:11.922317+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/merger/2026-06-17-demo-billing-consolidator",
+      "url": "https://blog.groupdocs.com/groupdocs-merger/billing-consolidator-python/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/groupdocs-merger/billing-consolidator-python/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }

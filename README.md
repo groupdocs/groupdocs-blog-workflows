@@ -24,12 +24,16 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-✅ **All blog posts have complete translations!**
+⚠️ **1 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 149
-- **Posts with complete translations**: 149
-- **Posts missing translations**: 0
+- **Posts with complete translations**: 148
+- **Posts missing translations**: 1
 - **Expected languages**: 21
-- **Last updated**: 2026-06-28 08:37:15 UTC
+- **Last updated**: 2026-06-29 10:15:11 UTC
+
+### Posts Needing Attention
+
+- [2026-06-17-demo-billing-consolidator](https://blog.groupdocs.com/groupdocs-merger/billing-consolidator-python/) - 21/21 translations missing
