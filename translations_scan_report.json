@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 151,
-    "posts_with_missing_translations": 2,
-    "posts_complete": 149,
+    "posts_with_missing_translations": 0,
+    "posts_complete": 151,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,74 +45,9 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": false,
+    "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-07-01T09:23:46.761724+00:00"
+    "date_generated": "2026-07-02T08:37:23.774410+00:00"
   },
-  "posts": [
-    {
-      "path": "content/Groupdocs.Blog/conversion/2026-06-30-groupdocs-conversion-for-net-26-6",
-      "url": "https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-6/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-6/",
-        "ar": "https://blog.groupdocs.com/ar/conversion/groupdocs-conversion-for-net-26-6/",
-        "cs": "https://blog.groupdocs.com/cs/conversion/groupdocs-conversion-for-net-26-6/",
-        "de": "https://blog.groupdocs.com/de/conversion/groupdocs-conversion-for-net-26-6/",
-        "es": "https://blog.groupdocs.com/es/conversion/groupdocs-conversion-for-net-26-6/",
-        "fa": "https://blog.groupdocs.com/fa/conversion/groupdocs-conversion-for-net-26-6/",
-        "fr": "https://blog.groupdocs.com/fr/conversion/groupdocs-conversion-for-net-26-6/",
-        "he": "https://blog.groupdocs.com/he/conversion/groupdocs-conversion-for-net-26-6/",
-        "id": "https://blog.groupdocs.com/id/conversion/groupdocs-conversion-for-net-26-6/",
-        "it": "https://blog.groupdocs.com/it/conversion/groupdocs-conversion-for-net-26-6/",
-        "ja": "https://blog.groupdocs.com/ja/conversion/groupdocs-conversion-for-net-26-6/",
-        "ko": "https://blog.groupdocs.com/ko/conversion/groupdocs-conversion-for-net-26-6/",
-        "nl": "https://blog.groupdocs.com/nl/conversion/groupdocs-conversion-for-net-26-6/",
-        "pl": "https://blog.groupdocs.com/pl/conversion/groupdocs-conversion-for-net-26-6/",
-        "pt": "https://blog.groupdocs.com/pt/conversion/groupdocs-conversion-for-net-26-6/",
-        "ru": "https://blog.groupdocs.com/ru/conversion/groupdocs-conversion-for-net-26-6/",
-        "th": "https://blog.groupdocs.com/th/conversion/groupdocs-conversion-for-net-26-6/",
-        "tr": "https://blog.groupdocs.com/tr/conversion/groupdocs-conversion-for-net-26-6/",
-        "uk": "https://blog.groupdocs.com/uk/conversion/groupdocs-conversion-for-net-26-6/",
-        "vi": "https://blog.groupdocs.com/vi/conversion/groupdocs-conversion-for-net-26-6/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/conversion/groupdocs-conversion-for-net-26-6/"
-      },
-      "missing_languages": [
-        "zh"
-      ],
-      "missing_count": 1,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/redaction/2026-06-29-redaction-for-net-26-6",
-      "url": "https://blog.groupdocs.com/redaction/groupdocs-redaction-for-net-26-6/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/redaction/groupdocs-redaction-for-net-26-6/",
-        "ar": "https://blog.groupdocs.com/ar/redaction/groupdocs-redaction-for-net-26-6/",
-        "cs": "https://blog.groupdocs.com/cs/redaction/groupdocs-redaction-for-net-26-6/",
-        "de": "https://blog.groupdocs.com/de/redaction/groupdocs-redaction-for-net-26-6/",
-        "es": "https://blog.groupdocs.com/es/redaction/groupdocs-redaction-for-net-26-6/",
-        "fa": "https://blog.groupdocs.com/fa/redaction/groupdocs-redaction-for-net-26-6/",
-        "fr": "https://blog.groupdocs.com/fr/redaction/groupdocs-redaction-for-net-26-6/",
-        "id": "https://blog.groupdocs.com/id/redaction/groupdocs-redaction-for-net-26-6/",
-        "it": "https://blog.groupdocs.com/it/redaction/groupdocs-redaction-for-net-26-6/",
-        "ja": "https://blog.groupdocs.com/ja/redaction/groupdocs-redaction-for-net-26-6/",
-        "ko": "https://blog.groupdocs.com/ko/redaction/groupdocs-redaction-for-net-26-6/",
-        "nl": "https://blog.groupdocs.com/nl/redaction/groupdocs-redaction-for-net-26-6/",
-        "pl": "https://blog.groupdocs.com/pl/redaction/groupdocs-redaction-for-net-26-6/",
-        "pt": "https://blog.groupdocs.com/pt/redaction/groupdocs-redaction-for-net-26-6/",
-        "ru": "https://blog.groupdocs.com/ru/redaction/groupdocs-redaction-for-net-26-6/",
-        "th": "https://blog.groupdocs.com/th/redaction/groupdocs-redaction-for-net-26-6/",
-        "tr": "https://blog.groupdocs.com/tr/redaction/groupdocs-redaction-for-net-26-6/",
-        "uk": "https://blog.groupdocs.com/uk/redaction/groupdocs-redaction-for-net-26-6/",
-        "vi": "https://blog.groupdocs.com/vi/redaction/groupdocs-redaction-for-net-26-6/",
-        "zh": "https://blog.groupdocs.com/zh/redaction/groupdocs-redaction-for-net-26-6/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/redaction/groupdocs-redaction-for-net-26-6/"
-      },
-      "missing_languages": [
-        "he"
-      ],
-      "missing_count": 1,
-      "total_expected": 21
-    }
-  ]
+  "posts": []
 }
