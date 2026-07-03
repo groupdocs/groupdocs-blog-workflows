@@ -24,12 +24,17 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-✅ **All blog posts have complete translations!**
+⚠️ **2 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 151
+- **Total posts scanned**: 153
 - **Posts with complete translations**: 151
-- **Posts missing translations**: 0
+- **Posts missing translations**: 2
 - **Expected languages**: 21
-- **Last updated**: 2026-07-02 08:37:23 UTC
+- **Last updated**: 2026-07-03 08:43:05 UTC
+
+### Posts Needing Attention
+
+- [2026-07-02-groupdocs-watermark-for-python-26-6](https://blog.groupdocs.com/watermark/groupdocs-watermark-for-python-26-6/) - 21/21 translations missing
+- [2026-07-02-groupdocs-assembly-for-net-26-6](https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-26-6/) - 21/21 translations missing
