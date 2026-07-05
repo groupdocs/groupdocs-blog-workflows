@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 153,
-    "posts_with_missing_translations": 1,
-    "posts_complete": 152,
+    "posts_with_missing_translations": 0,
+    "posts_complete": 153,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,42 +45,9 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": false,
+    "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-07-04T08:16:58.901315+00:00"
+    "date_generated": "2026-07-05T08:35:50.707767+00:00"
   },
-  "posts": [
-    {
-      "path": "content/Groupdocs.Blog/assembly/2026-07-02-groupdocs-assembly-for-net-26-6",
-      "url": "https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-26-6/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-26-6/",
-        "ar": "https://blog.groupdocs.com/ar/assembly/groupdocs-assembly-for-net-26-6/",
-        "cs": "https://blog.groupdocs.com/cs/assembly/groupdocs-assembly-for-net-26-6/",
-        "de": "https://blog.groupdocs.com/de/assembly/groupdocs-assembly-for-net-26-6/",
-        "es": "https://blog.groupdocs.com/es/assembly/groupdocs-assembly-for-net-26-6/",
-        "fr": "https://blog.groupdocs.com/fr/assembly/groupdocs-assembly-for-net-26-6/",
-        "he": "https://blog.groupdocs.com/he/assembly/groupdocs-assembly-for-net-26-6/",
-        "id": "https://blog.groupdocs.com/id/assembly/groupdocs-assembly-for-net-26-6/",
-        "it": "https://blog.groupdocs.com/it/assembly/groupdocs-assembly-for-net-26-6/",
-        "ja": "https://blog.groupdocs.com/ja/assembly/groupdocs-assembly-for-net-26-6/",
-        "ko": "https://blog.groupdocs.com/ko/assembly/groupdocs-assembly-for-net-26-6/",
-        "nl": "https://blog.groupdocs.com/nl/assembly/groupdocs-assembly-for-net-26-6/",
-        "pl": "https://blog.groupdocs.com/pl/assembly/groupdocs-assembly-for-net-26-6/",
-        "pt": "https://blog.groupdocs.com/pt/assembly/groupdocs-assembly-for-net-26-6/",
-        "ru": "https://blog.groupdocs.com/ru/assembly/groupdocs-assembly-for-net-26-6/",
-        "th": "https://blog.groupdocs.com/th/assembly/groupdocs-assembly-for-net-26-6/",
-        "tr": "https://blog.groupdocs.com/tr/assembly/groupdocs-assembly-for-net-26-6/",
-        "uk": "https://blog.groupdocs.com/uk/assembly/groupdocs-assembly-for-net-26-6/",
-        "vi": "https://blog.groupdocs.com/vi/assembly/groupdocs-assembly-for-net-26-6/",
-        "zh": "https://blog.groupdocs.com/zh/assembly/groupdocs-assembly-for-net-26-6/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/assembly/groupdocs-assembly-for-net-26-6/"
-      },
-      "missing_languages": [
-        "fa"
-      ],
-      "missing_count": 1,
-      "total_expected": 21
-    }
-  ]
+  "posts": []
 }
