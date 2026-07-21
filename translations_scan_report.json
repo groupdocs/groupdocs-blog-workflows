@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 156,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 157,
+    "posts_with_missing_translations": 1,
     "posts_complete": 156,
     "filters_applied": [
       {
@@ -45,9 +45,42 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-07-20T08:32:04.666114+00:00"
+    "date_generated": "2026-07-21T08:02:14.885456+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/assembly/2026-07-20-groupdocs-assembly-for-net-26-7",
+      "url": "https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-26-7/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/assembly/groupdocs-assembly-for-net-26-7/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
