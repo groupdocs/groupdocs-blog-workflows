@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 157,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 158,
+    "posts_with_missing_translations": 1,
     "posts_complete": 157,
     "filters_applied": [
       {
@@ -45,9 +45,42 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-07-22T08:02:45.716174+00:00"
+    "date_generated": "2026-07-23T08:05:27.369716+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/redaction/2026-07-22-redaction-for-net-26-7",
+      "url": "https://blog.groupdocs.com/redaction/groupdocs-redaction-for-net-26-7/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/redaction/groupdocs-redaction-for-net-26-7/",
+        "ar": "https://blog.groupdocs.com/ar/redaction/groupdocs-redaction-for-net-26-7/",
+        "cs": "https://blog.groupdocs.com/cs/redaction/groupdocs-redaction-for-net-26-7/",
+        "de": "https://blog.groupdocs.com/de/redaction/groupdocs-redaction-for-net-26-7/",
+        "es": "https://blog.groupdocs.com/es/redaction/groupdocs-redaction-for-net-26-7/",
+        "fa": "https://blog.groupdocs.com/fa/redaction/groupdocs-redaction-for-net-26-7/",
+        "fr": "https://blog.groupdocs.com/fr/redaction/groupdocs-redaction-for-net-26-7/",
+        "id": "https://blog.groupdocs.com/id/redaction/groupdocs-redaction-for-net-26-7/",
+        "it": "https://blog.groupdocs.com/it/redaction/groupdocs-redaction-for-net-26-7/",
+        "ja": "https://blog.groupdocs.com/ja/redaction/groupdocs-redaction-for-net-26-7/",
+        "ko": "https://blog.groupdocs.com/ko/redaction/groupdocs-redaction-for-net-26-7/",
+        "nl": "https://blog.groupdocs.com/nl/redaction/groupdocs-redaction-for-net-26-7/",
+        "pl": "https://blog.groupdocs.com/pl/redaction/groupdocs-redaction-for-net-26-7/",
+        "pt": "https://blog.groupdocs.com/pt/redaction/groupdocs-redaction-for-net-26-7/",
+        "ru": "https://blog.groupdocs.com/ru/redaction/groupdocs-redaction-for-net-26-7/",
+        "th": "https://blog.groupdocs.com/th/redaction/groupdocs-redaction-for-net-26-7/",
+        "tr": "https://blog.groupdocs.com/tr/redaction/groupdocs-redaction-for-net-26-7/",
+        "uk": "https://blog.groupdocs.com/uk/redaction/groupdocs-redaction-for-net-26-7/",
+        "vi": "https://blog.groupdocs.com/vi/redaction/groupdocs-redaction-for-net-26-7/",
+        "zh": "https://blog.groupdocs.com/zh/redaction/groupdocs-redaction-for-net-26-7/",
+        "zh-hant": "https://blog.groupdocs.com/zh-hant/redaction/groupdocs-redaction-for-net-26-7/"
+      },
+      "missing_languages": [
+        "he"
+      ],
+      "missing_count": 1,
+      "total_expected": 21
+    }
+  ]
 }
