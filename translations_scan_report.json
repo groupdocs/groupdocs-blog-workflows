@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 158,
-    "posts_with_missing_translations": 0,
+    "total_posts_scanned": 161,
+    "posts_with_missing_translations": 3,
     "posts_complete": 158,
     "filters_applied": [
       {
@@ -45,9 +45,106 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": true,
+    "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-07-25T07:46:35.960140+00:00"
+    "date_generated": "2026-07-26T08:01:51.498948+00:00"
   },
-  "posts": []
+  "posts": [
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions",
+      "url": "https://blog.groupdocs.com/metadata/compare-metadata-versions-java/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/metadata/compare-metadata-versions-java/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions-net",
+      "url": "https://blog.groupdocs.com/metadata/compare-metadata-versions-net/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/metadata/compare-metadata-versions-net/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions-nodejs",
+      "url": "https://blog.groupdocs.com/metadata/compare-document-metadata-nodejs/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/metadata/compare-document-metadata-nodejs/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    }
+  ]
 }
