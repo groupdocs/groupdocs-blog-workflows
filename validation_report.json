@@ -1,17 +1,20 @@
 {
   "summary": {
-    "total_posts_scanned": 156,
-    "total_translations_checked": 3276,
-    "valid_translations": 3229,
-    "invalid_translations": 47,
-    "posts_needing_retranslation": 14,
+    "total_posts_scanned": 161,
+    "total_translations_checked": 3381,
+    "valid_translations": 3275,
+    "invalid_translations": 106,
+    "posts_needing_retranslation": 17,
     "issues_breakdown": {
-      "headers_untranslated": 26,
-      "structural_links": 25,
-      "structural_headers": 20,
-      "structural_code_blocks": 17,
-      "likely_truncated": 5,
-      "structural_length": 2
+      "headers_untranslated": 29,
+      "structural_links": 18,
+      "structural_headers": 18,
+      "structural_code_blocks": 15,
+      "structural_tables": 2,
+      "structural_length": 3,
+      "likely_truncated": 4,
+      "file_missing": 63,
+      "structural_products": 1
     },
     "languages_checked": [
       "ar",
@@ -38,45 +41,40 @@
     ],
     "min_year": null,
     "min_date": "2024-07-01",
-    "date_generated": "2026-07-19T09:02:02.268894+00:00"
+    "date_generated": "2026-07-26T09:08:48.911894+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/assembly/2026-07-02-groupdocs-assembly-for-net-26-6",
+      "path": "content/Groupdocs.Blog/assembly/2026-07-20-groupdocs-assembly-for-net-26-7",
       "missing_languages": [
         "de",
-        "ja"
+        "he"
       ],
       "missing_count": 2,
       "total_expected": 21,
-      "url": "/assembly/groupdocs-assembly-for-net-26-6/"
+      "url": "/assembly/groupdocs-assembly-for-net-26-7/"
     },
     {
       "path": "content/Groupdocs.Blog/comparison/2026-05-29-groupdocs-comparison-for-net-26-5",
       "missing_languages": [
         "de",
         "fr",
-        "he",
         "th",
-        "tr",
         "uk"
       ],
-      "missing_count": 6,
+      "missing_count": 4,
       "total_expected": 21,
       "url": "/comparison/groupdocs-comparison-for-net-26-5/"
     },
     {
       "path": "content/Groupdocs.Blog/conversion/2026-06-30-groupdocs-conversion-for-net-26-6",
       "missing_languages": [
-        "cs",
-        "pl",
-        "ru",
         "th",
         "tr",
         "uk",
         "vi"
       ],
-      "missing_count": 7,
+      "missing_count": 4,
       "total_expected": 21,
       "url": "/conversion/groupdocs-conversion-for-net-26-6/"
     },
@@ -100,10 +98,9 @@
       "missing_languages": [
         "ar",
         "pl",
-        "tr",
-        "zh-hant"
+        "tr"
       ],
-      "missing_count": 4,
+      "missing_count": 3,
       "total_expected": 21,
       "url": "/merger/groupdocs-merger-for-python-26-6/"
     },
@@ -117,13 +114,91 @@
       "url": "/metadata/groupdocs-metadata-for-python-26-5/"
     },
     {
-      "path": "content/Groupdocs.Blog/redaction/2026-06-15-groupdocs-redaction-for-python-26-6",
+      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions",
       "missing_languages": [
-        "de"
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
       ],
-      "missing_count": 1,
+      "missing_count": 21,
       "total_expected": 21,
-      "url": "/redaction/groupdocs-redaction-for-python-26-6/"
+      "url": "/metadata/compare-metadata-versions-java/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions-net",
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21,
+      "url": "/metadata/compare-metadata-versions-net/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions-nodejs",
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21,
+      "url": "/metadata/compare-document-metadata-nodejs/"
     },
     {
       "path": "content/Groupdocs.Blog/redaction/2026-06-29-redaction-for-net-26-6",
@@ -134,6 +209,21 @@
       "missing_count": 2,
       "total_expected": 21,
       "url": "/redaction/groupdocs-redaction-for-net-26-6/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/redaction/2026-07-22-redaction-for-net-26-7",
+      "missing_languages": [
+        "he",
+        "ja",
+        "ko",
+        "pl",
+        "ru",
+        "th",
+        "vi"
+      ],
+      "missing_count": 7,
+      "total_expected": 21,
+      "url": "/redaction/groupdocs-redaction-for-net-26-7/"
     },
     {
       "path": "content/Groupdocs.Blog/signature/2026-07-06-groupdocs-signature-for-net-26-6",
@@ -157,16 +247,12 @@
       "path": "content/Groupdocs.Blog/total/2026-07-14-groupdocs-total-for-net-26-6",
       "missing_languages": [
         "cs",
-        "fa",
         "id",
-        "it",
         "ja",
         "nl",
-        "pl",
-        "pt",
         "vi"
       ],
-      "missing_count": 9,
+      "missing_count": 5,
       "total_expected": 21,
       "url": "/total/groupdocs-total-for-net-26-6/"
     },
