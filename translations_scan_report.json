@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 161,
-    "posts_with_missing_translations": 3,
+    "total_posts_scanned": 163,
+    "posts_with_missing_translations": 5,
     "posts_complete": 158,
     "filters_applied": [
       {
@@ -47,9 +47,73 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-07-26T08:01:51.498948+00:00"
+    "date_generated": "2026-07-27T09:20:39.237731+00:00"
   },
   "posts": [
+    {
+      "path": "content/Groupdocs.Blog/editor/2026-07-27-groupdocs-editor-for-java-26-7",
+      "url": "https://blog.groupdocs.com/editor/groupdocs-editor-for-java-26-7/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/editor/groupdocs-editor-for-java-26-7/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/editor/2026-07-27-groupdocs-editor-for-node-js-26-7",
+      "url": "https://blog.groupdocs.com/editor/groupdocs-editor-for-node-js-26-7/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/editor/groupdocs-editor-for-node-js-26-7/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
     {
       "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions",
       "url": "https://blog.groupdocs.com/metadata/compare-metadata-versions-java/",
