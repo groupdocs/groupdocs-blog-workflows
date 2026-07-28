@@ -24,20 +24,18 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **5 post(s) missing translations**
+⚠️ **3 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 163
-- **Posts with complete translations**: 158
-- **Posts missing translations**: 5
+- **Posts with complete translations**: 160
+- **Posts missing translations**: 3
 - **Expected languages**: 21
-- **Last updated**: 2026-07-27 09:20:39 UTC
+- **Last updated**: 2026-07-28 08:09:29 UTC
 
 ### Posts Needing Attention
 
-- [2026-07-25-compare-metadata-between-document-versions-nodejs](https://blog.groupdocs.com/metadata/compare-document-metadata-nodejs/) - 21/21 translations missing
-- [2026-07-25-compare-metadata-between-document-versions-net](https://blog.groupdocs.com/metadata/compare-metadata-versions-net/) - 21/21 translations missing
-- [2026-07-25-compare-metadata-between-document-versions](https://blog.groupdocs.com/metadata/compare-metadata-versions-java/) - 21/21 translations missing
-- [2026-07-27-groupdocs-editor-for-node-js-26-7](https://blog.groupdocs.com/editor/groupdocs-editor-for-node-js-26-7/) - 21/21 translations missing
-- [2026-07-27-groupdocs-editor-for-java-26-7](https://blog.groupdocs.com/editor/groupdocs-editor-for-java-26-7/) - 21/21 translations missing
+- [2026-07-27-groupdocs-editor-for-java-26-7](https://blog.groupdocs.com/editor/groupdocs-editor-for-java-26-7/) - 4/21 translations missing
+- [2026-07-25-compare-metadata-between-document-versions-nodejs](https://blog.groupdocs.com/metadata/compare-document-metadata-nodejs/) - 3/21 translations missing
+- [2026-07-25-compare-metadata-between-document-versions](https://blog.groupdocs.com/metadata/compare-metadata-versions-java/) - 1/21 translations missing
