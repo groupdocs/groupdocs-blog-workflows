@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_posts_scanned": 163,
-    "posts_with_missing_translations": 3,
-    "posts_complete": 160,
+    "posts_with_missing_translations": 0,
+    "posts_complete": 163,
     "filters_applied": [
       {
         "name": "archived",
@@ -45,106 +45,9 @@
       "zh-hant"
     ],
     "total_expected_languages": 21,
-    "all_complete": false,
+    "all_complete": true,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-07-28T08:09:29.975708+00:00"
+    "date_generated": "2026-07-29T08:13:41.341021+00:00"
   },
-  "posts": [
-    {
-      "path": "content/Groupdocs.Blog/editor/2026-07-27-groupdocs-editor-for-java-26-7",
-      "url": "https://blog.groupdocs.com/editor/groupdocs-editor-for-java-26-7/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/editor/groupdocs-editor-for-java-26-7/",
-        "ar": "https://blog.groupdocs.com/ar/editor/groupdocs-editor-for-java-26-7/",
-        "de": "https://blog.groupdocs.com/de/editor/groupdocs-editor-for-java-26-7/",
-        "es": "https://blog.groupdocs.com/es/editor/groupdocs-editor-for-java-26-7/",
-        "fa": "https://blog.groupdocs.com/fa/editor/groupdocs-editor-for-java-26-7/",
-        "fr": "https://blog.groupdocs.com/fr/editor/groupdocs-editor-for-java-26-7/",
-        "he": "https://blog.groupdocs.com/he/editor/groupdocs-editor-for-java-26-7/",
-        "id": "https://blog.groupdocs.com/id/editor/groupdocs-editor-for-java-26-7/",
-        "it": "https://blog.groupdocs.com/it/editor/groupdocs-editor-for-java-26-7/",
-        "ja": "https://blog.groupdocs.com/ja/editor/groupdocs-editor-for-java-26-7/",
-        "pl": "https://blog.groupdocs.com/pl/editor/groupdocs-editor-for-java-26-7/",
-        "pt": "https://blog.groupdocs.com/pt/editor/groupdocs-editor-for-java-26-7/",
-        "ru": "https://blog.groupdocs.com/ru/editor/groupdocs-editor-for-java-26-7/",
-        "tr": "https://blog.groupdocs.com/tr/editor/groupdocs-editor-for-java-26-7/",
-        "uk": "https://blog.groupdocs.com/uk/editor/groupdocs-editor-for-java-26-7/",
-        "vi": "https://blog.groupdocs.com/vi/editor/groupdocs-editor-for-java-26-7/",
-        "zh": "https://blog.groupdocs.com/zh/editor/groupdocs-editor-for-java-26-7/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/editor/groupdocs-editor-for-java-26-7/"
-      },
-      "missing_languages": [
-        "cs",
-        "ko",
-        "nl",
-        "th"
-      ],
-      "missing_count": 4,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions",
-      "url": "https://blog.groupdocs.com/metadata/compare-metadata-versions-java/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/metadata/compare-metadata-versions-java/",
-        "ar": "https://blog.groupdocs.com/ar/metadata/compare-metadata-versions-java/",
-        "cs": "https://blog.groupdocs.com/cs/metadata/compare-metadata-versions-java/",
-        "de": "https://blog.groupdocs.com/de/metadata/compare-metadata-versions-java/",
-        "es": "https://blog.groupdocs.com/es/metadata/compare-metadata-versions-java/",
-        "fa": "https://blog.groupdocs.com/fa/metadata/compare-metadata-versions-java/",
-        "fr": "https://blog.groupdocs.com/fr/metadata/compare-metadata-versions-java/",
-        "he": "https://blog.groupdocs.com/he/metadata/compare-metadata-versions-java/",
-        "id": "https://blog.groupdocs.com/id/metadata/compare-metadata-versions-java/",
-        "it": "https://blog.groupdocs.com/it/metadata/compare-metadata-versions-java/",
-        "ja": "https://blog.groupdocs.com/ja/metadata/compare-metadata-versions-java/",
-        "ko": "https://blog.groupdocs.com/ko/metadata/compare-metadata-versions-java/",
-        "nl": "https://blog.groupdocs.com/nl/metadata/compare-metadata-versions-java/",
-        "pt": "https://blog.groupdocs.com/pt/metadata/compare-metadata-versions-java/",
-        "ru": "https://blog.groupdocs.com/ru/metadata/compare-metadata-versions-java/",
-        "th": "https://blog.groupdocs.com/th/metadata/compare-metadata-versions-java/",
-        "tr": "https://blog.groupdocs.com/tr/metadata/compare-metadata-versions-java/",
-        "uk": "https://blog.groupdocs.com/uk/metadata/compare-metadata-versions-java/",
-        "vi": "https://blog.groupdocs.com/vi/metadata/compare-metadata-versions-java/",
-        "zh": "https://blog.groupdocs.com/zh/metadata/compare-metadata-versions-java/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/metadata/compare-metadata-versions-java/"
-      },
-      "missing_languages": [
-        "pl"
-      ],
-      "missing_count": 1,
-      "total_expected": 21
-    },
-    {
-      "path": "content/Groupdocs.Blog/metadata/2026-07-25-compare-metadata-between-document-versions-nodejs",
-      "url": "https://blog.groupdocs.com/metadata/compare-document-metadata-nodejs/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/metadata/compare-document-metadata-nodejs/",
-        "ar": "https://blog.groupdocs.com/ar/metadata/compare-document-metadata-nodejs/",
-        "cs": "https://blog.groupdocs.com/cs/metadata/compare-document-metadata-nodejs/",
-        "de": "https://blog.groupdocs.com/de/metadata/compare-document-metadata-nodejs/",
-        "es": "https://blog.groupdocs.com/es/metadata/compare-document-metadata-nodejs/",
-        "fa": "https://blog.groupdocs.com/fa/metadata/compare-document-metadata-nodejs/",
-        "fr": "https://blog.groupdocs.com/fr/metadata/compare-document-metadata-nodejs/",
-        "he": "https://blog.groupdocs.com/he/metadata/compare-document-metadata-nodejs/",
-        "it": "https://blog.groupdocs.com/it/metadata/compare-document-metadata-nodejs/",
-        "ja": "https://blog.groupdocs.com/ja/metadata/compare-document-metadata-nodejs/",
-        "ko": "https://blog.groupdocs.com/ko/metadata/compare-document-metadata-nodejs/",
-        "nl": "https://blog.groupdocs.com/nl/metadata/compare-document-metadata-nodejs/",
-        "pl": "https://blog.groupdocs.com/pl/metadata/compare-document-metadata-nodejs/",
-        "pt": "https://blog.groupdocs.com/pt/metadata/compare-document-metadata-nodejs/",
-        "ru": "https://blog.groupdocs.com/ru/metadata/compare-document-metadata-nodejs/",
-        "th": "https://blog.groupdocs.com/th/metadata/compare-document-metadata-nodejs/",
-        "uk": "https://blog.groupdocs.com/uk/metadata/compare-document-metadata-nodejs/",
-        "zh": "https://blog.groupdocs.com/zh/metadata/compare-document-metadata-nodejs/",
-        "zh-hant": "https://blog.groupdocs.com/zh-hant/metadata/compare-document-metadata-nodejs/"
-      },
-      "missing_languages": [
-        "id",
-        "tr",
-        "vi"
-      ],
-      "missing_count": 3,
-      "total_expected": 21
-    }
-  ]
+  "posts": []
 }
