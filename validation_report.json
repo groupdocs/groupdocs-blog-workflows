@@ -1,19 +1,18 @@
 {
   "summary": {
-    "total_posts_scanned": 161,
-    "total_translations_checked": 3381,
-    "valid_translations": 3275,
-    "invalid_translations": 106,
-    "posts_needing_retranslation": 17,
+    "total_posts_scanned": 166,
+    "total_translations_checked": 3486,
+    "valid_translations": 3360,
+    "invalid_translations": 126,
+    "posts_needing_retranslation": 22,
     "issues_breakdown": {
-      "headers_untranslated": 29,
-      "structural_links": 18,
-      "structural_headers": 18,
-      "structural_code_blocks": 15,
-      "structural_tables": 2,
-      "structural_length": 3,
-      "likely_truncated": 4,
-      "file_missing": 63,
+      "headers_untranslated": 83,
+      "structural_links": 25,
+      "structural_headers": 58,
+      "structural_code_blocks": 47,
+      "structural_tables": 36,
+      "structural_length": 9,
+      "likely_truncated": 13,
       "structural_products": 1
     },
     "languages_checked": [
@@ -41,7 +40,7 @@
     ],
     "min_year": null,
     "min_date": "2024-07-01",
-    "date_generated": "2026-07-26T09:08:48.911894+00:00"
+    "date_generated": "2026-08-02T09:05:30.424824+00:00"
   },
   "posts": [
     {
@@ -67,6 +66,21 @@
       "url": "/comparison/groupdocs-comparison-for-net-26-5/"
     },
     {
+      "path": "content/Groupdocs.Blog/comparison/2026-07-29-groupdocs-comparison-for-net-26-7",
+      "missing_languages": [
+        "ar",
+        "id",
+        "ja",
+        "nl",
+        "pl",
+        "vi",
+        "zh-hant"
+      ],
+      "missing_count": 7,
+      "total_expected": 21,
+      "url": "/comparison/groupdocs-comparison-for-net-26-7/"
+    },
+    {
       "path": "content/Groupdocs.Blog/conversion/2026-06-30-groupdocs-conversion-for-net-26-6",
       "missing_languages": [
         "th",
@@ -77,6 +91,17 @@
       "missing_count": 4,
       "total_expected": 21,
       "url": "/conversion/groupdocs-conversion-for-net-26-6/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/conversion/2026-08-01-groupdocs-conversion-for-net-26-7",
+      "missing_languages": [
+        "he",
+        "ko",
+        "tr"
+      ],
+      "missing_count": 3,
+      "total_expected": 21,
+      "url": "/conversion/groupdocs-conversion-for-net-26-7/"
     },
     {
       "path": "content/Groupdocs.Blog/editor/2026-06-03-groupdocs-editor-for-python-26-5",
@@ -94,6 +119,44 @@
       "url": "/editor/groupdocs-editor-for-python-26-5/"
     },
     {
+      "path": "content/Groupdocs.Blog/editor/2026-07-27-groupdocs-editor-for-java-26-7",
+      "missing_languages": [
+        "ar",
+        "de",
+        "fr",
+        "id",
+        "it",
+        "ko",
+        "ru",
+        "th",
+        "tr",
+        "zh-hant"
+      ],
+      "missing_count": 10,
+      "total_expected": 21,
+      "url": "/editor/groupdocs-editor-for-java-26-7/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/editor/2026-07-27-groupdocs-editor-for-node-js-26-7",
+      "missing_languages": [
+        "fa",
+        "he",
+        "it",
+        "ja",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh"
+      ],
+      "missing_count": 12,
+      "total_expected": 21,
+      "url": "/editor/groupdocs-editor-for-node-js-26-7/"
+    },
+    {
       "path": "content/Groupdocs.Blog/merger/2026-06-03-groupdocs-merger-for-python-26-6",
       "missing_languages": [
         "ar",
@@ -103,6 +166,25 @@
       "missing_count": 3,
       "total_expected": 21,
       "url": "/merger/groupdocs-merger-for-python-26-6/"
+    },
+    {
+      "path": "content/Groupdocs.Blog/merger/2026-08-01-groupdocs-merger-for-net-26-7",
+      "missing_languages": [
+        "ar",
+        "cs",
+        "es",
+        "fr",
+        "id",
+        "ja",
+        "nl",
+        "pt",
+        "ru",
+        "tr",
+        "vi"
+      ],
+      "missing_count": 11,
+      "total_expected": 21,
+      "url": "/merger/groupdocs-merger-for-net-26-7/"
     },
     {
       "path": "content/Groupdocs.Blog/metadata/2026-05-27-groupdocs-metadata-for-python-26-5",
@@ -118,27 +200,16 @@
       "missing_languages": [
         "ar",
         "cs",
-        "de",
         "es",
         "fa",
-        "fr",
-        "he",
-        "id",
-        "it",
-        "ja",
-        "ko",
-        "nl",
         "pl",
         "pt",
-        "ru",
         "th",
         "tr",
         "uk",
-        "vi",
-        "zh",
-        "zh-hant"
+        "vi"
       ],
-      "missing_count": 21,
+      "missing_count": 10,
       "total_expected": 21,
       "url": "/metadata/compare-metadata-versions-java/"
     },
@@ -147,27 +218,20 @@
       "missing_languages": [
         "ar",
         "cs",
-        "de",
         "es",
-        "fa",
         "fr",
         "he",
         "id",
-        "it",
         "ja",
         "ko",
         "nl",
         "pl",
-        "pt",
-        "ru",
         "th",
         "tr",
         "uk",
-        "vi",
-        "zh",
         "zh-hant"
       ],
-      "missing_count": 21,
+      "missing_count": 14,
       "total_expected": 21,
       "url": "/metadata/compare-metadata-versions-net/"
     },
@@ -177,11 +241,7 @@
         "ar",
         "cs",
         "de",
-        "es",
-        "fa",
         "fr",
-        "he",
-        "id",
         "it",
         "ja",
         "ko",
@@ -193,10 +253,9 @@
         "tr",
         "uk",
         "vi",
-        "zh",
-        "zh-hant"
+        "zh"
       ],
-      "missing_count": 21,
+      "missing_count": 16,
       "total_expected": 21,
       "url": "/metadata/compare-document-metadata-nodejs/"
     },
