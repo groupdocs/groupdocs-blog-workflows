@@ -24,16 +24,19 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **1 post(s) missing translations**
+⚠️ **4 post(s) missing translations**
 
 ### Summary
 
-- **Total posts scanned**: 170
+- **Total posts scanned**: 173
 - **Posts with complete translations**: 169
-- **Posts missing translations**: 1
+- **Posts missing translations**: 4
 - **Expected languages**: 21
-- **Last updated**: 2026-08-12 07:01:57 UTC
+- **Last updated**: 2026-08-13 07:06:16 UTC
 
 ### Posts Needing Attention
 
+- [2026-08-12-extract-annotations-from-pdf-documents](https://blog.groupdocs.com/parser/extract-annotations-from-pdf-documents-net/) - 21/21 translations missing
+- 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-net - 21/21 translations missing
+- 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-java - 21/21 translations missing
 - [2026-08-08-compare-metadata-between-document-versions-python](https://blog.groupdocs.com/metadata/compare-metadata-between-document-versions-python-net/) - 21/21 translations missing
