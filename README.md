@@ -28,15 +28,15 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ### Summary
 
-- **Total posts scanned**: 173
-- **Posts with complete translations**: 169
+- **Total posts scanned**: 175
+- **Posts with complete translations**: 171
 - **Posts missing translations**: 4
 - **Expected languages**: 21
-- **Last updated**: 2026-08-13 07:06:16 UTC
+- **Last updated**: 2026-08-14 07:03:14 UTC
 
 ### Posts Needing Attention
 
-- [2026-08-12-extract-annotations-from-pdf-documents](https://blog.groupdocs.com/parser/extract-annotations-from-pdf-documents-net/) - 21/21 translations missing
+- [2026-08-13-remove-pii-from-office-files-python](https://blog.groupdocs.com/metadata/remove-pii-from-office-files-python-net/) - 21/21 translations missing
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-net - 21/21 translations missing
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-java - 21/21 translations missing
-- [2026-08-08-compare-metadata-between-document-versions-python](https://blog.groupdocs.com/metadata/compare-metadata-between-document-versions-python-net/) - 21/21 translations missing
+- 2026-08-10-xmp-metadata-in-adobe-psd-and-ai-python - 21/21 translations missing

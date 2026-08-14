@@ -1,8 +1,8 @@
 {
   "summary": {
-    "total_posts_scanned": 173,
+    "total_posts_scanned": 175,
     "posts_with_missing_translations": 4,
-    "posts_complete": 169,
+    "posts_complete": 171,
     "filters_applied": [
       {
         "name": "archived",
@@ -47,15 +47,13 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-08-13T07:06:16.984702+00:00"
+    "date_generated": "2026-08-14T07:03:14.111170+00:00"
   },
   "posts": [
     {
-      "path": "content/Groupdocs.Blog/metadata/2026-08-08-compare-metadata-between-document-versions-python",
-      "url": "https://blog.groupdocs.com/metadata/compare-metadata-between-document-versions-python-net/",
-      "urls": {
-        "en": "https://blog.groupdocs.com/metadata/compare-metadata-between-document-versions-python-net/"
-      },
+      "path": "content/Groupdocs.Blog/metadata/2026-08-10-xmp-metadata-in-adobe-psd-and-ai-python",
+      "url": null,
+      "urls": {},
       "missing_languages": [
         "ar",
         "cs",
@@ -143,10 +141,10 @@
       "total_expected": 21
     },
     {
-      "path": "content/Groupdocs.Blog/parser/2026-08-12-extract-annotations-from-pdf-documents",
-      "url": "https://blog.groupdocs.com/parser/extract-annotations-from-pdf-documents-net/",
+      "path": "content/Groupdocs.Blog/metadata/2026-08-13-remove-pii-from-office-files-python",
+      "url": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-python-net/",
       "urls": {
-        "en": "https://blog.groupdocs.com/parser/extract-annotations-from-pdf-documents-net/"
+        "en": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-python-net/"
       },
       "missing_languages": [
         "ar",
