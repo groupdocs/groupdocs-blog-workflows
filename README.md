@@ -24,19 +24,18 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **4 post(s) missing translations**
+⚠️ **3 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 175
-- **Posts with complete translations**: 171
-- **Posts missing translations**: 4
+- **Posts with complete translations**: 172
+- **Posts missing translations**: 3
 - **Expected languages**: 21
-- **Last updated**: 2026-08-14 07:03:14 UTC
+- **Last updated**: 2026-08-15 06:16:03 UTC
 
 ### Posts Needing Attention
 
-- [2026-08-13-remove-pii-from-office-files-python](https://blog.groupdocs.com/metadata/remove-pii-from-office-files-python-net/) - 21/21 translations missing
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-net - 21/21 translations missing
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-java - 21/21 translations missing
 - 2026-08-10-xmp-metadata-in-adobe-psd-and-ai-python - 21/21 translations missing
