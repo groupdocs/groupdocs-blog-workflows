@@ -32,7 +32,7 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 - **Posts with complete translations**: 172
 - **Posts missing translations**: 3
 - **Expected languages**: 21
-- **Last updated**: 2026-08-16 06:18:03 UTC
+- **Last updated**: 2026-08-17 06:26:56 UTC
 
 ### Posts Needing Attention
 
