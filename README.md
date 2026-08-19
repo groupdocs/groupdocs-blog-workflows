@@ -24,19 +24,18 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **4 post(s) missing translations**
+⚠️ **3 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 176
-- **Posts with complete translations**: 172
-- **Posts missing translations**: 4
+- **Posts with complete translations**: 173
+- **Posts missing translations**: 3
 - **Expected languages**: 21
-- **Last updated**: 2026-08-18 06:19:54 UTC
+- **Last updated**: 2026-08-19 06:20:52 UTC
 
 ### Posts Needing Attention
 
-- [2026-08-17-groupdocs-total-for-node-js-26-8](https://blog.groupdocs.com/total/groupdocs-total-for-node-js-26-8/) - 21/21 translations missing
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-net - 21/21 translations missing
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-java - 21/21 translations missing
 - 2026-08-10-xmp-metadata-in-adobe-psd-and-ai-python - 21/21 translations missing
