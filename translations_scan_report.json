@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_posts_scanned": 176,
-    "posts_with_missing_translations": 3,
+    "total_posts_scanned": 179,
+    "posts_with_missing_translations": 6,
     "posts_complete": 173,
     "filters_applied": [
       {
@@ -47,7 +47,7 @@
     "total_expected_languages": 21,
     "all_complete": false,
     "base_url": "https://blog.groupdocs.com/",
-    "date_generated": "2026-08-22T06:17:39.163824+00:00"
+    "date_generated": "2026-08-23T06:18:42.137044+00:00"
   },
   "posts": [
     {
@@ -114,6 +114,102 @@
       "path": "content/Groupdocs.Blog/metadata/2026-08-11-xmp-metadata-in-adobe-psd-and-ai-net",
       "url": null,
       "urls": {},
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-08-21-remove-pii-from-office-files-java",
+      "url": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-java/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-java/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-08-21-remove-pii-from-office-files-net",
+      "url": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-net/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-net/"
+      },
+      "missing_languages": [
+        "ar",
+        "cs",
+        "de",
+        "es",
+        "fa",
+        "fr",
+        "he",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh",
+        "zh-hant"
+      ],
+      "missing_count": 21,
+      "total_expected": 21
+    },
+    {
+      "path": "content/Groupdocs.Blog/metadata/2026-08-21-remove-pii-from-office-files-nodejs",
+      "url": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-nodejs-java/",
+      "urls": {
+        "en": "https://blog.groupdocs.com/metadata/remove-pii-from-office-files-nodejs-java/"
+      },
       "missing_languages": [
         "ar",
         "cs",
