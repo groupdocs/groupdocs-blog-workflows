@@ -24,19 +24,18 @@ Output files are saved under `tools/public-release-post-cover/output/`.
 
 ## Translation status
 
-⚠️ **4 post(s) missing translations**
+⚠️ **3 post(s) missing translations**
 
 ### Summary
 
 - **Total posts scanned**: 180
-- **Posts with complete translations**: 176
-- **Posts missing translations**: 4
+- **Posts with complete translations**: 177
+- **Posts missing translations**: 3
 - **Expected languages**: 21
-- **Last updated**: 2026-08-26 06:24:04 UTC
+- **Last updated**: 2026-08-27 16:56:17 UTC
 
 ### Posts Needing Attention
 
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-net - 21/21 translations missing
 - 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-java - 21/21 translations missing
 - 2026-08-10-xmp-metadata-in-adobe-psd-and-ai-python - 21/21 translations missing
-- [2026-08-26-groupdocs-comparison-for-net-26-8](https://blog.groupdocs.com/comparison/groupdocs-comparison-for-net-26-8/) - 21/21 translations missing
