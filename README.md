@@ -1,42 +1,48 @@
 # GroupDocs Blog Workflows
 
-GitHub Actions and tools that support GroupDocs blog publishing.
+GitHub Actions that build and deploy the GroupDocs blog.
 
-## Create release cover image
+Every workflow is manual (`workflow_dispatch`). Each one checks out
+[`groupdocs/groupdocs-blog`](https://github.com/groupdocs/groupdocs-blog) — including
+submodules — builds it with Hugo 0.101.0 (extended), and publishes the result. The site
+content itself lives in that repo, not here.
 
-- Run the Actions workflow "Create release post cover image".
-- Provide inputs: product, platform, version, title.
-- Download the "cover-image" artifact from the workflow run.
+All four require the `REPO_PAT` secret to check out the blog repo.
 
-Output files are saved under `tools/public-release-post-cover/output/`.
+## Deploy to blog-qa.groupdocs.com (S3)
 
-## Deploy to QA (blog-qa.groupdocs.com)
+`deploy-qa.yml` — GitHub-hosted runner.
 
-- Run the workflow "Deploy to blog-qa.groupdocs.com".
-- Requires repo secret `REPO_PAT` and AWS creds `ACCESS_KEY`/`SECRET_ACCESS`.
-- Builds with `config.yml,config.staging.yml` and deploys to the `staging` target.
+Builds with `config.yml,config.staging.yml` and `--buildDrafts`, deploys via
+`hugo deploy` to the `staging` target, then invalidates CloudFront.
 
-## Deploy to Production (blog.groupdocs.com)
+Secrets: `ACCESS_KEY`, `SECRET_ACCESS`, `CLOUDFRONT_DISTRIBUTION_ID_STAGING`
 
-- Run the workflow "Deploy to blog.groupdocs.com".
-- Requires repo secret `REPO_PAT` and AWS creds `ACCESS_KEY`/`SECRET_ACCESS`.
-- Builds with `config.yml,config.production.yml` and deploys to the `production` target.
+## Deploy to blog.groupdocs.com (S3)
 
-## Translation status
+`deploy-prod.yml` — GitHub-hosted runner.
 
-⚠️ **4 post(s) missing translations**
+Builds with `config.yml,config.production.yml` (no drafts), deploys via `hugo deploy` to
+the `production` target, then invalidates CloudFront.
 
-### Summary
+Secrets: `ACCESS_KEY`, `SECRET_ACCESS`, `CLOUDFRONT_DISTRIBUTION_ID`
 
-- **Total posts scanned**: 181
-- **Posts with complete translations**: 177
-- **Posts missing translations**: 4
-- **Expected languages**: 21
-- **Last updated**: 2026-09-01 10:36:49 UTC
+## Deploy to blog-qa.groupdocs.com (Ceph)
 
-### Posts Needing Attention
+`deploy-qa-ceph.yml` — self-hosted runner.
 
-- 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-net - 21/21 translations missing
-- 2026-08-11-xmp-metadata-in-adobe-psd-and-ai-java - 21/21 translations missing
-- 2026-08-10-xmp-metadata-in-adobe-psd-and-ai-python - 21/21 translations missing
-- [2026-08-30-groupdocs-conversion-for-net-26-8](https://blog.groupdocs.com/conversion/groupdocs-conversion-for-net-26-8/) - 21/21 translations missing
+Builds the staging config with `--buildDrafts`, uploads `public/` to the
+`blog-qa-groupdocs-com` Ceph bucket with the AWS CLI, then purges the Bunny.net cache.
+
+Secrets: `CEPH_REGION`, `CEPH_QA_ACCESS_KEY_ID`, `CEPH_QA_SECRET_ACCESS_KEY`,
+`CEPH_QA_ENDPOINT_URL`, `BUNNYNET_ACCESS_KEY`, `BUNNYNET_PURGE_URL`
+
+## Deploy to blog.groupdocs.com (Ceph)
+
+`deploy-prod-ceph.yml` — self-hosted runner.
+
+Builds the production config, uploads `public/` to the `blog-groupdocs-com` Ceph bucket
+with the AWS CLI, then purges the Bunny.net cache.
+
+Secrets: `CEPH_REGION`, `CEPH_PROD_ACCESS_KEY_ID`, `CEPH_PROD_SECRET_ACCESS_KEY`,
+`CEPH_PROD_ENDPOINT_URL`, `BUNNYNET_ACCESS_KEY`, `BUNNYNET_PURGE_URL`
